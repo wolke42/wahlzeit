@@ -30,7 +30,6 @@ import org.wahlzeit.webparts.WebPart;
 
 import java.util.Map;
 
-
 /**
  * A handler class for a specific web page.
  */
@@ -46,6 +45,7 @@ public class SetLanguagePageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandleGet(UserSession us, String link, Map args) {
 		ModelConfig result = LanguageConfigs.get(Language.ENGLISH);
 
@@ -65,6 +65,7 @@ public class SetLanguagePageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void makeWebPageBody(UserSession us, WebPart page) {
 		ModelConfig config = us.getClient().getLanguageConfiguration();
 		page.addString("noteHeading", config.getInformation());

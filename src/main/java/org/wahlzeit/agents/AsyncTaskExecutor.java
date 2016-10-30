@@ -5,6 +5,7 @@ import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.RetryOptions;
 import com.google.appengine.api.taskqueue.TaskOptions;
 import org.wahlzeit.model.Photo;
+import org.wahlzeit.services.DataObject;
 
 import java.util.logging.Logger;
 
@@ -22,12 +23,13 @@ public class AsyncTaskExecutor {
 	/**
 	 * @methodtype command
 	 *
-	 * Starts a task in the default queue to save the photo with the specified ID.
+	 *             Starts a task in the default queue to save the photo with the
+	 *             specified ID.
 	 */
 	public static void savePhotoAsync(String photoId) {
 		log.info("Calling async push task to persist PhotoId " + photoId);
 		Queue queue = QueueFactory.getDefaultQueue();
 		RetryOptions retryOptions = withTaskRetryLimit(3);
-		queue.add(TaskOptions.Builder.withUrl("/persistPhoto").param(Photo.ID, photoId).retryOptions(retryOptions));
+		queue.add(TaskOptions.Builder.withUrl("/persistPhoto").param(DataObject.ID, photoId).retryOptions(retryOptions));
 	}
 }

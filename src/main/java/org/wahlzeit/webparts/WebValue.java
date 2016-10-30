@@ -21,8 +21,9 @@
 package org.wahlzeit.webparts;
 
 /**
- * A WebValue is representation of enum values providing HTML formatting instructions.
- * It supports drop-down boxes (SELECTED) and radio buttons (CHECKED).
+ * A WebValue is representation of enum values providing HTML formatting
+ * instructions. It supports drop-down boxes (SELECTED) and radio buttons
+ * (CHECKED).
  */
 public class WebValue {
 

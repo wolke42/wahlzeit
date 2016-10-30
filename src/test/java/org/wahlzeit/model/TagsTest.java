@@ -165,11 +165,9 @@ public class TagsTest extends TestCase {
 		assertTrue(new Tags("tag1,tag2").hasTag("tag1"));
 		assertTrue(new Tags("tag1,tag2").hasTag("tag2"));
 
-		assertFalse("Only complete Tags should match",
-				new Tags("tag1,tag2").hasTag("t"));
+		assertFalse("Only complete Tags should match", new Tags("tag1,tag2").hasTag("t"));
 
-		assertFalse("No filtering on hasTag",
-				new Tags("tag1,tag 2").hasTag("tag 2"));
+		assertFalse("No filtering on hasTag", new Tags("tag1,tag 2").hasTag("tag 2"));
 	}
 
 	/**

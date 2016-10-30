@@ -42,8 +42,8 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
 
 /**
- * A generic implementation of ModelConfig.
- * Subclasses provide the parameters and language-specific handling of text and data.
+ * A generic implementation of ModelConfig. Subclasses provide the parameters
+ * and language-specific handling of text and data.
  */
 public abstract class AbstractModelConfig extends AbstractConfig implements ModelConfig, Serializable {
 
@@ -103,21 +103,16 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 		boolean isInProduction = ServiceMain.getInstance().isInProduction();
 		String footerDebugPart = !isInProduction ? menuDash + doGetValue("FooterDebugPart") : "";
 
-		doSetValue("PageFooter0",
-				footerCommunityPart + menuDash + footerAboutPart + menuDash + footerLanguagePart + menuDash +
-						footerPhotoSizePart0 + footerDebugPart);
-		doSetValue("PageFooter1",
-				footerCommunityPart + menuDash + footerAboutPart + menuDash + footerLanguagePart + menuDash +
-						footerPhotoSizePart1 + footerDebugPart);
-		doSetValue("PageFooter2",
-				footerCommunityPart + menuDash + footerAboutPart + menuDash + footerLanguagePart + menuDash +
-						footerPhotoSizePart2 + footerDebugPart);
-		doSetValue("PageFooter3",
-				footerCommunityPart + menuDash + footerAboutPart + menuDash + footerLanguagePart + menuDash +
-						footerPhotoSizePart3 + footerDebugPart);
-		doSetValue("PageFooter4",
-				footerCommunityPart + menuDash + footerAboutPart + menuDash + footerLanguagePart + menuDash +
-						footerPhotoSizePart4 + footerDebugPart);
+		doSetValue("PageFooter0", footerCommunityPart + menuDash + footerAboutPart + menuDash + footerLanguagePart
+				+ menuDash + footerPhotoSizePart0 + footerDebugPart);
+		doSetValue("PageFooter1", footerCommunityPart + menuDash + footerAboutPart + menuDash + footerLanguagePart
+				+ menuDash + footerPhotoSizePart1 + footerDebugPart);
+		doSetValue("PageFooter2", footerCommunityPart + menuDash + footerAboutPart + menuDash + footerLanguagePart
+				+ menuDash + footerPhotoSizePart2 + footerDebugPart);
+		doSetValue("PageFooter3", footerCommunityPart + menuDash + footerAboutPart + menuDash + footerLanguagePart
+				+ menuDash + footerPhotoSizePart3 + footerDebugPart);
+		doSetValue("PageFooter4", footerCommunityPart + menuDash + footerAboutPart + menuDash + footerLanguagePart
+				+ menuDash + footerPhotoSizePart4 + footerDebugPart);
 
 		String baseMenu = doGetValue("BaseMenuPart");
 		// there is no separate base menu
@@ -143,6 +138,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public Language getLanguage() {
 		return language;
 	}
@@ -150,6 +146,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getLanguageCode() {
 		return doGetValue("LanguageCode");
 	}
@@ -157,6 +154,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public EmailAddress getModeratorEmailAddress() {
 		return EmailAddress.getFromString(doGetValue("ModeratorEmailAddress"));
 	}
@@ -164,6 +162,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public EmailAddress getAdministratorEmailAddress() {
 		String appId = SystemProperty.applicationId.get();
 		String localPart = doGetValue("AdministratorEmailAddressLocalPart");
@@ -173,6 +172,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public EmailAddress getAuditEmailAddress() {
 		return EmailAddress.getFromString(doGetValue("AuditEmailAddress"));
 	}
@@ -180,6 +180,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getPageTitle() {
 		return doGetValue("PageTitle");
 	}
@@ -187,6 +188,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getPageHeading() {
 		return doGetValue("PageHeading");
 	}
@@ -194,6 +196,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getPageFooter(PhotoSize ss) {
 		return doGetValue("PageFooter" + (ss.asInt() - 1));
 	}
@@ -201,6 +204,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getPageMission() {
 		return doGetValue("PageMission");
 	}
@@ -208,6 +212,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getGuestMenu() {
 		return doGetValue("GuestMenu");
 	}
@@ -215,6 +220,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getUserMenu() {
 		return doGetValue("UserMenu");
 	}
@@ -222,6 +228,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getModeratorMenu() {
 		return doGetValue("ModeratorMenu");
 	}
@@ -229,6 +236,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getAdministratorMenu() {
 		return doGetValue("AdministratorMenu");
 	}
@@ -236,6 +244,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getCommunityMenu() {
 		return doGetValue("CommunityMenu");
 	}
@@ -243,6 +252,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getIllegalArgumentError() {
 		return doGetValue("IllegalArgumentError");
 	}
@@ -250,6 +260,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getIllegalAccessError() {
 		return doGetValue("IllegalAccessError");
 	}
@@ -257,6 +268,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getInternalProcessingError() {
 		return doGetValue("InternalProcessingError");
 	}
@@ -264,6 +276,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getFieldIsMissing() {
 		return doGetValue("FieldIsMissing");
 	}
@@ -271,6 +284,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getInputIsInvalid() {
 		return doGetValue("InputIsInvalid");
 	}
@@ -278,6 +292,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getInputIsTooLong() {
 		return doGetValue("InputIsTooLong");
 	}
@@ -285,6 +300,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getEmailAddressIsMissing() {
 		return doGetValue("EmailAddressIsMissing");
 	}
@@ -292,6 +308,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getEmailAddressIsInvalid() {
 		return doGetValue("EmailAddressIsInvalid");
 	}
@@ -299,6 +316,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getUrlIsInvalid() {
 		return doGetValue("UrlIsInvalid");
 	}
@@ -306,6 +324,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getKeepGoing() {
 		return doGetValue("KeepGoing");
 	}
@@ -313,6 +332,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getContinueWithTellFriends() {
 		return doGetValue("ContinueWithTellFriends");
 	}
@@ -320,6 +340,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getContinueWithShowPhoto() {
 		return doGetValue("ContinueWithShowPhoto");
 	}
@@ -327,6 +348,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getContinueWithShowUserHome() {
 		return doGetValue("ContinueWithShowUserHome");
 	}
@@ -334,6 +356,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getThankYou() {
 		return doGetValue("ThankYou");
 	}
@@ -341,6 +364,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getInformation() {
 		return doGetValue("Information");
 	}
@@ -348,6 +372,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getAnonUserName() {
 		return doGetValue("AnonUserName");
 	}
@@ -355,6 +380,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getResetSession() {
 		return doGetValue("ResetSession");
 	}
@@ -362,6 +388,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getEmailWasSent() {
 		return doGetValue("EmailWasSent");
 	}
@@ -369,6 +396,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getModeratorWasInformed() {
 		return doGetValue("ModeratorWasInformed");
 	}
@@ -376,6 +404,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getNeedToSignupFirst() {
 		return doGetValue("NeedToSignupFirst");
 	}
@@ -383,6 +412,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getOptionsWereSet() {
 		return doGetValue("OptionsWereSet");
 	}
@@ -390,6 +420,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getUserAlreadyExists() {
 		return doGetValue("UserAlreadyExists");
 	}
@@ -397,6 +428,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getUserNameIsReserved() {
 		return doGetValue("UserNameIsReserved");
 	}
@@ -404,6 +436,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getPasswordsDontMatch() {
 		return doGetValue("PasswordsDontMatch");
 	}
@@ -411,6 +444,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getDidntCheckTerms() {
 		return doGetValue("DidntCheckTerms");
 	}
@@ -418,6 +452,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getConfirmationEmailWasSent() {
 		return doGetValue("ConfirmationEmailWasSent");
 	}
@@ -425,6 +460,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getNeedToLoginFirst() {
 		return doGetValue("NeedToLoginFirst");
 	}
@@ -432,6 +468,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getConfirmAccountSucceeded() {
 		return doGetValue("ConfirmAccountSucceeded");
 	}
@@ -439,6 +476,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getConfirmAccountFailed() {
 		return doGetValue("ConfirmAccountFailed");
 	}
@@ -446,6 +484,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getLoginIsIncorrect() {
 		return doGetValue("LoginIsIncorrect");
 	}
@@ -453,6 +492,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getUserIsDisabled() {
 		return doGetValue("UserIsDisabled");
 	}
@@ -460,6 +500,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getUnknownEmailAddress() {
 		return doGetValue("EmailAddressIsUnknown");
 	}
@@ -467,6 +508,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getSendUserNameEmailSubject() {
 		return doGetValue("EmailUserNameSubject");
 	}
@@ -474,6 +516,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getUserNameWasEmailed() {
 		return doGetValue("UserNameWasEmailed");
 	}
@@ -481,6 +524,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getUserNameIsUnknown() {
 		return doGetValue("UserNameIsUnknown");
 	}
@@ -488,6 +532,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getSendPasswordEmailSubject() {
 		return doGetValue("EmailPasswordSubject");
 	}
@@ -495,6 +540,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getPasswordWasEmailed() {
 		return doGetValue("PasswordWasEmailed");
 	}
@@ -502,6 +548,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getNewLanguageSet() {
 		return doGetValue("NewLanguageSet");
 	}
@@ -509,6 +556,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getNoteMaximumPhotoSize() {
 		return doGetValue("NoteMaximumPhotoSize");
 	}
@@ -516,6 +564,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getNoPhotoUploaded() {
 		return doGetValue("NoPhotoUploaded");
 	}
@@ -523,6 +572,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getNoCharacterName() {
 		return doGetValue("NoCharacterName");
 	}
@@ -530,6 +580,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getNoSeriesName() {
 		return doGetValue("NoSeriesName");
 	}
@@ -537,6 +588,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getNoTags() {
 		return doGetValue("NoTags");
 	}
@@ -544,6 +596,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getProfileUpdateSucceeded() {
 		return doGetValue("ProfileUpdateSucceeded");
 	}
@@ -551,6 +604,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getPasswordChangeSucceeded() {
 		return doGetValue("PasswordChangeSucceeded");
 	}
@@ -558,6 +612,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getPhotoUpdateSucceeded() {
 		return doGetValue("PhotoUpdateSucceeded");
 	}
@@ -565,6 +620,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getPhotoUploadFailed() {
 		return doGetValue("PhotoUploadFailed");
 	}
@@ -572,6 +628,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getPhotoUploadSucceeded() {
 		return doGetValue("PhotoUploadSucceeded");
 	}
@@ -579,6 +636,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getLogoutSucceeded() {
 		return doGetValue("LogoutSucceeded");
 	}
@@ -586,6 +644,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getNoFlaggedPhotoCases() {
 		return doGetValue("NoFlaggedPhotoCases");
 	}
@@ -593,6 +652,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getPhotoIsUnknown() {
 		return doGetValue("UnknownPhoto");
 	}
@@ -600,6 +660,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getGeneralEmailRegards() {
 		return doGetValue("GeneralEmailRegards");
 	}
@@ -607,6 +668,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getGeneralEmailFooter() {
 		return doGetValue("GeneralEmailFooter");
 	}
@@ -614,6 +676,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getTellFriendEmailSubject() {
 		return doGetValue("TellFriendEmailSubject");
 	}
@@ -621,6 +684,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getTellFriendEmailWebsite() {
 		return doGetValue("TellFriendEmailSite");
 	}
@@ -628,6 +692,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getTellFriendEmailPhoto() {
 		return doGetValue("TellFriendEmailPhoto");
 	}
@@ -635,6 +700,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getSendEmailSubjectPrefix() {
 		return doGetValue("SendEmailSubjectPrefix");
 	}
@@ -642,6 +708,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getSendEmailBodyPrefix() {
 		return doGetValue("SendEmailBodyPrefix");
 	}
@@ -649,6 +716,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getSendEmailBodyPostfix() {
 		return doGetValue("SendEmailBodyPostfix");
 	}
@@ -656,6 +724,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getWelcomeEmailSubject() {
 		return doGetValue("WelcomeEmailSubject");
 	}
@@ -663,6 +732,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getWelcomeEmailBody() {
 		return doGetValue("WelcomeEmailBody");
 	}
@@ -670,6 +740,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getWelcomeEmailUserName() {
 		return doGetValue("WelcomeEmailUserName");
 	}
@@ -677,6 +748,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getNotifyAboutPraiseEmailSubject() {
 		return doGetValue("NotifyAboutPraiseEmailSubject");
 	}
@@ -684,6 +756,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getNotifyAboutPraiseEmailBody() {
 		return doGetValue("NotifyAboutPraiseEmailBody");
 	}
@@ -691,6 +764,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String getNotifyAboutPraiseEmailPostScriptum() {
 		return doGetValue("NotifyAboutPraiseEmailPostScriptum");
 	}
@@ -698,6 +772,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String asValueString(EnumValue ev) {
 		return doGetValue(ev.getTypeName() + "#" + ev.asInt());
 	}
@@ -705,6 +780,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String asDateString(long millis) {
 		return dateFormatter.format(millis);
 	}
@@ -712,6 +788,7 @@ public abstract class AbstractModelConfig extends AbstractConfig implements Mode
 	/**
 	 *
 	 */
+	@Override
 	public String asPraiseString(double praise) {
 		return praiseFormatter.format(praise);
 	}

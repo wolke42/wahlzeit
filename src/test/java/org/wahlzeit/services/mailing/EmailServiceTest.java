@@ -37,7 +37,6 @@ public class EmailServiceTest extends TestCase {
 	 */
 	protected EmailAddress validAddress;
 
-
 	/**
 	 *
 	 */

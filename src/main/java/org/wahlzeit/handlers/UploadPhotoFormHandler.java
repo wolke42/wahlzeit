@@ -53,6 +53,7 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		Map<String, Object> args = us.getSavedArgs();
 		part.addStringFromArgs(args, UserSession.MESSAGE);
@@ -63,6 +64,7 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandlePost(UserSession us, Map args) {
 		String tags = us.getAndSaveAsString(args, Photo.TAGS);
 
@@ -83,15 +85,13 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 
 			photo.setTags(new Tags(tags));
 
-			log.config(LogBuilder.createUserMessage().
-					addAction("Upload Photo").
-					addParameter("Photo", photo.getId().asString()).
-					addParameter("tags", photo.getTags().asString()).toString());
+			log.config(LogBuilder.createUserMessage().addAction("Upload Photo")
+					.addParameter("Photo", photo.getId().asString()).addParameter("tags", photo.getTags().asString())
+					.toString());
 
 			us.setTwoLineMessage(config.getPhotoUploadSucceeded(), config.getKeepGoing());
-			log.config(LogBuilder.createSystemMessage().
-					addAction("Calling async task to save Photo").
-					addParameter("ID", photo.getId().asString()).toString());
+			log.config(LogBuilder.createSystemMessage().addAction("Calling async task to save Photo")
+					.addParameter("ID", photo.getId().asString()).toString());
 
 			AsyncTaskExecutor.savePhotoAsync(photo.getId().asString());
 		} catch (Exception ex) {

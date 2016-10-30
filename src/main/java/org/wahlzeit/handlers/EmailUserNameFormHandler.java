@@ -42,7 +42,6 @@ public class EmailUserNameFormHandler extends AbstractWebFormHandler {
 
 	private static final Logger log = Logger.getLogger(EmailUserNameFormHandler.class.getName());
 
-
 	/**
 	 *
 	 */
@@ -53,6 +52,7 @@ public class EmailUserNameFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		Map<String, Object> savedArgs = us.getSavedArgs();
 		part.addStringFromArgs(savedArgs, UserSession.MESSAGE);
@@ -62,6 +62,7 @@ public class EmailUserNameFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandlePost(UserSession us, Map args) {
 		String emailAddress = us.getAndSaveAsString(args, User.EMAIL_ADDRESS);
 		ModelConfig config = us.getClient().getLanguageConfiguration();
@@ -86,9 +87,8 @@ public class EmailUserNameFormHandler extends AbstractWebFormHandler {
 		emailService.sendEmailIgnoreException(to, config.getAuditEmailAddress(), config.getSendUserNameEmailSubject(),
 				user.getId());
 
-		log.info(LogBuilder.createUserMessage().
-				addAction("Username send per E-Mail").
-				addParameter("Target address", to.asString()).toString());
+		log.info(LogBuilder.createUserMessage().addAction("Username send per E-Mail")
+				.addParameter("Target address", to.asString()).toString());
 
 		us.setTwoLineMessage(config.getUserNameWasEmailed(), config.getContinueWithShowPhoto());
 

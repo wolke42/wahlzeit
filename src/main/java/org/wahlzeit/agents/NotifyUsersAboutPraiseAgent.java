@@ -35,8 +35,10 @@ public class NotifyUsersAboutPraiseAgent extends Agent {
 	/**
 	 * @methodtype command
 	 * 
-	 * Notifies all users that want to get informed if their photos have been praised.
+	 *             Notifies all users that want to get informed if their photos
+	 *             have been praised.
 	 */
+	@Override
 	protected void doRun() {
 		Map<PhotoId, Photo> photoCache = PhotoManager.getInstance().getPhotoCache();
 		Collection<Photo> photos = photoCache.values();
@@ -74,7 +76,7 @@ public class NotifyUsersAboutPraiseAgent extends Agent {
 	/**
 	 * @methotype command
 	 * 
-	 * Actually notifies one user about the praise of his/her photos.
+	 *            Actually notifies one user about the praise of his/her photos.
 	 */
 	protected void notifyOwner(String ownerId, Collection<Photo> allPhotosOfUser) {
 		User owner = UserManager.getInstance().getUserById(ownerId);
@@ -86,8 +88,8 @@ public class NotifyUsersAboutPraiseAgent extends Agent {
 
 		String emailBody = cfg.getNotifyAboutPraiseEmailBody() + "\n\n";
 
-		log.config(LogBuilder.createSystemMessage().addAction("sending email")
-				.addParameter("recipient", to.asString()).toString());
+		log.config(LogBuilder.createSystemMessage().addAction("sending email").addParameter("recipient", to.asString())
+				.toString());
 
 		for (Photo current : allPhotosOfUser) {
 			String id = current.getId().asString();
@@ -97,8 +99,8 @@ public class NotifyUsersAboutPraiseAgent extends Agent {
 			String link = "https://" + appId + ".appspot.com/" + id + ".html\n";
 			emailBody += link;
 
-			log.config(LogBuilder.createSystemMessage().addParameter("appid", appId)
-					.addParameter("link", link).toString());
+			log.config(LogBuilder.createSystemMessage().addParameter("appid", appId).addParameter("link", link)
+					.toString());
 
 		}
 		emailBody += "\n";
@@ -110,6 +112,5 @@ public class NotifyUsersAboutPraiseAgent extends Agent {
 		EmailService emailService = EmailServiceManager.getDefaultService();
 		emailService.sendEmailIgnoreException(from, to, emailSubject, emailBody);
 	}
-
 
 }

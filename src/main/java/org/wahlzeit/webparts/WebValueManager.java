@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The WebValueManager provides (and creates on-demand) WebValues.
- * It constructs the data for a WebValue from the provided arguments.
+ * The WebValueManager provides (and creates on-demand) WebValues. It constructs
+ * the data for a WebValue from the provided arguments.
  */
 public class WebValueManager {
 

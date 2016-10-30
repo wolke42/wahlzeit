@@ -44,6 +44,7 @@ public class GermanModelConfig extends AbstractModelConfig {
 	/**
 	 *
 	 */
+	@Override
 	public String getNewPhotoSizeSet(PhotoSize ss) {
 		String size = HtmlUtil.asBold(asValueString(ss));
 		return "Wir haben die Fotogröße auf " + size + " gesetzt.";
@@ -52,6 +53,7 @@ public class GermanModelConfig extends AbstractModelConfig {
 	/**
 	 *
 	 */
+	@Override
 	public String asYesOrNoString(boolean yes) {
 		if (yes) {
 			return "ja";
@@ -63,6 +65,7 @@ public class GermanModelConfig extends AbstractModelConfig {
 	/**
 	 *
 	 */
+	@Override
 	public String asPhotoSummary(String un) {
 		String result = "Foto";
 		result += " von " + un;
@@ -72,6 +75,7 @@ public class GermanModelConfig extends AbstractModelConfig {
 	/**
 	 *
 	 */
+	@Override
 	public String asPhotoCaption(String un) {
 		return "Photo von " + HtmlUtil.asHref("/filter?userName=" + un, un);
 	}
@@ -79,8 +83,9 @@ public class GermanModelConfig extends AbstractModelConfig {
 	/**
 	 *
 	 */
+	@Override
 	public String getNickNameExists(String nickName) {
-		return "Benutzername " + nickName + " wird bereits verwendet. Bitte " +
-				HtmlUtil.asHref("/profile.html", "wählen Sie einen anderen.");
+		return "Benutzername " + nickName + " wird bereits verwendet. Bitte "
+				+ HtmlUtil.asHref("/profile.html", "wählen Sie einen anderen.");
 	}
 }

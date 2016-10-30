@@ -20,10 +20,10 @@
 
 package org.wahlzeit.services;
 
-
 /**
- * A Session object maintains a DatabaseConnection and helps track processing time. Typically, there is one for each
- * working thread, be it a system thread or a web session.
+ * A Session object maintains a DatabaseConnection and helps track processing
+ * time. Typically, there is one for each working thread, be it a system thread
+ * or a web session.
  */
 public class Session {
 
@@ -35,7 +35,6 @@ public class Session {
 	 * Session state
 	 */
 	protected String name = null;
-
 
 	/**
 	 * processing time for requests
@@ -60,7 +59,8 @@ public class Session {
 	/**
 	 * @methodproperty hook
 	 *
-	 * Hook method for subclasses to get to know when name changes.
+	 *                 Hook method for subclasses to get to know when name
+	 *                 changes.
 	 * @see #initialize(String)
 	 */
 	protected void notifyNameChanged() {
@@ -91,7 +91,8 @@ public class Session {
 	/**
 	 * @methodproperty hook
 	 *
-	 * Hook method for subclasses to get to know when processing time changes.
+	 *                 Hook method for subclasses to get to know when processing
+	 *                 time changes.
 	 * @see #addProcessingTime(long)
 	 * @see #resetProcessingTime()
 	 */

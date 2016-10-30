@@ -38,7 +38,6 @@ public class FilterPhotosFormHandler extends AbstractWebFormHandler {
 
 	private static final Logger log = Logger.getLogger(FilterPhotosFormHandler.class.getName());
 
-
 	/**
 	 *
 	 */
@@ -49,6 +48,7 @@ public class FilterPhotosFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		PhotoFilter filter = us.getPhotoFilter();
 
@@ -59,6 +59,7 @@ public class FilterPhotosFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandlePost(UserSession us, Map args) {
 		PhotoFilter filter = us.getPhotoFilter();
 
@@ -72,10 +73,8 @@ public class FilterPhotosFormHandler extends AbstractWebFormHandler {
 			filter.setTags(new Tags(tags));
 		}
 
-		log.info(LogBuilder.createUserMessage().
-				addAction("Filter Photos").
-				addParameter("Tags", filter.getTags().asString()).toString());
-
+		log.info(LogBuilder.createUserMessage().addAction("Filter Photos")
+				.addParameter("Tags", filter.getTags().asString()).toString());
 
 		return PartUtil.SHOW_PHOTO_PAGE_NAME;
 	}

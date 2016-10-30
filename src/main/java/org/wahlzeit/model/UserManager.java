@@ -33,9 +33,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
-
 /**
- * The UserManager provides access to and manages Users (including Moderators and Administrators).
+ * The UserManager provides access to and manages Users (including Moderators
+ * and Administrators).
  */
 public class UserManager extends ClientManager {
 
@@ -45,13 +45,7 @@ public class UserManager extends ClientManager {
 	 *
 	 * @FIXME Load from file eventually
 	 */
-	public static List<String> reservedNames = Arrays.asList(
-			"admin",
-			"anonymous",
-			"flickr",
-			"guest#"
-	);
-
+	public static List<String> reservedNames = Arrays.asList("admin", "anonymous", "flickr", "guest#");
 
 	/**
 	 *

@@ -26,6 +26,7 @@ import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoId;
 import org.wahlzeit.model.PhotoManager;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.services.DataObject;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.utils.StringUtil;
 import org.wahlzeit.webparts.WebPart;
@@ -33,14 +34,12 @@ import org.wahlzeit.webparts.WebPart;
 import java.util.Map;
 import java.util.logging.Logger;
 
-
 /**
  * A handler class for a specific web form.
  */
 public class PraisePhotoFormHandler extends AbstractWebFormHandler {
 
 	private static final Logger log = Logger.getLogger(PraisePhotoFormHandler.class.getName());
-
 
 	/**
 	 *
@@ -52,18 +51,20 @@ public class PraisePhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		PhotoId photoId = us.getPhotoId();
 		if (photoId != null) {
-			part.addString(Photo.ID, photoId.asString());
+			part.addString(DataObject.ID, photoId.asString());
 		}
 	}
 
 	/**
 	 *
 	 */
+	@Override
 	protected boolean isWellFormedPost(UserSession us, Map args) {
-		String photoId = us.getAsString(args, Photo.ID);
+		String photoId = us.getAsString(args, DataObject.ID);
 		Photo photo = PhotoManager.getInstance().getPhoto(photoId);
 		return photo != null;
 	}
@@ -71,8 +72,9 @@ public class PraisePhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandlePost(UserSession us, Map args) {
-		String photoId = us.getAsString(args, Photo.ID);
+		String photoId = us.getAsString(args, DataObject.ID);
 		Photo photo = PhotoManager.getInstance().getPhoto(photoId);
 		String praise = us.getAsString(args, Photo.PRAISE);
 		Client client = us.getClient();

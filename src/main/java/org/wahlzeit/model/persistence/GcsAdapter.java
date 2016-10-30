@@ -42,8 +42,9 @@ import java.security.InvalidParameterException;
 import java.util.logging.Logger;
 
 /**
- * Adapter for the Google Cloud Storage.
- * Use {@link org.wahlzeit.model.persistence.GcsAdapter.Builder} to create an object.
+ * Adapter for the Google Cloud Storage. Use
+ * {@link org.wahlzeit.model.persistence.GcsAdapter.Builder} to create an
+ * object.
  * 
  * @review
  */
@@ -58,17 +59,18 @@ public class GcsAdapter extends ImageStorage {
 	private GcsService gcsService;
 
 	/**
-	 * Do not use directly, instead use {@link org.wahlzeit.model.persistence.GcsAdapter.Builder} to create an object.
+	 * Do not use directly, instead use
+	 * {@link org.wahlzeit.model.persistence.GcsAdapter.Builder} to create an
+	 * object.
 	 */
 	private GcsAdapter(String bucketName, String photoFolderName, String defaultImageMimeTypeName, int bufferLength,
-					   GcsService gcsService) {
+			GcsService gcsService) {
 		this.bucketName = bucketName;
 		this.photoFolder = photoFolderName;
 		this.defaultImageMimeTypeName = defaultImageMimeTypeName;
 		this.bufferLength = bufferLength;
 		this.gcsService = gcsService;
 	}
-
 
 	@Override
 	protected void doWriteImage(Serializable image, String photoIdAsString, int size)
@@ -84,9 +86,8 @@ public class GcsAdapter extends ImageStorage {
 			log.config(LogBuilder.createSystemMessage().addParameter("found file type", fileType).toString());
 		} else {
 			fileOptionsBuilder.mimeType(defaultImageMimeTypeName);
-			log.warning(LogBuilder.createSystemMessage().
-					addMessage("did not found file type, used default type").
-					addParameter("default type", defaultImageMimeTypeName).toString());
+			log.warning(LogBuilder.createSystemMessage().addMessage("did not found file type, used default type")
+					.addParameter("default type", defaultImageMimeTypeName).toString());
 		}
 
 		GcsFileOptions fileOptions = fileOptionsBuilder.build();
@@ -138,9 +139,9 @@ public class GcsAdapter extends ImageStorage {
 		return result;
 	}
 
-
 	/**
-	 * Creates a <code>GcsFilename</code> for the photo in the specified size. The name structure is:
+	 * Creates a <code>GcsFilename</code> for the photo in the specified size.
+	 * The name structure is:
 	 *
 	 * BUCKET_NAME - ownerId/fileName/photoIdAsString
 	 *
@@ -150,7 +151,6 @@ public class GcsAdapter extends ImageStorage {
 		String filePath = photoFolder + File.separator + photoIdAsString + size;
 		return new GcsFilename(bucketName, filePath);
 	}
-
 
 	public static class Builder {
 		GcsService gcsService;
@@ -164,8 +164,8 @@ public class GcsAdapter extends ImageStorage {
 			photoFolderName = "photos";
 			defaultImageMimeTypeName = "image/jpeg";
 			/**
-			 * 1 MB Buffer, does not limit the size of the files. A valid compromise between unused allocation and
-			 * reallocation.
+			 * 1 MB Buffer, does not limit the size of the files. A valid
+			 * compromise between unused allocation and reallocation.
 			 */
 			bufferLength = 1024 * 1024;
 			gcsService = GcsServiceFactory.createGcsService(RetryParams.getDefaultInstance());

@@ -37,6 +37,7 @@ public abstract class AbstractWebPageHandler extends AbstractWebPartHandler impl
 	/**
 	 *
 	 */
+	@Override
 	public WebPart makeWebPart(UserSession us) {
 		return makeWebPage(us);
 	}

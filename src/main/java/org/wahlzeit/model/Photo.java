@@ -68,64 +68,65 @@ public class Photo extends DataObject {
 	public static final int MAX_THUMB_PHOTO_HEIGHT = 150;
 
 	protected PhotoId id = null;
-	
+	public Location location = null;
+
 	/**
 	 *
 	 */
 	protected String ownerId;
-	
+
 	/**
-	 * Each photo can be viewed in different sizes (XS, S, M, L, XL)
-	 * Images are pre-computed in these sizes to optimize bandwidth when requested.
+	 * Each photo can be viewed in different sizes (XS, S, M, L, XL) Images are
+	 * pre-computed in these sizes to optimize bandwidth when requested.
 	 */
 	@Ignore
 	transient protected Map<PhotoSize, Image> images = new ArrayMap<PhotoSize, Image>();
-	
+
 	/**
 	 *
 	 */
 	protected boolean ownerNotifyAboutPraise = false;
 	protected EmailAddress ownerEmailAddress = EmailAddress.EMPTY;
 	protected Language ownerLanguage = Language.ENGLISH;
-	
+
 	/**
 	 *
 	 */
 	protected int width;
 	protected int height;
 	protected PhotoSize maxPhotoSize = PhotoSize.MEDIUM; // derived
-	
+
 	/**
 	 *
 	 */
 	protected Tags tags = Tags.EMPTY_TAGS;
-	
+
 	/**
 	 *
 	 */
 	protected PhotoStatus status = PhotoStatus.VISIBLE;
-	
+
 	/**
 	 *
 	 */
 	protected int praiseSum = 10;
 	protected int noVotes = 1;
 	protected int noVotesAtLastNotification = 1;
-	
+
 	/**
 	 *
 	 */
 	protected long creationTime = System.currentTimeMillis();
-	
+
 	/**
 	 * The default type is jpg
 	 */
 	protected String ending = "jpg";
-	
+
 	/**
 	 *
 	 */
-	//TODO: change it to a single long
+	// TODO: change it to a single long
 	@Id
 	Long idLong;
 	@Parent
@@ -395,7 +396,6 @@ public class Photo extends DataObject {
 		return creationTime;
 	}
 
-
 	public String getEnding() {
 		return ending;
 	}
@@ -417,5 +417,22 @@ public class Photo extends DataObject {
 	public void setNoNewPraise() {
 		noVotesAtLastNotification = noVotes;
 		incWriteCount();
+	}
+	
+	/**
+	 *  @methodtype set
+	 */
+	public void setLocation(Location loc){
+		if(loc.coordinate.latitude <= 90.0 && loc.coordinate.latitude >= -90.0 &&
+				loc.coordinate.longitude <= 180.0 && loc.coordinate.longitude >= -180.0){
+			location = loc;
+		}
+	}
+	
+	/**
+	 * @methodtype get
+	 */
+	public Location getLocation(){
+		return location;
 	}
 }

@@ -54,8 +54,8 @@ public abstract class AbstractEmailService implements EmailService {
 	 *
 	 */
 	@Override
-	public void sendEmail(EmailAddress from, EmailAddress to, EmailAddress bcc, String subject, String body) throws
-			MailingException {
+	public void sendEmail(EmailAddress from, EmailAddress to, EmailAddress bcc, String subject, String body)
+			throws MailingException {
 		assertIsValidEmailAddress(from, "from");
 		assertIsValidEmailAddress(to, "to");
 		assertIsValidString(subject, "subject");
@@ -70,13 +70,12 @@ public abstract class AbstractEmailService implements EmailService {
 	 */
 	@Override
 	public boolean sendEmailIgnoreException(EmailAddress from, EmailAddress to, EmailAddress bcc, String subject,
-											String body) {
+			String body) {
 		try {
 			sendEmail(from, to, bcc, subject, body);
 			return true;
 		} catch (Exception ex) {
-			log.warning(LogBuilder.createSystemMessage().
-					addException("Problem sending email", ex).toString());
+			log.warning(LogBuilder.createSystemMessage().addException("Problem sending email", ex).toString());
 			return false;
 		}
 	}
@@ -103,7 +102,7 @@ public abstract class AbstractEmailService implements EmailService {
 	 *
 	 */
 	protected abstract Message doCreateEmail(EmailAddress from, EmailAddress to, EmailAddress bcc, String subject,
-											 String body) throws MailingException;
+			String body) throws MailingException;
 
 	/**
 	 *

@@ -29,6 +29,7 @@ import org.wahlzeit.model.PhotoManager;
 import org.wahlzeit.model.PhotoSize;
 import org.wahlzeit.model.Tags;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.services.DataObject;
 import org.wahlzeit.utils.HtmlUtil;
 import org.wahlzeit.webparts.WebPart;
 import org.wahlzeit.webparts.Writable;
@@ -51,6 +52,7 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandleGet(UserSession us, String link, Map args) {
 		Photo photo = null;
 
@@ -86,6 +88,7 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 	/**
 	 *
 	 */
+	@Override
 	protected boolean isToShowAds(UserSession us) {
 		Client client = us.getClient();
 		Photo lastPraisedPhoto = client.getLastPraisedPhoto();
@@ -95,6 +98,7 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 	/**
 	 *
 	 */
+	@Override
 	protected void makeWebPageBody(UserSession us, WebPart page) {
 		PhotoId photoId = us.getPhotoId();
 		Photo photo = PhotoManager.getInstance().getPhoto(photoId);
@@ -107,7 +111,7 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 			makePhotoCaption(us, page);
 			makeEngageGuest(us, page);
 
-			page.addString(Photo.ID, photoId.asString());
+			page.addString(DataObject.ID, photoId.asString());
 
 			Tags tags = photo.getTags();
 			page.addString(Photo.DESCRIPTION, getPhotoSummary(us, photo));
@@ -190,7 +194,7 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 
 		WebPart engageGuest = createWebPart(us, PartUtil.ENGAGE_GUEST_FORM_FILE);
 		engageGuest.addString(Photo.LINK, HtmlUtil.asHref(getResourceAsRelativeHtmlPathString(photoId.asString())));
-		engageGuest.addString(Photo.ID, photoId.asString());
+		engageGuest.addString(DataObject.ID, photoId.asString());
 
 		page.addWritable("engageGuest", engageGuest);
 	}
@@ -211,7 +215,6 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 		page.addWritable("praisePhoto", praisePhotoForm);
 	}
 
-
 	/**
 	 *
 	 */
@@ -228,10 +231,11 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 	/**
 	 *
 	 */
+	@Override
 	public String handlePost(UserSession us, Map args) {
 		String result = PartUtil.DEFAULT_PAGE_NAME;
 
-		String id = us.getAndSaveAsString(args, Photo.ID);
+		String id = us.getAndSaveAsString(args, DataObject.ID);
 		Photo photo = PhotoManager.getInstance().getPhoto(id);
 		if (photo != null) {
 			if (us.isFormType(args, "flagPhotoLink")) {

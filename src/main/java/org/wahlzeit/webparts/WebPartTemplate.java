@@ -24,8 +24,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * A WebPartTmpl is a template for a WebPart.
- * It gets initialized once and is read-only after that.
+ * A WebPartTmpl is a template for a WebPart. It gets initialized once and is
+ * read-only after that.
  */
 public class WebPartTemplate {
 
@@ -61,7 +61,7 @@ public class WebPartTemplate {
 
 		StringBuffer buffer = new StringBuffer(source);
 
-		for (int index = 0; index != -1; ) {
+		for (int index = 0; index != -1;) {
 			int nextSlot = buffer.indexOf("{$", index);
 			if (nextSlot != -1) {
 				int endSlot = buffer.indexOf("}", nextSlot);

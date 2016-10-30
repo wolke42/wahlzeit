@@ -35,10 +35,11 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * A User is a client that is logged-in, that is, has registered with the system.
- * A user has a fair amount of information associated with it, most notably his/her photos.
- * Also, his/her contact information and whether the account has been confirmed.
- * Users can have a home page which may be elsewhere on the web.
+ * A User is a client that is logged-in, that is, has registered with the
+ * system. A user has a fair amount of information associated with it, most
+ * notably his/her photos. Also, his/her contact information and whether the
+ * account has been confirmed. Users can have a home page which may be elsewhere
+ * on the web.
  */
 @Subclass(index = true)
 public class User extends Client {
@@ -81,7 +82,6 @@ public class User extends Client {
 	 */
 	protected long creationTime = System.currentTimeMillis();
 
-
 	/**
 	 *
 	 */
@@ -106,15 +106,13 @@ public class User extends Client {
 	/**
 	 * @methodtype initialization
 	 */
+	@Override
 	protected void initialize(String id, String nickName, EmailAddress emailAddress, AccessRights accessRights,
-							  Client previousClient) {
+			Client previousClient) {
 		super.initialize(id, nickName, emailAddress, accessRights, previousClient);
 
-		log.config(LogBuilder.createSystemMessage().
-				addAction("initialize user").
-				addParameter("id", id).
-				addParameter("name", nickName).
-				addParameter("E-Mail", emailAddress.asString()).toString());
+		log.config(LogBuilder.createSystemMessage().addAction("initialize user").addParameter("id", id)
+				.addParameter("name", nickName).addParameter("E-Mail", emailAddress.asString()).toString());
 		incWriteCount();
 	}
 
@@ -127,7 +125,7 @@ public class User extends Client {
 
 	@Override
 	protected void doSetLanguage(Language newLanguage) {
-		for (Iterator<Photo> i = photos.iterator(); i.hasNext(); ) {
+		for (Iterator<Photo> i = photos.iterator(); i.hasNext();) {
 			Photo photo = i.next();
 			photo.setOwnerLanguage(language);
 		}
@@ -146,7 +144,7 @@ public class User extends Client {
 	public void setNotifyAboutPraise(boolean notify) {
 		notifyAboutPraise = notify;
 
-		for (Iterator<Photo> i = photos.iterator(); i.hasNext(); ) {
+		for (Iterator<Photo> i = photos.iterator(); i.hasNext();) {
 			Photo photo = i.next();
 			photo.setOwnerNotifyAboutPraise(notifyAboutPraise);
 		}
@@ -279,6 +277,7 @@ public class User extends Client {
 	 */
 	public static Comparator<Photo> getPhotoByPraiseReverseComparator() {
 		return new Comparator<Photo>() {
+			@Override
 			public int compare(Photo p1, Photo p2) {
 				double sc1 = p1.getPraise();
 				double sc2 = p2.getPraise();

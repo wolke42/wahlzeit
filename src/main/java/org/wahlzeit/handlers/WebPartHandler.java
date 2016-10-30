@@ -25,7 +25,6 @@ import org.wahlzeit.webparts.WebPart;
 
 import java.util.Map;
 
-
 /**
  * The general interface for web partgs.
  */

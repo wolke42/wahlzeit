@@ -27,6 +27,7 @@ import org.wahlzeit.model.PhotoManager;
 import org.wahlzeit.model.User;
 import org.wahlzeit.model.UserManager;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.services.DataObject;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.mailing.EmailService;
 import org.wahlzeit.services.mailing.EmailServiceManager;
@@ -60,6 +61,7 @@ public class SendEmailFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	public boolean isWellFormedGet(UserSession us, String link, Map args) {
 		return hasSavedPhotoId(us);
 	}
@@ -67,6 +69,7 @@ public class SendEmailFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandleGet(UserSession us, String link, Map args) {
 		if (!(us.getClient() instanceof User)) {
 			us.setHeading(us.getClient().getLanguageConfiguration().getInformation());
@@ -80,12 +83,13 @@ public class SendEmailFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		Map args = us.getSavedArgs();
 		part.addStringFromArgs(args, UserSession.MESSAGE);
 
-		String id = us.getAndSaveAsString(args, Photo.ID);
-		part.addString(Photo.ID, id);
+		String id = us.getAndSaveAsString(args, DataObject.ID);
+		part.addString(DataObject.ID, id);
 		Photo photo = PhotoManager.getInstance().getPhoto(id);
 		part.addString(Photo.THUMB, getPhotoThumb(us, photo));
 
@@ -101,15 +105,17 @@ public class SendEmailFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected boolean isWellFormedPost(UserSession us, Map args) {
-		return PhotoManager.getInstance().getPhoto(us.getAsString(args, Photo.ID)) != null;
+		return PhotoManager.getInstance().getPhoto(us.getAsString(args, DataObject.ID)) != null;
 	}
 
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandlePost(UserSession us, Map args) {
-		String id = us.getAndSaveAsString(args, Photo.ID);
+		String id = us.getAndSaveAsString(args, DataObject.ID);
 		Photo photo = PhotoManager.getInstance().getPhoto(id);
 
 		String emailSubject = us.getAndSaveAsString(args, EMAIL_SUBJECT);
@@ -130,9 +136,8 @@ public class SendEmailFormHandler extends AbstractWebFormHandler {
 		emailService.sendEmailIgnoreException(toUser.getEmailAddress(), config.getAuditEmailAddress(), emailSubject,
 				emailBody);
 
-		log.info(LogBuilder.createUserMessage().
-				addAction("Send E-Mail").
-				addParameter("Recipient", toUser.getNickName()).toString());
+		log.info(LogBuilder.createUserMessage().addAction("Send E-Mail").addParameter("Recipient", toUser.getNickName())
+				.toString());
 
 		us.setMessage(config.getEmailWasSent() + toUser.getNickName() + "!");
 

@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
 /**
  * A null servlet.
  */
@@ -34,11 +33,13 @@ public class NullServlet extends AbstractServlet {
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 42L; // any one does; class never serialized
+	private static final long serialVersionUID = 42L; // any one does; class
+														// never serialized
 
 	/**
 	 *
 	 */
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		displayNullPage(request, response);
 	}
@@ -46,6 +47,7 @@ public class NullServlet extends AbstractServlet {
 	/**
 	 *
 	 */
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		displayNullPage(request, response);
 	}

@@ -25,6 +25,7 @@ import org.wahlzeit.model.ModelConfig;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoManager;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.services.DataObject;
 import org.wahlzeit.services.EmailAddress;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.mailing.EmailService;
@@ -60,6 +61,7 @@ public class TellFriendFormHandler extends AbstractWebFormHandler {
 	/**
 	 * @methodtype command
 	 */
+	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		Map args = us.getSavedArgs();
 		ModelConfig config = us.getClient().getLanguageConfiguration();
@@ -70,12 +72,12 @@ public class TellFriendFormHandler extends AbstractWebFormHandler {
 
 		String emailText = config.getTellFriendEmailWebsite() + "\n\n" + us.getSiteUrl() + "\n\n";
 
-		String id = us.getAsString(args, Photo.ID);
+		String id = us.getAsString(args, DataObject.ID);
 		if (!StringUtil.isNullOrEmptyString(id) && PhotoManager.getInstance().hasPhoto(id)) {
 			emailText += (config.getTellFriendEmailPhoto() + "\n\n" + us.getSiteUrl() + id + ".html" + "\n\n");
 		}
 
-		part.addString(Photo.ID, id);
+		part.addString(DataObject.ID, id);
 		Photo photo = PhotoManager.getInstance().getPhoto(id);
 		part.addString(Photo.THUMB, getPhotoThumb(us, photo));
 
@@ -85,6 +87,7 @@ public class TellFriendFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandlePost(UserSession us, Map args) {
 		String friendsEmailAddress = us.getAndSaveAsString(args, EMAIL_TO);
 		String emailSubject = us.getAndSaveAsString(args, EMAIL_SUBJECT);
@@ -108,10 +111,8 @@ public class TellFriendFormHandler extends AbstractWebFormHandler {
 		EmailService emailService = EmailServiceManager.getDefaultService();
 		emailService.sendEmailIgnoreException(to, config.getAuditEmailAddress(), emailSubject, emailBody);
 
-		log.info(LogBuilder.createUserMessage().
-				addAction("TellFriend").
-				addParameter("recipient", to.asString()).toString());
-
+		log.info(LogBuilder.createUserMessage().addAction("TellFriend").addParameter("recipient", to.asString())
+				.toString());
 
 		us.setTwoLineMessage(config.getEmailWasSent() + friendsEmailAddress + "! ", config.getKeepGoing());
 

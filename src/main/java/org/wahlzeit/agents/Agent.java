@@ -75,8 +75,8 @@ public abstract class Agent {
 		try {
 			doRun();
 		} catch (Exception e) {
-			log.config(LogBuilder.createSystemMessage().addParameter("agent name", name).addException(
-					"Problem when executing task", e).toString());
+			log.config(LogBuilder.createSystemMessage().addParameter("agent name", name)
+					.addException("Problem when executing task", e).toString());
 		}
 	}
 

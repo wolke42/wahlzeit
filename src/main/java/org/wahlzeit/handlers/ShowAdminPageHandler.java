@@ -52,6 +52,7 @@ public class ShowAdminPageHandler extends AbstractWebPageHandler implements WebF
 	/**
 	 *
 	 */
+	@Override
 	protected void makeWebPageBody(UserSession us, WebPart page) {
 		Map args = us.getSavedArgs();
 		page.addStringFromArgs(args, UserSession.MESSAGE);
@@ -104,10 +105,10 @@ public class ShowAdminPageHandler extends AbstractWebPageHandler implements WebF
 	/**
 	 *
 	 */
+	@Override
 	public String handlePost(UserSession us, Map args) {
 		if (!hasAccessRights(us, args)) {
-			log.warning(LogBuilder.createSystemMessage().
-					addMessage("insufficient rights for POST").toString());
+			log.warning(LogBuilder.createSystemMessage().addMessage("insufficient rights for POST").toString());
 			return getIllegalAccessErrorPage(us);
 		}
 

@@ -17,10 +17,8 @@ import static org.junit.Assert.assertNotNull;
 public class GuestTest {
 
 	@ClassRule
-	public static RuleChain ruleChain = RuleChain.
-			outerRule(new LocalDatastoreServiceTestConfigProvider()).
-			around(new RegisteredOfyEnvironmentProvider());
-
+	public static RuleChain ruleChain = RuleChain.outerRule(new LocalDatastoreServiceTestConfigProvider())
+			.around(new RegisteredOfyEnvironmentProvider());
 
 	@Test
 	public void testNameGeneration() {

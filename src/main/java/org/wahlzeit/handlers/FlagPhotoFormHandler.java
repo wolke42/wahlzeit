@@ -29,6 +29,7 @@ import org.wahlzeit.model.PhotoCase;
 import org.wahlzeit.model.PhotoCaseManager;
 import org.wahlzeit.model.PhotoManager;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.services.DataObject;
 import org.wahlzeit.services.EmailAddress;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.mailing.EmailService;
@@ -46,7 +47,6 @@ public class FlagPhotoFormHandler extends AbstractWebFormHandler {
 
 	private static final Logger log = Logger.getLogger(FlagPhotoFormHandler.class.getName());
 
-
 	/**
 	 *
 	 */
@@ -57,6 +57,7 @@ public class FlagPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected boolean isWellFormedGet(UserSession us, String link, Map args) {
 		return hasSavedPhotoId(us) && isSavedPhotoVisible(us);
 	}
@@ -64,13 +65,14 @@ public class FlagPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		Map args = us.getSavedArgs();
 		part.addStringFromArgs(args, UserSession.MESSAGE);
 
-		String id = us.getAsString(args, Photo.ID);
+		String id = us.getAsString(args, DataObject.ID);
 		Photo photo = PhotoManager.getInstance().getPhoto(id);
-		part.addString(Photo.ID, id);
+		part.addString(DataObject.ID, id);
 		part.addString(Photo.THUMB, getPhotoThumb(us, photo));
 		part.maskAndAddStringFromArgsWithDefault(args, PhotoCase.FLAGGER, us.getClient().getEmailAddress().asString());
 		part.addSelect(PhotoCase.REASON, FlagReason.MISMATCH);
@@ -80,8 +82,9 @@ public class FlagPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandlePost(UserSession us, Map args) {
-		String id = us.getAndSaveAsString(args, Photo.ID);
+		String id = us.getAndSaveAsString(args, DataObject.ID);
 		String flagger = us.getAndSaveAsString(args, PhotoCase.FLAGGER);
 		FlagReason reason = FlagReason.getFromString(us.getAndSaveAsString(args, PhotoCase.REASON));
 		String explanation = us.getAndSaveAsString(args, PhotoCase.EXPLANATION);
@@ -120,9 +123,8 @@ public class FlagPhotoFormHandler extends AbstractWebFormHandler {
 
 		emailService.sendEmailIgnoreException(to, config.getAuditEmailAddress(), emailSubject, emailBody);
 
-		log.info(LogBuilder.createUserMessage()
-				.addAction("Flag Photo")
-				.addParameter("Photo", photo.getId().asString()).toString());
+		log.info(LogBuilder.createUserMessage().addAction("Flag Photo").addParameter("Photo", photo.getId().asString())
+				.toString());
 
 		us.setTwoLineMessage(config.getModeratorWasInformed(), config.getContinueWithShowPhoto());
 

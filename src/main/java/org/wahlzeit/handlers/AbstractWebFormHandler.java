@@ -28,7 +28,6 @@ import org.wahlzeit.webparts.WebPart;
 import java.util.Map;
 import java.util.logging.Logger;
 
-
 /**
  * A superclass for handling forms.
  */
@@ -39,6 +38,7 @@ public abstract class AbstractWebFormHandler extends AbstractWebPartHandler impl
 	/**
 	 *
 	 */
+	@Override
 	protected void initialize(String partTmplName, AccessRights neededRights) {
 		super.initialize(partTmplName, neededRights);
 	}
@@ -46,6 +46,7 @@ public abstract class AbstractWebFormHandler extends AbstractWebPartHandler impl
 	/**
 	 *
 	 */
+	@Override
 	public WebPart makeWebPart(UserSession us) {
 		WebPart result = createWebPart(us);
 		doMakeWebPart(us, result);
@@ -60,17 +61,18 @@ public abstract class AbstractWebFormHandler extends AbstractWebPartHandler impl
 	/**
 	 *
 	 */
+	@Override
 	public final String handlePost(UserSession us, Map args) {
 		String emailAddress = us.getClient().getEmailAddress().asString();
 		if (!hasAccessRights(us, args)) {
-			log.warning(LogBuilder.createSystemMessage().
-					addParameter("insufficient rights for POST from", emailAddress).toString());
+			log.warning(LogBuilder.createSystemMessage().addParameter("insufficient rights for POST from", emailAddress)
+					.toString());
 			return getIllegalAccessErrorPage(us);
 		}
 
 		if (!isWellFormedPost(us, args)) {
-			log.warning(LogBuilder.createSystemMessage().
-					addParameter("received ill-formed POST from", emailAddress).toString());
+			log.warning(LogBuilder.createSystemMessage().addParameter("received ill-formed POST from", emailAddress)
+					.toString());
 			return getIllegalArgumentErrorPage(us);
 		}
 

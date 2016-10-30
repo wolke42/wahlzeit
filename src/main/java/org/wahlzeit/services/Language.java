@@ -35,9 +35,7 @@ public enum Language implements EnumValue {
 	/**
 	 *
 	 */
-	private static Language[] allValues = {
-			ENGLISH, SPANISH, GERMAN, JAPANESE
-	};
+	private static Language[] allValues = { ENGLISH, SPANISH, GERMAN, JAPANESE };
 
 	/**
 	 *
@@ -53,9 +51,7 @@ public enum Language implements EnumValue {
 	/**
 	 *
 	 */
-	private static final String[] isoCodes = {
-			"en", "es", "de", "ja"
-	};
+	private static final String[] isoCodes = { "en", "es", "de", "ja" };
 
 	/**
 	 *
@@ -73,9 +69,7 @@ public enum Language implements EnumValue {
 	/**
 	 *
 	 */
-	private static final String[] valueNames = {
-			"english", "spanish", "german", "japanese"
-	};
+	private static final String[] valueNames = { "english", "spanish", "german", "japanese" };
 
 	/**
 	 * @methodtype conversion
@@ -105,6 +99,7 @@ public enum Language implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public int asInt() {
 		return value;
 	}
@@ -119,6 +114,7 @@ public enum Language implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public String asString() {
 		return valueNames[value];
 	}
@@ -126,6 +122,7 @@ public enum Language implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public Language[] getAllValues() {
 		return allValues;
 	}
@@ -133,6 +130,7 @@ public enum Language implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public String getTypeName() {
 		return "Language";
 	}

@@ -31,7 +31,6 @@ import org.wahlzeit.webparts.WritableList;
 
 import java.util.Map;
 
-
 /**
  * A handler class for a specific web page.
  */
@@ -47,6 +46,7 @@ public class ShowPhotoCasesPageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void makeWebPageBody(UserSession us, WebPart page) {
 		Map args = us.getSavedArgs();
 		page.addStringFromArgs(args, UserSession.MESSAGE);

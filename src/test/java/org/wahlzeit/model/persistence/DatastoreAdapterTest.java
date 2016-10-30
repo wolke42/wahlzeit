@@ -22,12 +22,10 @@ import static org.junit.Assert.fail;
 public class DatastoreAdapterTest extends AbstractAdapterTest {
 
 	@ClassRule
-	public static TestRule chain = RuleChain.
-			outerRule(new LocalDatastoreServiceTestConfigProvider()).
-			around(new RegisteredOfyEnvironmentProvider());
+	public static TestRule chain = RuleChain.outerRule(new LocalDatastoreServiceTestConfigProvider())
+			.around(new RegisteredOfyEnvironmentProvider());
 
 	private Image tooLargeTestImage;
-
 
 	@Override
 	protected void storageDependentSetUp() {
@@ -36,7 +34,6 @@ public class DatastoreAdapterTest extends AbstractAdapterTest {
 		ByteBuffer bb = ByteBuffer.allocate(1024 * 1025);
 		tooLargeTestImage = ImagesServiceFactory.makeImage(bb.array());
 	}
-
 
 	@Test(expected = ArrayIndexOutOfBoundsException.class)
 	public void testUpperSizeLimit() {

@@ -37,8 +37,8 @@ public interface EmailService {
 	/**
 	 *
 	 */
-	void sendEmail(EmailAddress from, EmailAddress to, EmailAddress bcc, String subject, String body) throws
-			MailingException;
+	void sendEmail(EmailAddress from, EmailAddress to, EmailAddress bcc, String subject, String body)
+			throws MailingException;
 
 	boolean sendEmailIgnoreException(EmailAddress from, EmailAddress to, EmailAddress bcc, String subject, String body);
 

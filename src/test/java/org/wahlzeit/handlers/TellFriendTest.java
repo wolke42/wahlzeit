@@ -33,21 +33,17 @@ public class TellFriendTest {
 	public static WebFormHandlerProvider webFormHandlerProvider = new WebFormHandlerProvider();
 
 	@Rule
-	public TestRule chain = RuleChain.
-			outerRule(new LocalDatastoreServiceTestConfigProvider()).
-			around(new RegisteredOfyEnvironmentProvider()).
-			around(new UserSessionProvider());
+	public TestRule chain = RuleChain.outerRule(new LocalDatastoreServiceTestConfigProvider())
+			.around(new RegisteredOfyEnvironmentProvider()).around(new UserSessionProvider());
 
 	private UserSession session;
 	private WebFormHandler handler;
-
 
 	@Before
 	public void setUp() {
 		session = (UserSession) SessionManager.getThreadLocalSession();
 		handler = webFormHandlerProvider.getWebFormHandler();
 	}
-
 
 	/**
 	 *
@@ -93,6 +89,7 @@ public class TellFriendTest {
 
 		handler.handlePost(session, args);
 
-		handler.handlePost(session, Collections.EMPTY_MAP); // will fail if email is sent
+		handler.handlePost(session, Collections.EMPTY_MAP); // will fail if
+															// email is sent
 	}
 }

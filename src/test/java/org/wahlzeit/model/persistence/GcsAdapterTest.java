@@ -5,6 +5,7 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 /**
  * Test cases for the Google Cloud Storage adapter.
+ * 
  * @review
  */
 public class GcsAdapterTest extends AbstractAdapterTest {

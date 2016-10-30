@@ -55,6 +55,7 @@ public class SetOptionsFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		Map args = us.getSavedArgs();
 		part.addStringFromArgs(args, UserSession.MESSAGE);
@@ -69,6 +70,7 @@ public class SetOptionsFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandlePost(UserSession us, Map args) {
 		String language = us.getAndSaveAsString(args, LANGUAGE);
 		Language langValue = Language.getFromString(language);
@@ -79,10 +81,8 @@ public class SetOptionsFormHandler extends AbstractWebFormHandler {
 		PhotoSize photoValue = PhotoSize.getFromString(photoSize);
 		client.setPhotoSize(photoValue);
 
-		log.info(LogBuilder.createUserMessage().
-				addAction("Set options").
-				addParameter("language", language).
-				addParameter("photo size", photoSize).toString());
+		log.info(LogBuilder.createUserMessage().addAction("Set options").addParameter("language", language)
+				.addParameter("photo size", photoSize).toString());
 
 		ModelConfig config = us.getClient().getLanguageConfiguration();
 		String msg1 = config.getOptionsWereSet();

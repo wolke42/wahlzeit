@@ -23,9 +23,10 @@ package org.wahlzeit.model;
 import org.wahlzeit.utils.EnumValue;
 
 /**
- * An AccessRight is an enum value that represents a defined level of access. Possible access levels are none, guest,
- * user, moderator, and administrator. However, higher levels of access subsume lower levels of access rights. How they
- * are handled depends on the application.
+ * An AccessRight is an enum value that represents a defined level of access.
+ * Possible access levels are none, guest, user, moderator, and administrator.
+ * However, higher levels of access subsume lower levels of access rights. How
+ * they are handled depends on the application.
  */
 public enum AccessRights implements EnumValue {
 
@@ -37,9 +38,7 @@ public enum AccessRights implements EnumValue {
 	/**
 	 *
 	 */
-	private static AccessRights[] allValues = {
-			NONE, GUEST, USER, MODERATOR, ADMINISTRATOR
-	};
+	private static AccessRights[] allValues = { NONE, GUEST, USER, MODERATOR, ADMINISTRATOR };
 
 	/**
 	 *
@@ -52,9 +51,7 @@ public enum AccessRights implements EnumValue {
 	/**
 	 *
 	 */
-	private static final String[] valueNames = {
-			"none", "guest", "user", "moderator", "administrator"
-	};
+	private static final String[] valueNames = { "none", "guest", "user", "moderator", "administrator" };
 
 	/**
 	 *
@@ -84,6 +81,7 @@ public enum AccessRights implements EnumValue {
 	/**
 	 * @methodtype conversion
 	 */
+	@Override
 	public int asInt() {
 		return value;
 	}
@@ -91,6 +89,7 @@ public enum AccessRights implements EnumValue {
 	/**
 	 * @methodtype conversion
 	 */
+	@Override
 	public String asString() {
 		return valueNames[value];
 	}
@@ -98,6 +97,7 @@ public enum AccessRights implements EnumValue {
 	/**
 	 * @methodtype get
 	 */
+	@Override
 	public AccessRights[] getAllValues() {
 		return allValues;
 	}
@@ -105,6 +105,7 @@ public enum AccessRights implements EnumValue {
 	/**
 	 * @methodtype get
 	 */
+	@Override
 	public String getTypeName() {
 		return "AccessRights";
 	}

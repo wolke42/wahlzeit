@@ -23,8 +23,9 @@ package org.wahlzeit.model;
 import org.wahlzeit.utils.EnumValue;
 
 /**
- * The gender denotes some user's/person's/character's/whatever gender. The undefined value denotes that no value was
- * provided or the entity is not human.
+ * The gender denotes some user's/person's/character's/whatever gender. The
+ * undefined value denotes that no value was provided or the entity is not
+ * human.
  */
 public enum Gender implements EnumValue {
 
@@ -36,9 +37,7 @@ public enum Gender implements EnumValue {
 	/**
 	 *
 	 */
-	private static Gender[] allValues = {
-			UNDEFINED, MALE, FEMALE, OTHER
-	};
+	private static Gender[] allValues = { UNDEFINED, MALE, FEMALE, OTHER };
 
 	/**
 	 * @methodtype conversion
@@ -60,9 +59,7 @@ public enum Gender implements EnumValue {
 	/**
 	 *
 	 */
-	private static final String[] valueNames = {
-			"undefined", "male", "female", "other"
-	};
+	private static final String[] valueNames = { "undefined", "male", "female", "other" };
 
 	/**
 	 * @methodtype conversion
@@ -92,6 +89,7 @@ public enum Gender implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public int asInt() {
 		return value;
 	}
@@ -99,6 +97,7 @@ public enum Gender implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public String asString() {
 		return valueNames[value];
 	}
@@ -106,6 +105,7 @@ public enum Gender implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public Gender[] getAllValues() {
 		return allValues;
 	}
@@ -113,6 +113,7 @@ public enum Gender implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public String getTypeName() {
 		return "Gender";
 	}

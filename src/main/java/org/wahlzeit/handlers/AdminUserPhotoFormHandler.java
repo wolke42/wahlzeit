@@ -27,6 +27,7 @@ import org.wahlzeit.model.PhotoManager;
 import org.wahlzeit.model.PhotoStatus;
 import org.wahlzeit.model.Tags;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.services.DataObject;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.webparts.WebPart;
 
@@ -40,7 +41,6 @@ public class AdminUserPhotoFormHandler extends AbstractWebFormHandler {
 
 	private static final Logger log = Logger.getLogger(AdminUserPhotoFormHandler.class.getName());
 
-
 	/**
 	 *
 	 */
@@ -51,13 +51,14 @@ public class AdminUserPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		String photoId = (String) us.getSavedArg("photoId");
 		Photo photo = PhotoManager.getInstance().getPhoto(photoId);
 		part.addString(Photo.THUMB, getPhotoThumb(us, photo));
 
 		part.addString("photoId", photoId);
-		part.addString(Photo.ID, photo.getId().asString());
+		part.addString(DataObject.ID, photo.getId().asString());
 		part.addSelect(Photo.STATUS, PhotoStatus.class, (String) us.getSavedArg(Photo.STATUS));
 		part.maskAndAddStringFromArgsWithDefault(us.getSavedArgs(), Photo.TAGS, photo.getTags().asString());
 	}
@@ -65,6 +66,7 @@ public class AdminUserPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandlePost(UserSession us, Map args) {
 		String id = us.getAndSaveAsString(args, "photoId");
 		Photo photo = PhotoManager.getInstance().getPhoto(id);
@@ -76,9 +78,8 @@ public class AdminUserPhotoFormHandler extends AbstractWebFormHandler {
 
 		AsyncTaskExecutor.savePhotoAsync(id);
 
-		log.info(LogBuilder.createUserMessage().
-				addAction("AdminUserPhoto").
-				addParameter("Photo", photo.getId().asString()).toString());
+		log.info(LogBuilder.createUserMessage().addAction("AdminUserPhoto")
+				.addParameter("Photo", photo.getId().asString()).toString());
 
 		us.setMessage(us.getClient().getLanguageConfiguration().getPhotoUpdateSucceeded());
 

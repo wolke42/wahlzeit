@@ -88,8 +88,8 @@ public class PhotoUtil {
 	}
 
 	/**
-	 * @methodtype command Scale the source picture to the given size, store it in the datastore and reference it in the
-	 * photo.
+	 * @methodtype command Scale the source picture to the given size, store it
+	 *             in the datastore and reference it in the photo.
 	 */
 	protected static void scaleImage(Image source, PhotoSize size, Photo photo) throws Exception {
 		int sourceWidth = source.getWidth();

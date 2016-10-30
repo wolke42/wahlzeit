@@ -30,7 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-
 /**
  * The servlet for managing administrative system functions.
  */
@@ -39,13 +38,15 @@ public class AdminServlet extends AbstractServlet {
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 42L; // any one does; class never serialized
+	private static final long serialVersionUID = 42L; // any one does; class
+														// never serialized
 
 	private static final Logger log = Logger.getLogger(AdminServlet.class.getName());
 
 	/**
 	 *
 	 */
+	@Override
 	public void myGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String link = request.getRequestURI();
 		log.info(LogBuilder.createUserMessage().addParameter("requested URI", link).toString());

@@ -32,14 +32,16 @@ public class MockEmailService extends AbstractEmailService {
 	/**
 	 *
 	 */
-	protected Message doCreateEmail(EmailAddress from, EmailAddress to, EmailAddress bcc, String subject,
-									String body) throws MailingException {
+	@Override
+	protected Message doCreateEmail(EmailAddress from, EmailAddress to, EmailAddress bcc, String subject, String body)
+			throws MailingException {
 		return null;
 	}
 
 	/**
 	 *
 	 */
+	@Override
 	protected void doSendEmail(Message msg) throws MailingException {
 		// do nothing
 	}

@@ -10,7 +10,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * Abstract super class for UserManager. Contains all members and methods that can be offered for all Clients.
+ * Abstract super class for UserManager. Contains all members and methods that
+ * can be offered for all Clients.
  * 
  * @review
  */
@@ -32,8 +33,8 @@ public abstract class ClientManager extends ObjectManager {
 
 	protected List<String> listOfUsedNicknames = new ArrayList<String>();
 
-
-	// add methods -----------------------------------------------------------------------------------------------------
+	// add methods
+	// -----------------------------------------------------------------------------------------------------
 
 	/**
 	 * @methodtype set
@@ -84,8 +85,8 @@ public abstract class ClientManager extends ObjectManager {
 		return getClientById(id) != null;
 	}
 
-
-	// get client methods ----------------------------------------------------------------------------------------------
+	// get client methods
+	// ----------------------------------------------------------------------------------------------
 
 	/**
 	 * @methodtype get
@@ -126,13 +127,12 @@ public abstract class ClientManager extends ObjectManager {
 	public void doAddHttpSessionIdToClientMapping(String httpSessionId, Client client) {
 		httpSessionIdToClientMap.put(httpSessionId, client);
 		client.setHttpSessionId(httpSessionId);
-		log.config(LogBuilder.createSystemMessage().
-				addParameter("client name", client.getNickName()).
-				addParameter("httpSessionId", httpSessionId).toString());
+		log.config(LogBuilder.createSystemMessage().addParameter("client name", client.getNickName())
+				.addParameter("httpSessionId", httpSessionId).toString());
 	}
 
-
-	// has client method -----------------------------------------------------------------------------------------------
+	// has client method
+	// -----------------------------------------------------------------------------------------------
 
 	/**
 	 * @methodtype command
@@ -141,8 +141,8 @@ public abstract class ClientManager extends ObjectManager {
 		updateObject(client);
 	}
 
-
-	// save methods ----------------------------------------------------------------------------------------------------
+	// save methods
+	// ----------------------------------------------------------------------------------------------------
 
 	/**
 	 * @methodtype get
@@ -160,8 +160,8 @@ public abstract class ClientManager extends ObjectManager {
 		updateObjects(idClientMap.values());
 	}
 
-
-	// client ID methods -----------------------------------------------------------------------------------------------
+	// client ID methods
+	// -----------------------------------------------------------------------------------------------
 
 	/**
 	 * @methodtype get
@@ -184,8 +184,8 @@ public abstract class ClientManager extends ObjectManager {
 		return ++lastClientId;
 	}
 
-
-	// delete methods --------------------------------------------------------------------------------------------------
+	// delete methods
+	// --------------------------------------------------------------------------------------------------
 
 	/**
 	 * @methodtype set
@@ -237,7 +237,8 @@ public abstract class ClientManager extends ObjectManager {
 		}
 	}
 
-	// update methods --------------------------------------------------------------------------------------------------
+	// update methods
+	// --------------------------------------------------------------------------------------------------
 
 	/**
 	 * @methodtype set

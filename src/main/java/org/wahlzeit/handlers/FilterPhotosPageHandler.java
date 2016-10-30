@@ -31,9 +31,9 @@ import org.wahlzeit.webparts.WebPart;
 import java.util.Map;
 
 /**
- * This pages handles incoming get requests for a page. 
- * Typically, this means an external link points to the site.
- * Example: www.wahlzeit.com/filter?userName=laura
+ * This pages handles incoming get requests for a page. Typically, this means an
+ * external link points to the site. Example:
+ * www.wahlzeit.com/filter?userName=laura
  */
 public class FilterPhotosPageHandler extends AbstractWebPageHandler {
 
@@ -47,6 +47,7 @@ public class FilterPhotosPageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected boolean isWellFormedGet(UserSession us, String link, Map args) {
 		return args != null;
 	}
@@ -54,6 +55,7 @@ public class FilterPhotosPageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandleGet(UserSession us, String link, Map args) {
 		PhotoFilter filter = us.getPhotoFilter();
 
@@ -73,6 +75,7 @@ public class FilterPhotosPageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void makeWebPageBody(UserSession us, WebPart page) {
 		ModelConfig config = us.getClient().getLanguageConfiguration();
 		page.addString("noteHeading", config.getInformation());

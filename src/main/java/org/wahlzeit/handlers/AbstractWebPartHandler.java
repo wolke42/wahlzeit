@@ -27,6 +27,7 @@ import org.wahlzeit.model.PhotoManager;
 import org.wahlzeit.model.PhotoSize;
 import org.wahlzeit.model.User;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.services.DataObject;
 import org.wahlzeit.services.Language;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.SysConfig;
@@ -98,8 +99,8 @@ public abstract class AbstractWebPartHandler implements WebPartHandler {
 	 *
 	 */
 	protected String getPhotoAsRelativeResourcePathString(Photo photo, PhotoSize size) {
-		return SysConfig.getPhotosDir().getRelativeDir() + "/?type=image&photoId=" + photo.getId().asString() +
-				"&size=" + String.valueOf(size.asInt());
+		return SysConfig.getPhotosDir().getRelativeDir() + "/?type=image&photoId=" + photo.getId().asString() + "&size="
+				+ String.valueOf(size.asInt());
 	}
 
 	/**
@@ -135,7 +136,7 @@ public abstract class AbstractWebPartHandler implements WebPartHandler {
 	 *
 	 */
 	protected boolean hasSavedPhotoId(UserSession us) {
-		String id = us.getAsString(us.getSavedArgs(), Photo.ID);
+		String id = us.getAsString(us.getSavedArgs(), DataObject.ID);
 		return !StringUtil.isNullOrEmptyString(id);
 	}
 
@@ -143,7 +144,7 @@ public abstract class AbstractWebPartHandler implements WebPartHandler {
 	 *
 	 */
 	protected boolean isSavedPhotoVisible(UserSession us) {
-		String id = us.getAsString(us.getSavedArgs(), Photo.ID);
+		String id = us.getAsString(us.getSavedArgs(), DataObject.ID);
 		Photo photo = PhotoManager.getInstance().getPhoto(id);
 		return photo.isVisible();
 	}
@@ -158,16 +159,15 @@ public abstract class AbstractWebPartHandler implements WebPartHandler {
 	/**
 	 *
 	 */
+	@Override
 	public final String handleGet(UserSession us, String link, Map args) {
 		if (!hasAccessRights(us, args)) {
-			log.warning(LogBuilder.createSystemMessage().
-					addMessage("insufficient rights for GET").toString());
+			log.warning(LogBuilder.createSystemMessage().addMessage("insufficient rights for GET").toString());
 			return getIllegalAccessErrorPage(us);
 		}
 
 		if (!isWellFormedGet(us, link, args)) {
-			log.warning(LogBuilder.createSystemMessage().
-					addMessage("received ill-formed GET").toString());
+			log.warning(LogBuilder.createSystemMessage().addMessage("received ill-formed GET").toString());
 			return getIllegalArgumentErrorPage(us);
 		}
 
@@ -226,7 +226,8 @@ public abstract class AbstractWebPartHandler implements WebPartHandler {
 	}
 
 	/**
-	 * @param args TODO
+	 * @param args
+	 *            TODO
 	 */
 	protected String doHandleGet(UserSession us, String link, Map args) {
 		return link;

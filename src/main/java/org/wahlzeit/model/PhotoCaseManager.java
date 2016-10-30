@@ -20,6 +20,7 @@
 
 package org.wahlzeit.model;
 
+import org.wahlzeit.services.DataObject;
 import org.wahlzeit.services.ObjectManager;
 
 import java.util.Arrays;
@@ -83,7 +84,7 @@ public class PhotoCaseManager extends ObjectManager {
 	public PhotoCase getPhotoCase(PhotoId id) {
 		PhotoCase result = openPhotoCases.get(id);
 		if (result == null) {
-			result = readObject(PhotoCase.class, PhotoCase.ID, id);
+			result = readObject(PhotoCase.class, DataObject.ID, id);
 		}
 
 		return result;
@@ -131,6 +132,7 @@ public class PhotoCaseManager extends ObjectManager {
 	 */
 	public static Comparator<PhotoCase> getPhotoCasesByAscendingAgeComparator() {
 		return new Comparator<PhotoCase>() {
+			@Override
 			public int compare(PhotoCase pc1, PhotoCase pc2) {
 				long ct1 = pc1.getCreationTime();
 				long ct2 = pc2.getCreationTime();

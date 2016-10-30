@@ -23,9 +23,9 @@ package org.wahlzeit.model;
 import org.wahlzeit.utils.EnumValue;
 
 /**
- * The UserStatus of a User denotes its state within the system.
- * A user (account) may have been created, confirmed, or disabled.
- * These states are not mutually exclusive.
+ * The UserStatus of a User denotes its state within the system. A user
+ * (account) may have been created, confirmed, or disabled. These states are not
+ * mutually exclusive.
  */
 public enum UserStatus implements EnumValue {
 
@@ -45,9 +45,7 @@ public enum UserStatus implements EnumValue {
 	/**
 	 * All possible states of UserStatus
 	 */
-	private static UserStatus[] allValues = {
-			CREATED, CONFIRMED, DISABLED, DISABLED2
-	};
+	private static UserStatus[] allValues = { CREATED, CONFIRMED, DISABLED, DISABLED2 };
 
 	/**
 	 * @methodtype conversion
@@ -69,9 +67,7 @@ public enum UserStatus implements EnumValue {
 	/**
 	 *
 	 */
-	private static String[] valueNames = {
-			"created", "confirmed", "disabled", "disabled"
-	};
+	private static String[] valueNames = { "created", "confirmed", "disabled", "disabled" };
 
 	/**
 	 *
@@ -101,6 +97,7 @@ public enum UserStatus implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public int asInt() {
 		return value;
 	}
@@ -108,6 +105,7 @@ public enum UserStatus implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public String asString() {
 		return valueNames[value];
 	}
@@ -115,6 +113,7 @@ public enum UserStatus implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public UserStatus[] getAllValues() {
 		return allValues;
 	}
@@ -122,6 +121,7 @@ public enum UserStatus implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public String getTypeName() {
 		return "UserStatus";
 	}

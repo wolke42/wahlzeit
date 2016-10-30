@@ -27,9 +27,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * A Tags instance represents a set of tags; each tag ist just a string.
- * All tags are maintained lowercase and without whitespace. 
- * For example, "Captain America" turns into "captainamerica".
+ * A Tags instance represents a set of tags; each tag ist just a string. All
+ * tags are maintained lowercase and without whitespace. For example, "Captain
+ * America" turns into "captainamerica".
  */
 public class Tags implements Serializable {
 
@@ -179,11 +179,11 @@ public class Tags implements Serializable {
 			int i = 0;
 			int j = 0;
 			for (; i < tags.length(); i = j) {
-				for (; ((i < tags.length()) && (tags.charAt(i) == separator)); ) {
+				for (; ((i < tags.length()) && (tags.charAt(i) == separator));) {
 					i++;
 				}
 
-				for (j = i; ((j < tags.length()) && (tags.charAt(j) != separator)); ) {
+				for (j = i; ((j < tags.length()) && (tags.charAt(j) != separator));) {
 					j++;
 				}
 

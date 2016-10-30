@@ -10,7 +10,8 @@ import java.util.logging.Logger;
 import static org.wahlzeit.services.OfyService.ofy;
 
 /**
- * Manager that cares about the global variables. It is used from the outside by the following two methods:
+ * Manager that cares about the global variables. It is used from the outside by
+ * the following two methods:
  *
  * @see #loadGlobals()
  * @see #saveGlobals()
@@ -26,7 +27,8 @@ public class GlobalsManager extends ObjectManager {
 	private static GlobalsManager instance = new GlobalsManager();
 
 	/**
-	 * @methodtype command Loads all global variables and stores them in their corresponding classes.
+	 * @methodtype command Loads all global variables and stores them in their
+	 *             corresponding classes.
 	 */
 	public void loadGlobals() {
 		initGlobals();

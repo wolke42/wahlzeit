@@ -33,27 +33,27 @@ public class SessionCleanupServlet extends HttpServlet {
 	}
 
 	/**
-	 * Clears all {@link HttpSession}s in the datastore that are expired and if they are guest sessions, deletes the
-	 * corresponding {@link Guest} object, too.
+	 * Clears all {@link HttpSession}s in the datastore that are expired and if
+	 * they are guest sessions, deletes the corresponding {@link Guest} object,
+	 * too.
 	 */
 	private void clearAll(HttpServletResponse response) {
 
-		List<Object> killList = OfyService.ofy().load().
-				kind(SESSION_ENTITY_TYPE).
-				filter(EXPIRES_PROP + " <", System.currentTimeMillis()).list();
+		List<Object> killList = OfyService.ofy().load().kind(SESSION_ENTITY_TYPE)
+				.filter(EXPIRES_PROP + " <", System.currentTimeMillis()).list();
 
-		log.config(LogBuilder.createSystemMessage().
-				addParameter("number of old sessions to delete from datastore", killList.size()).toString());
+		log.config(LogBuilder.createSystemMessage()
+				.addParameter("number of old sessions to delete from datastore", killList.size()).toString());
 
 		try {
 			for (Object o : killList) {
 				Entity httpSessionEntity = (Entity) o;
 				Key key = httpSessionEntity.getKey();
-				// GAE does not use session id as key name, instead "_ahs<sessionId>"
+				// GAE does not use session id as key name, instead
+				// "_ahs<sessionId>"
 				String sessionId = key.getName().substring(4);
-				log.config(LogBuilder.createSystemMessage().
-						addAction("delete session").
-						addParameter("session id", sessionId).toString());
+				log.config(LogBuilder.createSystemMessage().addAction("delete session")
+						.addParameter("session id", sessionId).toString());
 				Client client = UserManager.getInstance().getClientByHttpSessionId(sessionId);
 				if (client != null && client instanceof Guest) {
 					UserManager.getInstance().deleteClient(client);
@@ -62,8 +62,8 @@ public class SessionCleanupServlet extends HttpServlet {
 			}
 			response.setStatus(HttpServletResponse.SC_OK);
 		} catch (Exception e) {
-			log.config(LogBuilder.createSystemMessage().
-					addException("problem when deleting session and guest", e).toString());
+			log.config(LogBuilder.createSystemMessage().addException("problem when deleting session and guest", e)
+					.toString());
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}

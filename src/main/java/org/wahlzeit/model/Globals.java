@@ -5,8 +5,8 @@ import com.googlecode.objectify.annotation.Id;
 import org.wahlzeit.services.DataObject;
 
 /**
- * Class that combines all global wahlzeit variables
- * that need to be stored to the datastore when the system is restarted.
+ * Class that combines all global wahlzeit variables that need to be stored to
+ * the datastore when the system is restarted.
  * 
  * @review
  */

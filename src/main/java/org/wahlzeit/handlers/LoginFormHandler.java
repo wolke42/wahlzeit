@@ -15,13 +15,13 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * When a user signs in with its Google account, this handler assures that a Wahlzeit user exists for the Google user.
- * If not {@link LoginFormHandler} creates one.
+ * When a user signs in with its Google account, this handler assures that a
+ * Wahlzeit user exists for the Google user. If not {@link LoginFormHandler}
+ * creates one.
  */
 public class LoginFormHandler extends AbstractWebFormHandler {
 
 	private static final Logger log = Logger.getLogger(LoginFormHandler.class.getName());
-
 
 	public LoginFormHandler() {
 		initialize(PartUtil.LOGIN_FORM_FILE, AccessRights.GUEST);
@@ -45,18 +45,16 @@ public class LoginFormHandler extends AbstractWebFormHandler {
 
 		if (googleUser != null) {
 			// googleUser logged in
-			log.config(LogBuilder.createSystemMessage().
-					addMessage("Google user exists").
-					addParameter("E-Mail", googleUser.getEmail()).toString());
+			log.config(LogBuilder.createSystemMessage().addMessage("Google user exists")
+					.addParameter("E-Mail", googleUser.getEmail()).toString());
 			String userId = googleUser.getUserId();
 			UserManager userManager = UserManager.getInstance();
 			User user = userManager.getUserById(userId);
 			if (user != null) {
 				// Wahlzeit user already exists
 				us.setClient(user);
-				log.config(LogBuilder.createSystemMessage().
-						addMessage("Wahlzeit user exists").
-						addParameter("id", user.getId()).toString());
+				log.config(LogBuilder.createSystemMessage().addMessage("Wahlzeit user exists")
+						.addParameter("id", user.getId()).toString());
 			} else {
 				// create new Wahlzeit user
 				String emailAddress = googleUser.getEmail();
@@ -74,11 +72,11 @@ public class LoginFormHandler extends AbstractWebFormHandler {
 				log.info(LogBuilder.createUserMessage().addAction("Signup").toString());
 			}
 
-//              TODO
-//            if (user.getStatus().isDisabled()) {
-//                us.setMessage(us.getConfiguration().getUserIsDisabled());
-//                return PartUtil.LOGIN_PAGE_NAME;
-//            }
+			// TODO
+			// if (user.getStatus().isDisabled()) {
+			// us.setMessage(us.getConfiguration().getUserIsDisabled());
+			// return PartUtil.LOGIN_PAGE_NAME;
+			// }
 
 			return PartUtil.SHOW_USER_HOME_PAGE_NAME;
 		} else {

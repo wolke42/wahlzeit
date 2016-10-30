@@ -46,11 +46,13 @@ import java.util.logging.Logger;
 public abstract class AbstractServlet extends HttpServlet {
 
 	private static final Logger log = Logger.getLogger(AbstractServlet.class.getName());
-	private static final long serialVersionUID = 42L; // any does; class never serialized
+	private static final long serialVersionUID = 42L; // any does; class never
+														// serialized
 	/**
 	 *
 	 */
-	protected static int lastSessionId = 0; // system and agent are named differently
+	protected static int lastSessionId = 0; // system and agent are named
+											// differently
 
 	/**
 	 *
@@ -76,6 +78,7 @@ public abstract class AbstractServlet extends HttpServlet {
 	/**
 	 *
 	 */
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -95,6 +98,7 @@ public abstract class AbstractServlet extends HttpServlet {
 	/**
 	 *
 	 */
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -114,8 +118,8 @@ public abstract class AbstractServlet extends HttpServlet {
 	/**
 	 *
 	 */
-	protected void myPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-			IOException {
+	protected void myPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// do nothing
 	}
 
@@ -136,8 +140,8 @@ public abstract class AbstractServlet extends HttpServlet {
 	/**
 	 *
 	 */
-	protected void displayNullPage(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-			IOException {
+	protected void displayNullPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html");
 
 		PrintWriter out = response.getWriter();
@@ -150,8 +154,8 @@ public abstract class AbstractServlet extends HttpServlet {
 	/**
 	 *
 	 */
-	protected void myGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-			IOException {
+	protected void myGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// do nothing
 	}
 
@@ -180,8 +184,8 @@ public abstract class AbstractServlet extends HttpServlet {
 	protected void configureResponse(Session ctx, HttpServletResponse response, WebPart result) throws IOException {
 		long processingTime = ctx.getProcessingTime();
 		result.addString("processingTime", StringUtil.asStringInSeconds((processingTime == 0) ? 1 : processingTime));
-		log.config(LogBuilder.createSystemMessage().
-				addParameter("proctime", String.valueOf(processingTime)).toString());
+		log.config(
+				LogBuilder.createSystemMessage().addParameter("proctime", String.valueOf(processingTime)).toString());
 
 		response.setContentType("text/html");
 
@@ -211,7 +215,7 @@ public abstract class AbstractServlet extends HttpServlet {
 	 */
 	protected String getRequestArgsAsString(UserSession us, Map args) {
 		StringBuffer result = new StringBuffer(96);
-		for (Iterator i = args.keySet().iterator(); i.hasNext(); ) {
+		for (Iterator i = args.keySet().iterator(); i.hasNext();) {
 			String key = i.next().toString();
 			String value = us.getAsString(args, key);
 			result.append(key + "=" + value);

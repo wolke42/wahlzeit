@@ -30,7 +30,6 @@ import org.wahlzeit.webparts.WebPart;
 
 import java.util.Map;
 
-
 /**
  * A handler class for a specific web page.
  */
@@ -46,6 +45,7 @@ public class SetPhotoSizePageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandleGet(UserSession us, String link, Map args) {
 		PhotoSize result = PhotoSize.MEDIUM;
 
@@ -67,6 +67,7 @@ public class SetPhotoSizePageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void makeWebPageBody(UserSession us, WebPart page) {
 		Client client = us.getClient();
 		ModelConfig config = client.getLanguageConfiguration();

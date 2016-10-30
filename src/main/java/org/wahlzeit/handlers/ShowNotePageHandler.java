@@ -27,7 +27,6 @@ import org.wahlzeit.webparts.WebPart;
 
 import java.util.Map;
 
-
 /**
  * A handler class for a specific web page.
  */
@@ -43,6 +42,7 @@ public class ShowNotePageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected boolean isWellFormedGet(UserSession us, String link, Map args) {
 		return hasSavedMessage(us);
 	}
@@ -50,10 +50,11 @@ public class ShowNotePageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void makeWebPageBody(UserSession us, WebPart page) {
 		String heading = us.getHeading();
-		heading = StringUtil.isNullOrEmptyString(heading) ? us.getClient().getLanguageConfiguration()
-				.getThankYou() : heading;
+		heading = StringUtil.isNullOrEmptyString(heading) ? us.getClient().getLanguageConfiguration().getThankYou()
+				: heading;
 		page.addString("noteHeading", heading);
 
 		page.addString("note", us.getMessage());

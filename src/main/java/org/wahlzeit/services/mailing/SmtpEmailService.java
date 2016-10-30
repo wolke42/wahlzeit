@@ -49,7 +49,8 @@ public class SmtpEmailService extends AbstractEmailService {
 	private Session session;
 
 	/**
-	 * Default constructor for GAE. There is usually no need to change those parameter.
+	 * Default constructor for GAE. There is usually no need to change those
+	 * parameter.
 	 */
 	public SmtpEmailService() {
 		this("smtp.google.com", "smtp", null);
@@ -118,9 +119,8 @@ public class SmtpEmailService extends AbstractEmailService {
 	protected void doSendEmail(Message msg) throws MailingException {
 		try {
 			Transport.send(msg);
-			log.config(LogBuilder.createSystemMessage().
-					addMessage("email send").
-					addParameter("subject", msg.getSubject()).toString());
+			log.config(LogBuilder.createSystemMessage().addMessage("email send")
+					.addParameter("subject", msg.getSubject()).toString());
 		} catch (MessagingException ex) {
 			throw new MailingException("Sending email failed", ex);
 		}

@@ -20,6 +20,7 @@
 
 package org.wahlzeit.model;
 
+import org.wahlzeit.services.DataObject;
 import org.wahlzeit.services.Language;
 import org.wahlzeit.services.Session;
 import org.wahlzeit.utils.HtmlUtil;
@@ -33,7 +34,8 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Wrapper class for {@link HttpSession} to provide a readable interface for Wahlzeit.
+ * Wrapper class for {@link HttpSession} to provide a readable interface for
+ * Wahlzeit.
  *
  * {@link HttpSession}s are managed automatically by Google App Engine.
  */
@@ -52,7 +54,6 @@ public class UserSession extends Session implements Serializable {
 	public static final String SAVED_ARGS = "savedArgs";
 	public static final String INITIALIZED = "initialized";
 	public static final String ANONYMOUS_CLIENT = "anon";
-
 
 	private static Logger log = Logger.getLogger(UserSession.class.getName());
 
@@ -134,6 +135,7 @@ public class UserSession extends Session implements Serializable {
 	/**
 	 * @methodtype convert Returns some signifier of current user
 	 */
+	@Override
 	public String getClientId() {
 		return (String) httpSession.getAttribute(CLIENT_ID);
 	}
@@ -246,14 +248,14 @@ public class UserSession extends Session implements Serializable {
 	 * @methodtype get
 	 */
 	public PhotoId getPhotoId() {
-		return (PhotoId) httpSession.getAttribute(Photo.ID);
+		return (PhotoId) httpSession.getAttribute(DataObject.ID);
 	}
 
 	/**
 	 * @methodtype set
 	 */
 	public void setPhotoId(PhotoId newPhotoId) {
-		httpSession.setAttribute(Photo.ID, newPhotoId);
+		httpSession.setAttribute(DataObject.ID, newPhotoId);
 	}
 
 	/**

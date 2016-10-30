@@ -63,8 +63,8 @@ public class VersionTest {
 		} catch (NumberFormatException e) {
 			// expected case
 		} catch (Exception e) {
-			fail(".getVersionAsInt(\"" + invalidString + "\") should throw NumberFormatException not " +
-					e.getClass().toString());
+			fail(".getVersionAsInt(\"" + invalidString + "\") should throw NumberFormatException not "
+					+ e.getClass().toString());
 		}
 	}
 
@@ -96,8 +96,8 @@ public class VersionTest {
 		} catch (NumberFormatException e) {
 			// expected case
 		} catch (Exception e) {
-			fail(".getMajorNumberAsInt(\"" + invalidString + "\") should throw NumberFormatException not " +
-					e.getClass().toString());
+			fail(".getMajorNumberAsInt(\"" + invalidString + "\") should throw NumberFormatException not "
+					+ e.getClass().toString());
 		}
 	}
 

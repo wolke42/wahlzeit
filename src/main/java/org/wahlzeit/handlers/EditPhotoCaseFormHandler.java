@@ -27,6 +27,7 @@ import org.wahlzeit.model.PhotoCaseManager;
 import org.wahlzeit.model.PhotoId;
 import org.wahlzeit.model.PhotoStatus;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.services.DataObject;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.utils.HtmlUtil;
 import org.wahlzeit.utils.StringUtil;
@@ -35,14 +36,12 @@ import org.wahlzeit.webparts.WebPart;
 import java.util.Map;
 import java.util.logging.Logger;
 
-
 /**
  * A handler class for a specific web form.
  */
 public class EditPhotoCaseFormHandler extends AbstractWebFormHandler {
 
 	private static final Logger log = Logger.getLogger(EditPhotoCaseFormHandler.class.getName());
-
 
 	/**
 	 *
@@ -54,6 +53,7 @@ public class EditPhotoCaseFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		PhotoCase photoCase = us.getPhotoCase();
 		Photo photo = photoCase.getPhoto();
@@ -61,7 +61,7 @@ public class EditPhotoCaseFormHandler extends AbstractWebFormHandler {
 		part.addString(Photo.THUMB, getPhotoThumb(us, photo));
 
 		String id = String.valueOf(photoCase.getId());
-		part.addString(PhotoCase.ID, id);
+		part.addString(DataObject.ID, id);
 
 		String description = getPhotoSummary(us, photo);
 		part.maskAndAddString(Photo.DESCRIPTION, description);
@@ -82,8 +82,9 @@ public class EditPhotoCaseFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandlePost(UserSession us, Map args) {
-		String id = us.getAndSaveAsString(args, PhotoCase.ID);
+		String id = us.getAndSaveAsString(args, DataObject.ID);
 		PhotoCaseManager pcm = PhotoCaseManager.getInstance();
 
 		PhotoCase photoCase = pcm.getPhotoCase(PhotoId.getIdFromString(id));
@@ -99,16 +100,14 @@ public class EditPhotoCaseFormHandler extends AbstractWebFormHandler {
 
 		photo.setStatus(status);
 
-		log.info(LogBuilder.createUserMessage().
-				addAction("EditPhotoCase").
-				addParameter("Photo", photo.getId().asString()).toString());
+		log.info(LogBuilder.createUserMessage().addAction("EditPhotoCase")
+				.addParameter("Photo", photo.getId().asString()).toString());
 
 		photoCase.setDecided();
 		pcm.removePhotoCase(photoCase);
 
-		log.info(LogBuilder.createUserMessage().
-				addAction("EditPhotoCase").
-				addParameter("PhotoCase", photoCase.getId()).toString());
+		log.info(LogBuilder.createUserMessage().addAction("EditPhotoCase").addParameter("PhotoCase", photoCase.getId())
+				.toString());
 
 		return PartUtil.SHOW_PHOTO_CASES_PAGE_NAME;
 	}

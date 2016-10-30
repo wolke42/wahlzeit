@@ -31,8 +31,8 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * A generic implementation to manage simple key/value store.
- * Clients can get and set individual values; they can also load properties files.
+ * A generic implementation to manage simple key/value store. Clients can get
+ * and set individual values; they can also load properties files.
  */
 public abstract class AbstractConfig implements Configuration, Serializable {
 
@@ -44,6 +44,7 @@ public abstract class AbstractConfig implements Configuration, Serializable {
 	/**
 	 *
 	 */
+	@Override
 	public boolean hasKey(String key) {
 		return store.containsKey(key);
 	}
@@ -51,6 +52,7 @@ public abstract class AbstractConfig implements Configuration, Serializable {
 	/**
 	 *
 	 */
+	@Override
 	public String getValue(String key) throws IllegalArgumentException {
 		assertHasKey(key);
 		return doGetValue(key);
@@ -59,6 +61,7 @@ public abstract class AbstractConfig implements Configuration, Serializable {
 	/**
 	 *
 	 */
+	@Override
 	public void setValue(String key, String value) throws IllegalArgumentException {
 		assertHasKey(key);
 		doSetValue(key, value);
@@ -74,6 +77,7 @@ public abstract class AbstractConfig implements Configuration, Serializable {
 	/**
 	 *
 	 */
+	@Override
 	public void loadProperties(String fileName) throws IllegalArgumentException, IOException {
 		File file = new File(fileName);
 		if (!file.exists()) {
@@ -86,6 +90,7 @@ public abstract class AbstractConfig implements Configuration, Serializable {
 	/**
 	 *
 	 */
+	@Override
 	public void loadProperties(File file) throws IOException {
 		Properties input = new Properties();
 
@@ -94,7 +99,7 @@ public abstract class AbstractConfig implements Configuration, Serializable {
 			stream = new InputStreamReader(new FileInputStream(file), "UTF8");
 			input.load(stream);
 
-			for (Enumeration e = input.propertyNames(); e.hasMoreElements(); ) {
+			for (Enumeration e = input.propertyNames(); e.hasMoreElements();) {
 				String key = (String) e.nextElement();
 				doSetValue(key, input.getProperty(key));
 			}

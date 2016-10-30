@@ -28,6 +28,7 @@ import org.wahlzeit.model.PhotoManager;
 import org.wahlzeit.model.PhotoStatus;
 import org.wahlzeit.model.Tags;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.services.DataObject;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.utils.HtmlUtil;
 import org.wahlzeit.webparts.WebPart;
@@ -42,7 +43,6 @@ public class EditUserPhotoFormHandler extends AbstractWebFormHandler {
 
 	private static final Logger log = Logger.getLogger(EditUserPhotoFormHandler.class.getName());
 
-
 	/**
 	 *
 	 */
@@ -53,6 +53,7 @@ public class EditUserPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected boolean isWellFormedGet(UserSession us, String link, Map args) {
 		return hasSavedPhotoId(us);
 	}
@@ -60,15 +61,16 @@ public class EditUserPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		Map<String, Object> args = us.getSavedArgs();
 		ModelConfig config = us.getClient().getLanguageConfiguration();
 		part.addStringFromArgs(args, UserSession.MESSAGE);
 
-		String id = us.getAsString(args, Photo.ID);
+		String id = us.getAsString(args, DataObject.ID);
 		Photo photo = PhotoManager.getInstance().getPhoto(id);
 
-		part.addString(Photo.ID, id);
+		part.addString(DataObject.ID, id);
 		part.addString(Photo.THUMB, getPhotoThumb(us, photo));
 
 		part.addString(Photo.PRAISE, photo.getPraiseAsString(config));
@@ -82,8 +84,9 @@ public class EditUserPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected boolean isWellFormedPost(UserSession us, Map args) {
-		String id = us.getAsString(args, Photo.ID);
+		String id = us.getAsString(args, DataObject.ID);
 		Photo photo = PhotoManager.getInstance().getPhoto(id);
 		return (photo != null) && us.isPhotoOwner(photo);
 	}
@@ -91,8 +94,9 @@ public class EditUserPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandlePost(UserSession us, Map args) {
-		String id = us.getAndSaveAsString(args, Photo.ID);
+		String id = us.getAndSaveAsString(args, DataObject.ID);
 		Photo photo = PhotoManager.getInstance().getPhoto(id);
 
 		String tags = us.getAndSaveAsString(args, Photo.TAGS);
@@ -105,9 +109,8 @@ public class EditUserPhotoFormHandler extends AbstractWebFormHandler {
 
 		AsyncTaskExecutor.savePhotoAsync(id);
 
-		log.info(LogBuilder.createUserMessage().
-				addAction("EditUserPhoto").
-				addParameter("Photo", photo.getId().asString()).toString());
+		log.info(LogBuilder.createUserMessage().addAction("EditUserPhoto")
+				.addParameter("Photo", photo.getId().asString()).toString());
 
 		ModelConfig config = us.getClient().getLanguageConfiguration();
 		us.setTwoLineMessage(config.getPhotoUpdateSucceeded(), config.getContinueWithShowUserHome());

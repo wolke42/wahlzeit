@@ -35,8 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A Client uses the system. It is an abstract superclass. This package defines guest, user, moderator, and
- * administrator clients.
+ * A Client uses the system. It is an abstract superclass. This package defines
+ * guest, user, moderator, and administrator clients.
  */
 @Entity
 public abstract class Client implements Serializable, Persistent {
@@ -76,7 +76,6 @@ public abstract class Client implements Serializable, Persistent {
 
 	protected List<PhotoId> skippedPhotoIds = new ArrayList<PhotoId>();
 
-
 	/**
 	 *
 	 */
@@ -88,7 +87,7 @@ public abstract class Client implements Serializable, Persistent {
 	 * @methodtype initialization
 	 */
 	protected void initialize(String id, String nickName, EmailAddress emailAddress, AccessRights accessRights,
-							  Client previousClient) {
+			Client previousClient) {
 		this.id = id;
 		this.nickName = nickName;
 		this.accessRights = accessRights;
@@ -189,6 +188,7 @@ public abstract class Client implements Serializable, Persistent {
 	/**
 	 *
 	 */
+	@Override
 	public boolean isDirty() {
 		return writeCount != 0;
 	}
@@ -196,6 +196,7 @@ public abstract class Client implements Serializable, Persistent {
 	/**
 	 *
 	 */
+	@Override
 	public void incWriteCount() {
 		writeCount++;
 	}
@@ -203,6 +204,7 @@ public abstract class Client implements Serializable, Persistent {
 	/**
 	 *
 	 */
+	@Override
 	public void resetWriteCount() {
 		writeCount = 0;
 	}

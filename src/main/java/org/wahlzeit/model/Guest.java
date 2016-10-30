@@ -43,8 +43,9 @@ public class Guest extends Client {
 	}
 
 	/**
-	 * For logging out a user, some settings like the language or the photo size should not change, therefore the
-	 * previousClient is used so set these basic settings in the new <@link>Guest</@link>.
+	 * For logging out a user, some settings like the language or the photo size
+	 * should not change, therefore the previousClient is used so set these
+	 * basic settings in the new <@link>Guest</@link>.
 	 */
 	public Guest(Client previousClient) {
 		String userId = GUEST_PREFIX + UserManager.getInstance().getNextClientId();

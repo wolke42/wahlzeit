@@ -43,6 +43,7 @@ public class ResetSessionPageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandleGet(UserSession us, String link, Map args) {
 		us.clear();
 		return link;
@@ -51,6 +52,7 @@ public class ResetSessionPageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void makeWebPageBody(UserSession us, WebPart page) {
 		ModelConfig config = us.getClient().getLanguageConfiguration();
 		page.addString("noteHeading", config.getThankYou());

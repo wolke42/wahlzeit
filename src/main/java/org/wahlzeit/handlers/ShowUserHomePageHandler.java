@@ -45,6 +45,7 @@ public class ShowUserHomePageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void makeWebPageBody(UserSession us, WebPart page) {
 		Writable part = makeUserProfileForm(us);
 		page.addWritable("profile", part);
@@ -55,7 +56,8 @@ public class ShowUserHomePageHandler extends AbstractWebPageHandler {
 		if (photos.length != 0) {
 			WritableList list = new WritableList();
 			for (Photo photo : photos) {
-				// load it from the PhotoManager to make sure the same copy is used
+				// load it from the PhotoManager to make sure the same copy is
+				// used
 				photo = PhotoManager.getInstance().getPhotoFromId(photo.getId());
 				if (!photo.getStatus().isDeleted()) {
 					part = makeUserPhotoForm(us, photo);
@@ -78,7 +80,6 @@ public class ShowUserHomePageHandler extends AbstractWebPageHandler {
 		WebFormHandler handler = getFormHandler(PartUtil.SHOW_USER_PROFILE_FORM_NAME);
 		return handler.makeWebPart(us);
 	}
-
 
 	/**
 	 *

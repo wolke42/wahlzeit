@@ -11,8 +11,8 @@ import org.junit.rules.ExternalResource;
  */
 public class UserServiceProvider extends ExternalResource {
 
-	private final LocalServiceTestHelper helper =
-			new LocalServiceTestHelper(new LocalUserServiceTestConfig()).setEnvIsLoggedIn(true);
+	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalUserServiceTestConfig())
+			.setEnvIsLoggedIn(true);
 
 	@Override
 	protected void before() throws Throwable {

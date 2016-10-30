@@ -27,7 +27,6 @@ import org.wahlzeit.webparts.Writable;
 
 import java.util.Map;
 
-
 /**
  * A handler class for a generic web page.
  */
@@ -56,6 +55,7 @@ public class ShowPartPageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandleGet(UserSession us, String link, Map args) {
 		return partHandler.handleGet(us, link, null);
 	}
@@ -63,6 +63,7 @@ public class ShowPartPageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	public void makeWebPageBody(UserSession us, WebPart page) {
 		Writable part = partHandler.makeWebPart(us);
 		page.addWritable("part", part);

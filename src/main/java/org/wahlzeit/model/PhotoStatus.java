@@ -23,9 +23,10 @@ package org.wahlzeit.model;
 import org.wahlzeit.utils.EnumValue;
 
 /**
- * The PhotoStatus of a Photo captures its state in the system.
- * A photo may be visible or invisible, it may have been flagged, and it may have been deleted.
- * These states are not mutually exclusive, hence the bitset simulation in this class.
+ * The PhotoStatus of a Photo captures its state in the system. A photo may be
+ * visible or invisible, it may have been flagged, and it may have been deleted.
+ * These states are not mutually exclusive, hence the bitset simulation in this
+ * class.
  */
 public enum PhotoStatus implements EnumValue {
 
@@ -35,9 +36,8 @@ public enum PhotoStatus implements EnumValue {
 	VISIBLE(0), // no bit set
 	INVISIBLE(1), // only invisible bit set
 	FLAGGED(2), FLAGGED2(3), // flagged without or with invisible bit set
-	MODERATED(4), MODERATED2(5), MODERATED3(6), MODERATED4(7),
-	DELETED(8), DELETED2(9), DELETED3(10), DELETED4(11),
-	DELETED5(12), DELETED6(13), DELETED7(14), DELETED8(15);
+	MODERATED(4), MODERATED2(5), MODERATED3(6), MODERATED4(7), DELETED(8), DELETED2(9), DELETED3(10), DELETED4(
+			11), DELETED5(12), DELETED6(13), DELETED7(14), DELETED8(15);
 
 	/**
 	 *
@@ -50,12 +50,8 @@ public enum PhotoStatus implements EnumValue {
 	/**
 	 * All possible states of PhotoStatus
 	 */
-	private static PhotoStatus[] allValues = {
-			VISIBLE, INVISIBLE, FLAGGED, FLAGGED2,
-			MODERATED, MODERATED2, MODERATED3, MODERATED4,
-			DELETED, DELETED2, DELETED3, DELETED4,
-			DELETED5, DELETED6, DELETED7, DELETED8
-	};
+	private static PhotoStatus[] allValues = { VISIBLE, INVISIBLE, FLAGGED, FLAGGED2, MODERATED, MODERATED2, MODERATED3,
+			MODERATED4, DELETED, DELETED2, DELETED3, DELETED4, DELETED5, DELETED6, DELETED7, DELETED8 };
 
 	/**
 	 *
@@ -71,12 +67,9 @@ public enum PhotoStatus implements EnumValue {
 	/**
 	 *
 	 */
-	private static String[] valueNames = {
-			"visible", "invisible", "flagged", "flagged",
-			"moderated", "moderated", "moderated", "moderated",
-			"deleted", "deleted", "deleted", "deleted",
-			"deleted", "deleted", "deleted", "deleted"
-	};
+	private static String[] valueNames = { "visible", "invisible", "flagged", "flagged", "moderated", "moderated",
+			"moderated", "moderated", "deleted", "deleted", "deleted", "deleted", "deleted", "deleted", "deleted",
+			"deleted" };
 
 	/**
 	 *
@@ -106,6 +99,7 @@ public enum PhotoStatus implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public int asInt() {
 		return value;
 	}
@@ -113,6 +107,7 @@ public enum PhotoStatus implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public String asString() {
 		return valueNames[value];
 	}
@@ -120,6 +115,7 @@ public enum PhotoStatus implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public PhotoStatus[] getAllValues() {
 		return allValues;
 	}
@@ -127,6 +123,7 @@ public enum PhotoStatus implements EnumValue {
 	/**
 	 *
 	 */
+	@Override
 	public String getTypeName() {
 		return "PhotoStatus";
 	}

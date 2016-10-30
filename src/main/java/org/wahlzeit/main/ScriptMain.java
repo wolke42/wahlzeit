@@ -47,7 +47,6 @@ public abstract class ScriptMain extends ModelMain {
 		}
 	}
 
-
 	/**
 	 *
 	 */

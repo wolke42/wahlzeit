@@ -27,9 +27,9 @@ import org.wahlzeit.utils.EnumValue;
 
 import java.io.Serializable;
 
-
 /**
- * A configuration that provide easy access to Wahlzeit model configuration data.
+ * A configuration that provide easy access to Wahlzeit model configuration
+ * data.
  */
 public interface ModelConfig extends Configuration, Serializable {
 
@@ -239,7 +239,6 @@ public interface ModelConfig extends Configuration, Serializable {
 	String asPhotoCaption(String un);
 
 	String asPraiseString(double praise);
-
 
 	String getNickNameExists(String nickName);
 

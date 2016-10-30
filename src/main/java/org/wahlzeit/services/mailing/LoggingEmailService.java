@@ -26,7 +26,8 @@ import org.wahlzeit.services.LogBuilder;
 import java.util.logging.Logger;
 
 /**
- * A logging mailing service logs email send attempts before sending emails. This is a decorator pattern application.
+ * A logging mailing service logs email send attempts before sending emails.
+ * This is a decorator pattern application.
  */
 public class LoggingEmailService implements EmailService {
 
@@ -53,11 +54,8 @@ public class LoggingEmailService implements EmailService {
 		String toString = (to == null) ? "null" : to.asString();
 		String subjectString = (subject == null) ? "null" : subject;
 
-		log.config(LogBuilder.createSystemMessage().
-				addAction("Send E-Mail").
-				addParameter("from", fromString).
-				addParameter("to", toString).
-				addParameter("subject", subjectString).toString());
+		log.config(LogBuilder.createSystemMessage().addAction("Send E-Mail").addParameter("from", fromString)
+				.addParameter("to", toString).addParameter("subject", subjectString).toString());
 
 		decorated.sendEmail(from, to, subject, body);
 	}
@@ -87,12 +85,9 @@ public class LoggingEmailService implements EmailService {
 		String bccString = (bcc == null) ? "null" : bcc.asString();
 		String subjectString = (subject == null) ? "null" : subject;
 
-		log.config(LogBuilder.createSystemMessage().
-				addAction("Send E-Mail").
-				addParameter("from", fromString).
-				addParameter("to", toString).
-				addParameter("bcc", bccString).
-				addParameter("subject", subjectString).toString());
+		log.config(LogBuilder.createSystemMessage().addAction("Send E-Mail").addParameter("from", fromString)
+				.addParameter("to", toString).addParameter("bcc", bccString).addParameter("subject", subjectString)
+				.toString());
 
 		decorated.sendEmail(from, to, bcc, subject, body);
 	}
@@ -102,7 +97,7 @@ public class LoggingEmailService implements EmailService {
 	 */
 	@Override
 	public boolean sendEmailIgnoreException(EmailAddress from, EmailAddress to, EmailAddress bcc, String subject,
-											String body) {
+			String body) {
 		try {
 			sendEmail(from, to, bcc, subject, body);
 			return true;

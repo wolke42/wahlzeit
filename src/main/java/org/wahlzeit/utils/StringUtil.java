@@ -142,8 +142,8 @@ public class StringUtil {
 	}
 
 	/**
-	 * Convert separators in a filesystem path to URL separators. It does not escape the URL characters. Use
-	 * java.net.URLEncoder for this.
+	 * Convert separators in a filesystem path to URL separators. It does not
+	 * escape the URL characters. Use java.net.URLEncoder for this.
 	 *
 	 * @param path
 	 * @return
@@ -151,7 +151,8 @@ public class StringUtil {
 	 */
 	public final static String pathAsUrlString(String path) {
 		if (!File.separator.equals(URL_SEPARATOR)) {
-			// We are not on a platform where file separator matches the url separator,
+			// We are not on a platform where file separator matches the url
+			// separator,
 			// we need to convert between them.
 			path = path.replaceAll(Pattern.quote(File.separator), Matcher.quoteReplacement(URL_SEPARATOR));
 		}

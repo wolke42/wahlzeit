@@ -21,6 +21,7 @@
 package org.wahlzeit.handlers;
 
 import org.wahlzeit.model.AccessRights;
+import org.wahlzeit.model.Client;
 import org.wahlzeit.model.Gender;
 import org.wahlzeit.model.ModelConfig;
 import org.wahlzeit.model.Photo;
@@ -52,17 +53,18 @@ public class EditUserProfileFormHandler extends AbstractWebFormHandler {
 	/**
 	 * @methodtype command
 	 */
+	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		Map<String, Object> args = us.getSavedArgs();
 		part.addStringFromArgs(args, UserSession.MESSAGE);
 
 		User user = (User) us.getClient();
-		part.maskAndAddString(User.NICK_NAME, user.getNickName());
+		part.maskAndAddString(Client.NICK_NAME, user.getNickName());
 
 		Photo photo = user.getUserPhoto();
 		part.addString(Photo.THUMB, getPhotoThumb(us, photo));
 		part.addSelect(User.GENDER, Gender.class, user.getGender().asString(), user.getGender());
-		part.addSelect(User.LANGUAGE, Language.class, (String) args.get(User.LANGUAGE), user.getLanguage());
+		part.addSelect(Client.LANGUAGE, Language.class, (String) args.get(Client.LANGUAGE), user.getLanguage());
 
 		part.maskAndAddStringFromArgsWithDefault(args, User.EMAIL_ADDRESS, user.getEmailAddress().asString());
 
@@ -72,17 +74,17 @@ public class EditUserProfileFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandlePost(UserSession us, Map args) {
-		String nickName = us.getAndSaveAsString(args, User.NICK_NAME);
+		String nickName = us.getAndSaveAsString(args, Client.NICK_NAME);
 		String gender = us.getAndSaveAsString(args, User.GENDER);
-		String language = us.getAndSaveAsString(args, User.LANGUAGE);
+		String language = us.getAndSaveAsString(args, Client.LANGUAGE);
 
 		User user = (User) us.getClient();
 
 		String status = us.getAndSaveAsString(args, User.NOTIFY_ABOUT_PRAISE);
 		boolean notify = (status != null) && status.equals("on");
 		user.setNotifyAboutPraise(notify);
-
 
 		try {
 			if (!nickName.equals(user.getNickName())) {
@@ -93,18 +95,15 @@ public class EditUserProfileFormHandler extends AbstractWebFormHandler {
 			return PartUtil.SHOW_NOTE_PAGE_NAME;
 		}
 
-
 		if (!StringUtil.isNullOrEmptyString(gender)) {
 			user.setGender(Gender.getFromString(gender));
-			log.info(LogBuilder.createUserMessage().
-					addParameter("Gender", gender).toString());
+			log.info(LogBuilder.createUserMessage().addParameter("Gender", gender).toString());
 		}
 
 		if (!StringUtil.isNullOrEmptyString(language)) {
 			Language langValue = Language.getFromString(language);
 			user.setLanguage(langValue);
-			log.info(LogBuilder.createUserMessage().
-					addParameter("Language", langValue.asString()).toString());
+			log.info(LogBuilder.createUserMessage().addParameter("Language", langValue.asString()).toString());
 		}
 
 		ModelConfig config = us.getClient().getLanguageConfiguration();

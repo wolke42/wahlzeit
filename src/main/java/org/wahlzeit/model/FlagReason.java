@@ -37,9 +37,7 @@ public enum FlagReason implements EnumValue {
 	/**
 	 *
 	 */
-	private static FlagReason[] allValues = {
-			MISMATCH, OFFENSIVE, COPYRIGHT, OTHER
-	};
+	private static FlagReason[] allValues = { MISMATCH, OFFENSIVE, COPYRIGHT, OTHER };
 
 	/**
 	 *
@@ -53,9 +51,7 @@ public enum FlagReason implements EnumValue {
 	/**
 	 *
 	 */
-	private static final String[] valueNames = {
-			"mismatch", "offensive", "copyright", "other"
-	};
+	private static final String[] valueNames = { "mismatch", "offensive", "copyright", "other" };
 
 	/**
 	 *
@@ -84,6 +80,7 @@ public enum FlagReason implements EnumValue {
 	/**
 	 * @methodtype conversion
 	 */
+	@Override
 	public int asInt() {
 		assertIsValidFlagReasonAsInt(value);
 
@@ -93,6 +90,7 @@ public enum FlagReason implements EnumValue {
 	/**
 	 * @methodtype conversion
 	 */
+	@Override
 	public String asString() {
 		String name = valueNames[value];
 
@@ -104,6 +102,7 @@ public enum FlagReason implements EnumValue {
 	/**
 	 * @methodtype get
 	 */
+	@Override
 	public FlagReason[] getAllValues() {
 		return allValues;
 	}
@@ -111,6 +110,7 @@ public enum FlagReason implements EnumValue {
 	/**
 	 * @methodtype get
 	 */
+	@Override
 	public String getTypeName() {
 		return "FlagReason";
 	}

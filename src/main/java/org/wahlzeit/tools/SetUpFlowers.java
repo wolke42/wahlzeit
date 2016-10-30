@@ -41,6 +41,7 @@ public class SetUpFlowers extends ScriptMain {
 	/**
 	 *
 	 */
+	@Override
 	public void startUp(String rootDir) throws Exception {
 		super.startUp(rootDir);
 		GlobalsManager.getInstance().loadGlobals();

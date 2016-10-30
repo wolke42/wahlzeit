@@ -23,13 +23,13 @@ package org.wahlzeit.model;
 import com.googlecode.objectify.annotation.Subclass;
 import org.wahlzeit.services.EmailAddress;
 
-
 /**
  * An Administrator is a moderator with administration privileges.
  */
 @Subclass(index = true)
 public class Administrator extends Moderator {
 
+	
 	/**
 	 *
 	 */

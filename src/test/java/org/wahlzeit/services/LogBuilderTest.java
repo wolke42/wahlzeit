@@ -34,14 +34,10 @@ import static org.wahlzeit.services.LogBuilder.USER_LEVEL;
  */
 public class LogBuilderTest {
 
-
 	@ClassRule
-	public static RuleChain ruleChain = RuleChain.
-			outerRule(new LocalDatastoreServiceTestConfigProvider()).
-			around(new RegisteredOfyEnvironmentProvider()).
-			around(new SysConfigProvider()).
-			around(new UserServiceProvider()).
-			around(new UserSessionProvider());
+	public static RuleChain ruleChain = RuleChain.outerRule(new LocalDatastoreServiceTestConfigProvider())
+			.around(new RegisteredOfyEnvironmentProvider()).around(new SysConfigProvider())
+			.around(new UserServiceProvider()).around(new UserSessionProvider());
 
 	@Test
 	public void testCreateUserMessage() {
@@ -49,7 +45,8 @@ public class LogBuilderTest {
 		assertNotNull(logMessage);
 		assertEquals(getExpectedUserMessage(), logMessage);
 
-		// make sure even when there is no thread local session that LogBuilder wont throw an exception
+		// make sure even when there is no thread local session that LogBuilder
+		// wont throw an exception
 		Session session = SessionManager.getThreadLocalSession();
 		SessionManager.dropThreadLocalSession();
 		LogBuilder.createUserMessage().toString();
@@ -57,9 +54,9 @@ public class LogBuilderTest {
 	}
 
 	protected String getExpectedUserMessage() {
-		return LEVEL + NAME_VALUE_SEPARATOR + USER_LEVEL + INFO_SEPARATOR +
-				SESSION + NAME_VALUE_SEPARATOR + UserSessionProvider.USER_SESSION_NAME + INFO_SEPARATOR +
-				CLIENT + NAME_VALUE_SEPARATOR + SessionManager.getThreadLocalSession().getClientId();
+		return LEVEL + NAME_VALUE_SEPARATOR + USER_LEVEL + INFO_SEPARATOR + SESSION + NAME_VALUE_SEPARATOR
+				+ UserSessionProvider.USER_SESSION_NAME + INFO_SEPARATOR + CLIENT + NAME_VALUE_SEPARATOR
+				+ SessionManager.getThreadLocalSession().getClientId();
 	}
 
 	@Test
@@ -70,9 +67,9 @@ public class LogBuilderTest {
 	}
 
 	protected String getExpectedSystemMessage() {
-		return LEVEL + NAME_VALUE_SEPARATOR + SYSTEM_LEVEL + INFO_SEPARATOR +
-				SESSION + NAME_VALUE_SEPARATOR + UserSessionProvider.USER_SESSION_NAME + INFO_SEPARATOR +
-				CLIENT + NAME_VALUE_SEPARATOR + SessionManager.getThreadLocalSession().getClientId();
+		return LEVEL + NAME_VALUE_SEPARATOR + SYSTEM_LEVEL + INFO_SEPARATOR + SESSION + NAME_VALUE_SEPARATOR
+				+ UserSessionProvider.USER_SESSION_NAME + INFO_SEPARATOR + CLIENT + NAME_VALUE_SEPARATOR
+				+ SessionManager.getThreadLocalSession().getClientId();
 	}
 
 	@Test
@@ -154,9 +151,9 @@ public class LogBuilderTest {
 		String logMessage = logBuilder.toString();
 		StringWriter sw = new StringWriter();
 		exception.printStackTrace(new PrintWriter(sw));
-		String expectedLogMessage =
-				getExpectedSystemMessage() + INFO_SEPARATOR + EXCEPTION_REASON + NAME_VALUE_SEPARATOR
-						+ "because I can" + INFO_SEPARATOR + STACKTRACE + NAME_VALUE_SEPARATOR + sw.toString();
+		String expectedLogMessage = getExpectedSystemMessage() + INFO_SEPARATOR + EXCEPTION_REASON
+				+ NAME_VALUE_SEPARATOR + "because I can" + INFO_SEPARATOR + STACKTRACE + NAME_VALUE_SEPARATOR
+				+ sw.toString();
 		assertEquals(expectedLogMessage, logMessage);
 	}
 

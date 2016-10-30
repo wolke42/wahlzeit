@@ -9,7 +9,8 @@ import java.security.InvalidParameterException;
 import java.util.logging.Logger;
 
 /**
- * Abstract super class that offers a convenient interface for all kinds of storage types to store images.
+ * Abstract super class that offers a convenient interface for all kinds of
+ * storage types to store images.
  * 
  * @review
  */
@@ -21,8 +22,7 @@ public abstract class ImageStorage {
 	/**
 	 * @methodtype get
 	 */
-	public static ImageStorage getInstance()
-			throws NullPointerException {
+	public static ImageStorage getInstance() throws NullPointerException {
 
 		if (instance == null) {
 			throw new NullPointerException("Image storage instance is null, call setInstance() first!");
@@ -34,18 +34,17 @@ public abstract class ImageStorage {
 	 * @methodtype set
 	 */
 	public static void setInstance(ImageStorage newInstance) {
-		log.config(LogBuilder.createSystemMessage().
-				addAction("set ImageStorage instance").
-				addParameter("instance", newInstance).toString());
+		log.config(LogBuilder.createSystemMessage().addAction("set ImageStorage instance")
+				.addParameter("instance", newInstance).toString());
 		instance = newInstance;
 	}
 
-
-	// write-methods ---------------------------------------------------------------------------------------------------
+	// write-methods
+	// ---------------------------------------------------------------------------------------------------
 
 	/**
-	 * Writes the image to the storage, so you can access it via photoId and size again. An existing file with that
-	 * parameter is overwritten.
+	 * Writes the image to the storage, so you can access it via photoId and
+	 * size again. An existing file with that parameter is overwritten.
 	 *
 	 * @methodtype command
 	 * @methodproperty wrapper
@@ -57,11 +56,8 @@ public abstract class ImageStorage {
 		assertValidPhotoId(photoIdAsString);
 		PhotoSize.assertIsValidPhotoSizeAsInt(size);
 
-		log.config(LogBuilder.createSystemMessage().
-				addAction("write image to storage").
-				addParameter("image", image).
-				addParameter("photo id", photoIdAsString).
-				addParameter("size", size).toString());
+		log.config(LogBuilder.createSystemMessage().addAction("write image to storage").addParameter("image", image)
+				.addParameter("photo id", photoIdAsString).addParameter("size", size).toString());
 
 		doWriteImage(image, photoIdAsString, size);
 	}
@@ -75,40 +71,38 @@ public abstract class ImageStorage {
 	protected abstract void doWriteImage(Serializable image, String photoIdAsString, int size)
 			throws IOException, InvalidParameterException;
 
-
-	// read methods ----------------------------------------------------------------------------------------------------
+	// read methods
+	// ----------------------------------------------------------------------------------------------------
 
 	/**
-	 * Reads an image from storage via photoId and the size. When the image is not found, null is returned.
+	 * Reads an image from storage via photoId and the size. When the image is
+	 * not found, null is returned.
 	 *
 	 * @methodtype get
 	 * @methodproperty convenience
 	 */
-	public Serializable readImage(String photoIdAsString, int size)
-			throws IllegalArgumentException, IOException {
+	public Serializable readImage(String photoIdAsString, int size) throws IllegalArgumentException, IOException {
 
 		assertValidPhotoId(photoIdAsString);
 		PhotoSize.assertIsValidPhotoSizeAsInt(size);
 
-		log.config(LogBuilder.createSystemMessage().
-				addAction("read image from storage").
-				addParameter("photo id", photoIdAsString).
-				addParameter("size", size).toString());
+		log.config(LogBuilder.createSystemMessage().addAction("read image from storage")
+				.addParameter("photo id", photoIdAsString).addParameter("size", size).toString());
 
 		return doReadImage(photoIdAsString, size);
 	}
 
 	/**
-	 * Actually reads the specified file from the storage. When not found, null is returned.
+	 * Actually reads the specified file from the storage. When not found, null
+	 * is returned.
 	 *
 	 * @methodtype get
 	 * @methodproperty hook
 	 */
-	protected abstract Serializable doReadImage(String filename, int size)
-			throws IOException;
+	protected abstract Serializable doReadImage(String filename, int size) throws IOException;
 
-
-	// exist method ----------------------------------------------------------------------------------------------------
+	// exist method
+	// ----------------------------------------------------------------------------------------------------
 
 	/**
 	 * Checks if the specified image already exists in the storage
@@ -116,20 +110,16 @@ public abstract class ImageStorage {
 	 * @methodtype boolean query
 	 * @methodproperty wrapper
 	 */
-	public boolean doesImageExist(String photoIdAsString, int size)
-			throws IllegalArgumentException {
+	public boolean doesImageExist(String photoIdAsString, int size) throws IllegalArgumentException {
 
 		assertValidPhotoId(photoIdAsString);
 		PhotoSize.assertIsValidPhotoSizeAsInt(size);
 
-		log.config(LogBuilder.createSystemMessage().
-				addAction("check if image exists in storage").
-				addParameter("photo id", photoIdAsString).
-				addParameter("size", size).toString());
+		log.config(LogBuilder.createSystemMessage().addAction("check if image exists in storage")
+				.addParameter("photo id", photoIdAsString).addParameter("size", size).toString());
 
 		return doDoesImageExist(photoIdAsString, size);
 	}
-
 
 	/**
 	 * Actually checks if the specified image already exists in the storage
@@ -139,14 +129,13 @@ public abstract class ImageStorage {
 	 */
 	protected abstract boolean doDoesImageExist(String photoIdAsString, int size);
 
-
-	// assertion methods -----------------------------------------------------------------------------------------------
+	// assertion methods
+	// -----------------------------------------------------------------------------------------------
 
 	/**
 	 * @methodtype assert
 	 */
-	protected void assertImageNotNull(Serializable image)
-			throws IllegalArgumentException {
+	protected void assertImageNotNull(Serializable image) throws IllegalArgumentException {
 
 		if (image == null) {
 			throw new IllegalArgumentException("Image is null!");
@@ -156,8 +145,7 @@ public abstract class ImageStorage {
 	/**
 	 * @methodtype assert
 	 */
-	protected void assertValidPhotoId(String photoId)
-			throws IllegalArgumentException {
+	protected void assertValidPhotoId(String photoId) throws IllegalArgumentException {
 
 		if (photoId == null || "".equals(photoId)) {
 			throw new IllegalArgumentException("Invalid photoId:" + photoId);

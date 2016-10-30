@@ -17,8 +17,8 @@ public class WebFormHandlerProvider extends ExternalResource {
 
 	@Override
 	protected void before() throws Throwable {
-		WebPartHandlerManager.getInstance()
-				.addWebPartHandler(PartUtil.TELL_FRIEND_FORM_NAME, new TellFriendFormHandler());
+		WebPartHandlerManager.getInstance().addWebPartHandler(PartUtil.TELL_FRIEND_FORM_NAME,
+				new TellFriendFormHandler());
 		webFormHandler = WebPartHandlerManager.getWebFormHandler(PartUtil.TELL_FRIEND_FORM_NAME);
 	}
 

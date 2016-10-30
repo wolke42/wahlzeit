@@ -28,18 +28,19 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * An ObjectManager creates/reads/updates/deletes Persistent (objects) from Google Datastore.
- * It is an abstract superclass that relies on an inheritance interface and the Persistent interface.
+ * An ObjectManager creates/reads/updates/deletes Persistent (objects) from
+ * Google Datastore. It is an abstract superclass that relies on an inheritance
+ * interface and the Persistent interface.
  */
 public abstract class ObjectManager {
 
 	/**
-	 * All objects are now saved under this root key. In case of multi-tenancy this may change to several keys.
+	 * All objects are now saved under this root key. In case of multi-tenancy
+	 * this may change to several keys.
 	 */
 	public static final Key applicationRootKey = KeyFactory.createKey("Application", "Wahlzeit");
 
 	private static final Logger log = Logger.getLogger(ObjectManager.class.getName());
-
 
 	/**
 	 * Reads the first Entity with the given key in the Datastore
@@ -48,8 +49,8 @@ public abstract class ObjectManager {
 		assertIsNonNullArgument(type, "type");
 		assertIsNonNullArgument(id, "id");
 
-		log.config(LogBuilder.createSystemMessage().
-				addMessage("Load Type " + type.toString() + " with ID " + id + " from datastore.").toString());
+		log.config(LogBuilder.createSystemMessage()
+				.addMessage("Load Type " + type.toString() + " with ID " + id + " from datastore.").toString());
 		return OfyService.ofy().load().type(type).id(id).now();
 	}
 
@@ -69,46 +70,48 @@ public abstract class ObjectManager {
 		assertIsNonNullArgument(type, "type");
 		assertIsNonNullArgument(id, "id");
 
-		log.config(LogBuilder.createSystemMessage().
-				addMessage("Load Type " + type.toString() + " with ID " + id + " from datastore.").toString());
+		log.config(LogBuilder.createSystemMessage()
+				.addMessage("Load Type " + type.toString() + " with ID " + id + " from datastore.").toString());
 		return OfyService.ofy().load().type(type).id(id).now();
 	}
 
 	/**
-	 * Reads an Entity of the specified type where the wanted parameter has the given name, e.g. readObject(User.class,
-	 * "emailAddress", "name@provider.com").
+	 * Reads an Entity of the specified type where the wanted parameter has the
+	 * given name, e.g. readObject(User.class, "emailAddress",
+	 * "name@provider.com").
 	 */
 	protected <E> E readObject(Class<E> type, String parameterName, Object value) {
 		assertIsNonNullArgument(type, "type");
 		assertIsNonNullArgument(parameterName, "parameterName");
 		assertIsNonNullArgument(value, "value");
 
-		log.config(LogBuilder.createSystemMessage().
-				addMessage("Load Type " + type.toString() + " with parameter " +
-						parameterName + " == " + value + " from datastore.").toString());
+		log.config(LogBuilder.createSystemMessage().addMessage("Load Type " + type.toString() + " with parameter "
+				+ parameterName + " == " + value + " from datastore.").toString());
 
 		return OfyService.ofy().load().type(type).ancestor(applicationRootKey).filter(parameterName, value).first()
 				.now();
 	}
 
 	/**
-	 * Reads all Entities of the specified type, e.g. readObject(User.class) to get a list of all clients
+	 * Reads all Entities of the specified type, e.g. readObject(User.class) to
+	 * get a list of all clients
 	 */
 	protected <E> void readObjects(Collection<E> result, Class<E> type) {
 		assertIsNonNullArgument(result, "result");
 		assertIsNonNullArgument(type, "type");
 
-		log.config(LogBuilder.createSystemMessage().
-				addParameter("Datastore: load all entities of type", type.getName()).toString());
+		log.config(LogBuilder.createSystemMessage().addParameter("Datastore: load all entities of type", type.getName())
+				.toString());
 		List<E> objects = OfyService.ofy().load().type(type).ancestor(applicationRootKey).list();
-		log.config(LogBuilder.createSystemMessage().
-				addParameter("Datastore: number of loaded objects", objects.size()).toString());
+		log.config(LogBuilder.createSystemMessage().addParameter("Datastore: number of loaded objects", objects.size())
+				.toString());
 		result.addAll(objects);
 	}
 
 	/**
-	 * Reads all Entities of the specified type, where the given property matches the wanted value e.g.
-	 * readObject(User.class) to get a list of all clients
+	 * Reads all Entities of the specified type, where the given property
+	 * matches the wanted value e.g. readObject(User.class) to get a list of all
+	 * clients
 	 */
 	protected <E> void readObjects(Collection<E> result, Class<E> type, String propertyName, Object value) {
 		assertIsNonNullArgument(result, "result");
@@ -116,13 +119,14 @@ public abstract class ObjectManager {
 		assertIsNonNullArgument(propertyName, "propertyName");
 		assertIsNonNullArgument(value, "value");
 
-		log.info(LogBuilder.createSystemMessage().
-				addMessage("Datastore: Load all Entities of type " + type.toString() + " where parameter "
-						+ propertyName + " = " + value.toString() + " from datastore.").toString());
-		List<E> objects = OfyService.ofy().load().type(type).
-				ancestor(applicationRootKey).filter(propertyName, value).list();
-		log.config(LogBuilder.createSystemMessage().
-				addParameter("Datastore: number of loaded objects", objects.size()).toString());
+		log.info(LogBuilder
+				.createSystemMessage().addMessage("Datastore: Load all Entities of type " + type.toString()
+						+ " where parameter " + propertyName + " = " + value.toString() + " from datastore.")
+				.toString());
+		List<E> objects = OfyService.ofy().load().type(type).ancestor(applicationRootKey).filter(propertyName, value)
+				.list();
+		log.config(LogBuilder.createSystemMessage().addParameter("Datastore: number of loaded objects", objects.size())
+				.toString());
 		result.addAll(objects);
 	}
 
@@ -149,14 +153,14 @@ public abstract class ObjectManager {
 		assertIsNonNullArgument(object, "object");
 
 		if (object.isDirty()) {
-			log.info(LogBuilder.createSystemMessage().
-					addParameter("Datastore: Write object of type", object).toString());
+			log.info(LogBuilder.createSystemMessage().addParameter("Datastore: Write object of type", object)
+					.toString());
 			OfyService.ofy().save().entity(object).now();
 			updateDependents(object);
 			object.resetWriteCount();
 		} else {
-			log.info(LogBuilder.createSystemMessage().
-					addParameter("Datastore: No need to update object", object).toString());
+			log.info(LogBuilder.createSystemMessage().addParameter("Datastore: No need to update object", object)
+					.toString());
 		}
 	}
 
@@ -178,19 +182,20 @@ public abstract class ObjectManager {
 	}
 
 	/**
-	 * Deletes all entities of the type that have a property with the specified value, e.g.
-	 * deleteObjects(PhotoCase.class, "wasDecided", true) to delete all cases that have been decided.
+	 * Deletes all entities of the type that have a property with the specified
+	 * value, e.g. deleteObjects(PhotoCase.class, "wasDecided", true) to delete
+	 * all cases that have been decided.
 	 */
 	protected <E> void deleteObjects(Class<E> type, String propertyName, Object value) {
 		assertIsNonNullArgument(type, "type");
 		assertIsNonNullArgument(propertyName, "propertyName");
 		assertIsNonNullArgument(value, "value");
 
-		log.info(LogBuilder.createSystemMessage().
-				addMessage("Datastore: delete entities of type " + type
-						+ " where property " + propertyName + " == " + value).toString());
-		List<com.googlecode.objectify.Key<E>> keys = OfyService.ofy().load().type(type).
-				ancestor(applicationRootKey).filter(propertyName, value).keys().list();
+		log.info(LogBuilder.createSystemMessage().addMessage(
+				"Datastore: delete entities of type " + type + " where property " + propertyName + " == " + value)
+				.toString());
+		List<com.googlecode.objectify.Key<E>> keys = OfyService.ofy().load().type(type).ancestor(applicationRootKey)
+				.filter(propertyName, value).keys().list();
 		OfyService.ofy().delete().keys(keys);
 	}
 

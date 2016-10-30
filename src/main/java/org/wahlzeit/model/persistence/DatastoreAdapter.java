@@ -35,14 +35,14 @@ import java.security.InvalidParameterException;
 import java.util.logging.Logger;
 
 /**
- * Adapter for the Google Datastore. Use default constructor to create an instance.
+ * Adapter for the Google Datastore. Use default constructor to create an
+ * instance.
  * 
  * @review
  */
 public class DatastoreAdapter extends ImageStorage {
 
 	private static final Logger log = Logger.getLogger(DatastoreAdapter.class.getName());
-
 
 	@Override
 	protected void doWriteImage(Serializable image, String photoIdAsString, int size)
@@ -61,9 +61,8 @@ public class DatastoreAdapter extends ImageStorage {
 
 			log.config(LogBuilder.createSystemMessage().addMessage("image successfully written").toString());
 		} else {
-			log.warning(LogBuilder.createSystemMessage().
-					addMessage("did not get an Image type to store").
-					addParameter("image type", image.toString()).toString());
+			log.warning(LogBuilder.createSystemMessage().addMessage("did not get an Image type to store")
+					.addParameter("image type", image.toString()).toString());
 		}
 	}
 
@@ -98,9 +97,8 @@ public class DatastoreAdapter extends ImageStorage {
 		try {
 			image = doReadImage(photoIdAsString, size);
 		} catch (IOException e) {
-			log.warning(
-					LogBuilder.createSystemMessage().addException("IOException when checking for Image existance", e)
-							.toString());
+			log.warning(LogBuilder.createSystemMessage()
+					.addException("IOException when checking for Image existance", e).toString());
 		}
 		if (image != null) {
 			result = true;
@@ -110,9 +108,10 @@ public class DatastoreAdapter extends ImageStorage {
 	}
 
 	/**
-	 * Wrapper class to store {@link Image}s in the Google Datastore with Objectify.
+	 * Wrapper class to store {@link Image}s in the Google Datastore with
+	 * Objectify.
 	 * 
- 	 * @review
+	 * @review
 	 */
 	@Entity
 	public static class ImageWrapper {
@@ -143,13 +142,13 @@ public class DatastoreAdapter extends ImageStorage {
 		/**
 		 * @methodtype set
 		 *
-		 * Can not handle images >= 1 MB because this is the upper limit of entities in Google Datastore.
+		 *             Can not handle images >= 1 MB because this is the upper
+		 *             limit of entities in Google Datastore.
 		 */
 		public void setImage(Image image) throws ArrayIndexOutOfBoundsException {
-			if(image.getImageData().length >= maxEntitySize) {
+			if (image.getImageData().length >= maxEntitySize) {
 				throw new ArrayIndexOutOfBoundsException("Can not store images >= 1 MB in the Google Datastore.");
-			}
-			else {
+			} else {
 				imageData = image.getImageData();
 			}
 		}

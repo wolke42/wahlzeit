@@ -24,7 +24,6 @@ import org.wahlzeit.model.AccessRights;
 import org.wahlzeit.model.UserSession;
 import org.wahlzeit.webparts.WebPart;
 
-
 /**
  * A handler class for a specific web page.
  */
@@ -46,6 +45,7 @@ public class ShowInfoPageHandler extends AbstractWebPageHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void makeWebPageBody(UserSession us, WebPart page) {
 		page.addWritable("info", createWebPart(us, infoTmplName));
 	}

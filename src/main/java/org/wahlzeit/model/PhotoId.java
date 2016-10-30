@@ -24,9 +24,8 @@ import java.io.Serializable;
 import java.util.Random;
 
 /**
- * A photo id identifies a photo with a unique number.
- * The number has an equivalent string for web access. 
- * This class also hands out the ids.
+ * A photo id identifies a photo with a unique number. The number has an
+ * equivalent string for web access. This class also hands out the ids.
  */
 public class PhotoId implements Serializable {
 
@@ -158,6 +157,7 @@ public class PhotoId implements Serializable {
 	/**
 	 *
 	 */
+	@Override
 	public boolean equals(Object o) {
 		// @FIXME
 
@@ -179,6 +179,7 @@ public class PhotoId implements Serializable {
 	/**
 	 * @methodtype get
 	 */
+	@Override
 	public int hashCode() {
 		return value;
 	}
@@ -215,9 +216,9 @@ public class PhotoId implements Serializable {
 			char letterOrDigit;
 			int modulus = id % 36;
 			if (modulus < 10) {
-				letterOrDigit = (char) ((int) '0' + modulus);
+				letterOrDigit = (char) ('0' + modulus);
 			} else {
-				letterOrDigit = (char) ((int) 'a' - 10 + modulus);
+				letterOrDigit = (char) ('a' - 10 + modulus);
 			}
 			result.insert(0, letterOrDigit);
 
@@ -235,9 +236,9 @@ public class PhotoId implements Serializable {
 			int temp = 0;
 			char letterOrDigit = value.charAt(i);
 			if (letterOrDigit < 'a') {
-				temp = (int) letterOrDigit - '0';
+				temp = letterOrDigit - '0';
 			} else {
-				temp = 10 + (int) letterOrDigit - 'a';
+				temp = 10 + letterOrDigit - 'a';
 			}
 			result = result * 36 + temp;
 		}

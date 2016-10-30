@@ -36,7 +36,8 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
- * A single-threaded Main class with database connection. Can be used by tools that don't want to start a server.
+ * A single-threaded Main class with database connection. Can be used by tools
+ * that don't want to start a server.
  */
 public abstract class ModelMain extends AbstractMain {
 
@@ -45,12 +46,13 @@ public abstract class ModelMain extends AbstractMain {
 	/**
 	 *
 	 */
+	@Override
 	protected void startUp(String rootDir) throws Exception {
 		super.startUp(rootDir);
 		log.info("AbstractMain.startUp completed");
 
 		log.config(LogBuilder.createSystemMessage().addAction("load image storage").toString());
-		//GcsAdapter.Builder gcsAdapterBuilder = new GcsAdapter.Builder();
+		// GcsAdapter.Builder gcsAdapterBuilder = new GcsAdapter.Builder();
 		ImageStorage.setInstance(new DatastoreAdapter());
 
 		log.config(LogBuilder.createSystemMessage().addAction("load globals").toString());
@@ -66,10 +68,10 @@ public abstract class ModelMain extends AbstractMain {
 		PhotoManager.getInstance().init();
 	}
 
-
 	/**
 	 *
 	 */
+	@Override
 	protected void shutDown() throws Exception {
 		saveAll();
 
@@ -79,7 +81,7 @@ public abstract class ModelMain extends AbstractMain {
 	/**
 	 *
 	 */
-	public void saveAll() throws IOException{
+	public void saveAll() throws IOException {
 		PhotoCaseManager.getInstance().savePhotoCases();
 		PhotoManager.getInstance().savePhotos();
 		UserManager.getInstance().saveClients();
@@ -96,17 +98,18 @@ public abstract class ModelMain extends AbstractMain {
 		PhotoManager photoManager = PhotoManager.getInstance();
 		File photoDirFile = new File(photoDir);
 		FileFilter photoFileFilter = new FileFilter() {
+			@Override
 			public boolean accept(File file) {
-				//TODO: check and change
+				// TODO: check and change
 				return file.getName().endsWith(".jpg");
 			}
 		};
 
 		File[] photoFiles = photoDirFile.listFiles(photoFileFilter);
 		for (int i = 0; i < photoFiles.length; i++) {
-			//TODO: change to datastore/cloud storage
-			//Photo newPhoto = photoManager.createPhoto(photoFiles[i]);
-			//user.addPhoto(newPhoto);
+			// TODO: change to datastore/cloud storage
+			// Photo newPhoto = photoManager.createPhoto(photoFiles[i]);
+			// user.addPhoto(newPhoto);
 		}
 	}
 }

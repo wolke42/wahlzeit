@@ -30,7 +30,8 @@ import java.io.File;
 import java.util.logging.Logger;
 
 /**
- * A simple ServletContextListener to startup and shutdown the Flowers application.
+ * A simple ServletContextListener to startup and shutdown the Flowers
+ * application.
  */
 public class Wahlzeit implements ServletContextListener {
 
@@ -39,6 +40,7 @@ public class Wahlzeit implements ServletContextListener {
 	/**
 	 *
 	 */
+	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		try {
 			ServletContext sc = sce.getServletContext();
@@ -46,19 +48,17 @@ public class Wahlzeit implements ServletContextListener {
 			// configures logging
 			String contextPath = sc.getContextPath();
 			System.setProperty("contextPath", contextPath);
-			log.config(LogBuilder.createSystemMessage().
-					addParameter("System property context path", contextPath).toString());
+			log.config(LogBuilder.createSystemMessage().addParameter("System property context path", contextPath)
+					.toString());
 
 			// determines file system root path to resources
 			File dummyFile = new File(sc.getRealPath("dummy.txt"));
 			String rootDir = dummyFile.getParent();
-			log.config(LogBuilder.createSystemMessage().
-					addParameter("Root directory", rootDir).toString());
+			log.config(LogBuilder.createSystemMessage().addParameter("Root directory", rootDir).toString());
 
 			ServiceMain.getInstance().startUp(true, rootDir);
 		} catch (Exception ex) {
-			log.warning(LogBuilder.createSystemMessage().
-					addException("Initializing context failed", ex).toString());
+			log.warning(LogBuilder.createSystemMessage().addException("Initializing context failed", ex).toString());
 			throw new RuntimeException("End of story!", ex);
 		}
 	}
@@ -66,12 +66,12 @@ public class Wahlzeit implements ServletContextListener {
 	/**
 	 *
 	 */
+	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		try {
 			ServiceMain.getInstance().shutDown();
 		} catch (Exception ex) {
-			log.warning(LogBuilder.createSystemMessage().
-					addException("Shutting instance down failed", ex).toString());
+			log.warning(LogBuilder.createSystemMessage().addException("Shutting instance down failed", ex).toString());
 		}
 	}
 

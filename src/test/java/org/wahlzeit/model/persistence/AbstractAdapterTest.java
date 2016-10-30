@@ -13,7 +13,8 @@ import java.nio.ByteBuffer;
 import static org.junit.Assert.fail;
 
 /**
- * Abstract super class for all Adapter classes that implement the {@link ImageStorage}.
+ * Abstract super class for all Adapter classes that implement the
+ * {@link ImageStorage}.
  * 
  * @review
  */
@@ -51,7 +52,6 @@ public abstract class AbstractAdapterTest {
 	protected void storageDependentTearDown() {
 	}
 
-
 	@Test
 	public void testWriteImage() {
 		try {
@@ -66,7 +66,6 @@ public abstract class AbstractAdapterTest {
 			fail("IOException should not be thrown!");
 		}
 	}
-
 
 	@Test
 	public void testReadImage() {

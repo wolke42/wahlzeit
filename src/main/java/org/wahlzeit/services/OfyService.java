@@ -15,7 +15,8 @@ import org.wahlzeit.model.User;
 import org.wahlzeit.model.persistence.DatastoreAdapter.ImageWrapper;
 
 /**
- * A badly named class, to be renamed to ObjectifyService first, something better later.
+ * A badly named class, to be renamed to ObjectifyService first, something
+ * better later.
  * 
  * @review
  */

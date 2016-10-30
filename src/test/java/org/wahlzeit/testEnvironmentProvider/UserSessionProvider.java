@@ -1,7 +1,13 @@
 package org.wahlzeit.testEnvironmentProvider;
 
-import com.googlecode.objectify.ObjectifyService;
-import com.googlecode.objectify.Work;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.junit.rules.ExternalResource;
 import org.wahlzeit.model.EnglishModelConfig;
 import org.wahlzeit.model.GermanModelConfig;
@@ -11,15 +17,12 @@ import org.wahlzeit.model.UserSession;
 import org.wahlzeit.services.Language;
 import org.wahlzeit.services.SessionManager;
 
-import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.Work;
 
 /**
- * Rule that provides a <code>UserSession</code> in the <code>SessionManager</code>
+ * Rule that provides a <code>UserSession</code> in the
+ * <code>SessionManager</code>
  */
 public class UserSessionProvider extends ExternalResource {
 
@@ -27,7 +30,8 @@ public class UserSessionProvider extends ExternalResource {
 
 	@Override
 	protected void before() throws Throwable {
-		// init language configs because they are used e.g. for AbstractWebPartHandler
+		// init language configs because they are used e.g. for
+		// AbstractWebPartHandler
 		LanguageConfigs.put(Language.ENGLISH, new EnglishModelConfig());
 		LanguageConfigs.put(Language.GERMAN, new GermanModelConfig());
 

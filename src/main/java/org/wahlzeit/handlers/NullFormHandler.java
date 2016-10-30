@@ -24,7 +24,6 @@ import org.wahlzeit.model.AccessRights;
 import org.wahlzeit.model.UserSession;
 import org.wahlzeit.webparts.WebPart;
 
-
 /**
  * A handler class for a null web form.
  */
@@ -40,6 +39,7 @@ public class NullFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		// do nothing
 	}

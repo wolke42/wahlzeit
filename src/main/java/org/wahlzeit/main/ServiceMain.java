@@ -216,9 +216,10 @@ public class ServiceMain extends ModelMain {
 	/**
 	 *
 	 */
+	@Override
 	public void shutDown() throws Exception {
-		//AgentManager am = AgentManager.getInstance();
-		//am.stopAllThreads();
+		// AgentManager am = AgentManager.getInstance();
+		// am.stopAllThreads();
 
 		super.shutDown();
 	}

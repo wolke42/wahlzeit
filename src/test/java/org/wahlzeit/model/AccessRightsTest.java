@@ -64,7 +64,6 @@ public class AccessRightsTest {
 		assertFalse(AccessRights.hasRights(AccessRights.MODERATOR, AccessRights.ADMINISTRATOR));
 	}
 
-
 	// test cases that cover behavior in case of an error
 
 	@Test(expected = IllegalArgumentException.class)

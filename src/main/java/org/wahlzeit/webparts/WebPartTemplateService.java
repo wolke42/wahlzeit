@@ -32,8 +32,9 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * The WebPartTemplateService creates WebPartTemplates upon request by reading them from disk.
- * It requires configuration with a template directory and uses the following naming convention: tmplDir/language/part-type/part-name.html
+ * The WebPartTemplateService creates WebPartTemplates upon request by reading
+ * them from disk. It requires configuration with a template directory and uses
+ * the following naming convention: tmplDir/language/part-type/part-name.html
  */
 public class WebPartTemplateService {
 
@@ -77,9 +78,8 @@ public class WebPartTemplateService {
 				loadTemplate(shortName);
 				result = templates.get(shortName);
 			} catch (IOException ioex) {
-				log.warning(LogBuilder.createSystemMessage().
-						addParameter("template name", shortName).
-						addException("Problem loading template", ioex).toString());
+				log.warning(LogBuilder.createSystemMessage().addParameter("template name", shortName)
+						.addException("Problem loading template", ioex).toString());
 			}
 		}
 
@@ -92,14 +92,15 @@ public class WebPartTemplateService {
 	protected void loadTemplate(String shortName) throws IOException {
 		WebPartTemplate template = new WebPartTemplate(shortName);
 		String fileName = getTemplatesDir().getAbsoluteConfigFileName(shortName + ".html");
-		log.config(LogBuilder.createSystemMessage().
-				addAction("open html template file").
-				addParameter("file name", fileName).toString());
+		log.config(LogBuilder.createSystemMessage().addAction("open html template file")
+				.addParameter("file name", fileName).toString());
 		File file = new File(fileName);
 
 		try {
 			String source = Files.toString(file, Charsets.UTF_8);
-			//String source = Resources.toString(Resources.getResource(fileName), Charsets.UTF_8);
+			// String source =
+			// Resources.toString(Resources.getResource(fileName),
+			// Charsets.UTF_8);
 
 			if (source != null) {
 				template.initialize(source);
@@ -108,8 +109,8 @@ public class WebPartTemplateService {
 
 			templates.put(shortName, template);
 		} catch (IOException e) {
-			log.warning(LogBuilder.createSystemMessage().
-					addException("I/O Error while reading Template file", e).toString());
+			log.warning(LogBuilder.createSystemMessage().addException("I/O Error while reading Template file", e)
+					.toString());
 		}
 	}
 

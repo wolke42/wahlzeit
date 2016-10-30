@@ -28,6 +28,7 @@ import org.wahlzeit.model.PhotoManager;
 import org.wahlzeit.model.User;
 import org.wahlzeit.model.UserManager;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.services.DataObject;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.utils.HtmlUtil;
 import org.wahlzeit.utils.StringUtil;
@@ -43,7 +44,6 @@ public class ShowUserPhotoFormHandler extends AbstractWebFormHandler {
 
 	private static final Logger log = Logger.getLogger(ShowUserPhotoFormHandler.class.getName());
 
-
 	/**
 	 *
 	 */
@@ -54,12 +54,13 @@ public class ShowUserPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		PhotoId photoId = us.getPhotoId();
 		Photo photo = PhotoManager.getInstance().getPhoto(photoId);
 		String id = photo.getId().asString();
 		ModelConfig config = us.getClient().getLanguageConfiguration();
-		part.addString(Photo.ID, id);
+		part.addString(DataObject.ID, id);
 		part.addString(Photo.THUMB, getPhotoThumb(us, photo));
 
 		part.addString(Photo.PRAISE, photo.getPraiseAsString(config));
@@ -78,8 +79,9 @@ public class ShowUserPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected boolean isWellFormedPost(UserSession us, Map args) {
-		String id = us.getAsString(args, Photo.ID);
+		String id = us.getAsString(args, DataObject.ID);
 		Photo photo = PhotoManager.getInstance().getPhoto(id);
 		return (photo != null) && us.isPhotoOwner(photo);
 	}
@@ -87,10 +89,11 @@ public class ShowUserPhotoFormHandler extends AbstractWebFormHandler {
 	/**
 	 *
 	 */
+	@Override
 	protected String doHandlePost(UserSession us, Map args) {
 		String result = PartUtil.SHOW_USER_HOME_PAGE_NAME;
 
-		String id = us.getAndSaveAsString(args, Photo.ID);
+		String id = us.getAndSaveAsString(args, DataObject.ID);
 		Photo photo = PhotoManager.getInstance().getPhoto(id);
 
 		UserManager userManager = UserManager.getInstance();
@@ -105,9 +108,8 @@ public class ShowUserPhotoFormHandler extends AbstractWebFormHandler {
 			user.setUserPhoto(photo);
 			us.setClient(user);
 			userManager.saveClient(user);
-			log.info(LogBuilder.createUserMessage().
-					addAction("Select user photo").
-					addParameter("Photo", id).toString());
+			log.info(
+					LogBuilder.createUserMessage().addAction("Select user photo").addParameter("Photo", id).toString());
 		} else if (us.isFormType(args, "delete")) {
 			photo.setStatus(photo.getStatus().asDeleted(true));
 			PhotoManager.getInstance().savePhoto(photo);
@@ -115,8 +117,7 @@ public class ShowUserPhotoFormHandler extends AbstractWebFormHandler {
 				user.setUserPhoto(null);
 				userManager.saveClient(user);
 			}
-			log.info(LogBuilder.createUserMessage().
-					addAction("Deselect user photo").toString());
+			log.info(LogBuilder.createUserMessage().addAction("Deselect user photo").toString());
 		}
 
 		return result;
