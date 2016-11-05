@@ -19,8 +19,6 @@
  */
 package org.wahlzeit.services.mailing;
 
-import junit.framework.TestCase;
-
 import org.wahlzeit.main.ServiceMain;
 import org.wahlzeit.services.EmailAddress;
 import static org.junit.Assert.*;
