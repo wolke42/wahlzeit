@@ -42,7 +42,11 @@ public class EmailServiceTest {
 	 */
 	protected EmailAddress validAddress;
 	
-	
+	/**
+	 * This method is called once before the execution of the first method in this class. 
+	 * It sets the variable isInProduction to false. To do that, a setter (setIsInProduction) 
+	 * in the class ServiceMain was implemented. 
+	 */
 	@BeforeClass
 	public static void setInProduction(){
 		ServiceMain.getInstance().setIsInProduction(false);
