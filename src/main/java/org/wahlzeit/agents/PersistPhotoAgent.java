@@ -2,6 +2,8 @@ package org.wahlzeit.agents;
 
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoManager;
+import org.wahlzeit.model.PipeOrganPhoto;
+import org.wahlzeit.model.PipeOrganPhotoManager;
 import org.wahlzeit.services.DataObject;
 import org.wahlzeit.services.LogBuilder;
 
@@ -33,9 +35,9 @@ public class PersistPhotoAgent extends HttpServlet {
 		String id = request.getParameter(DataObject.ID);
 		log.config(LogBuilder.createSystemMessage().addParameter("Try to persist PhotoId", id).toString());
 		if (id != null && !"".equals(id)) {
-			Photo photo = PhotoManager.getInstance().getPhoto(id);
+			Photo photo = PipeOrganPhotoManager.getInstance().getPhoto(id);
 			if (photo != null) {
-				PhotoManager.getInstance().savePhoto(photo);
+				PipeOrganPhotoManager.getInstance().savePhoto(photo);
 				log.config(LogBuilder.createSystemMessage().addMessage("Photo saved.").toString());
 			} else {
 				response.setStatus(299);
