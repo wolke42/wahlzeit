@@ -1,12 +1,16 @@
 package org.wahlzeit.model;
 
-public class Coordinate {
+public interface Coordinate {
 
-	double latitude = 0.0;
-	double longitude = 0.0;
+	//public double startFirst = 0.0;
+	//public double startSecond = 0.0;
+	//public double startThird = 0.0;
 	
-	public Coordinate(double latitude, double longitude){
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
+		
+	public double getDistance(Coordinate c);
+	
+	public double getFirst();
+	public double getSecond();
+	public double getThird();
+
 }

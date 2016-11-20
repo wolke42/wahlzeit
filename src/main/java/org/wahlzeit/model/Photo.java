@@ -423,10 +423,10 @@ public class Photo extends DataObject {
 	 *  @methodtype set
 	 */
 	public void setLocation(Location loc){
-		if(loc.coordinate.latitude <= 90.0 && loc.coordinate.latitude >= -90.0 &&
-				loc.coordinate.longitude <= 180.0 && loc.coordinate.longitude >= -180.0){
+		//if(loc.coordinate.latitude <= 90.0 && loc.coordinate.latitude >= -90.0 &&
+		//		loc.coordinate.longitude <= 180.0 && loc.coordinate.longitude >= -180.0){
 			location = loc;
-		}
+		//}
 	}
 	
 	/**

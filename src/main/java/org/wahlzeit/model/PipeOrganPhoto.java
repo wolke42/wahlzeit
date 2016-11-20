@@ -3,8 +3,9 @@ package org.wahlzeit.model;
 import java.util.Calendar;
 import java.util.Date;
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Subclass;
 
-@Entity
+@Subclass
 public class PipeOrganPhoto extends Photo {
 
 	
