@@ -1,10 +1,14 @@
 package org.wahlzeit.model;
+/**
+ * 
+ * interface class for different implementations of Coordinates
+ * getFirst(), getSecond() and getThird() are needed, because in the implementation of "getDistance(...)"
+ * in subclasses, there has to be a possibility to acess the different parts of the Coordinate. 
+ *
+ */
+
 
 public interface Coordinate {
-
-	//public double startFirst = 0.0;
-	//public double startSecond = 0.0;
-	//public double startThird = 0.0;
 	
 		
 	public double getDistance(Coordinate c);

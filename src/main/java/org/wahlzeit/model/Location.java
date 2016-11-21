@@ -1,25 +1,29 @@
 package org.wahlzeit.model;
 
-public class Location {
+import com.googlecode.objectify.annotation.Ignore;
 
-	//static final int earthRadius = 6371; 
+public class Location {
 	
-	public Coordinate coordinate;
+	@Ignore
+	protected Coordinate coord = null;
 	
+	/**
+	 * in this implementation, each Location has to have a coordinate. If the coordinate is not known, the Photo 
+	 * can also exist without Location.
+	 */
+	 
 	public Location(Coordinate coordinate){
-		//assert(coordinate != null);
-		this.coordinate = coordinate;
+		assert(coordinate != null);
+		coord = coordinate;
 	}
 	
-	
-	
+	/**
+	 * returns the distance between two locations (to be precise: between the coordinates of the locations, 
+	 * but each location should have exactly one coordinate)
+	 * @param loc
+	 * @return 
+	 */
 	public double getDistance(Location loc){
-		//if((this.coordinate == null) || (loc.coordinate == null)){
-		//	return -1;
-		//}
-		//else{
-			return (coordinate.getDistance(loc.coordinate));
-		//}
-		
+		return coord.getDistance(loc.coord);
 	}
 }

@@ -1,5 +1,6 @@
 package org.wahlzeit.model;
 
+
 public class SphericCoordinate implements Coordinate {
 
 	private double startLatitude = 0.0;
@@ -8,24 +9,27 @@ public class SphericCoordinate implements Coordinate {
 	
 	
 	public SphericCoordinate(double latitude, double longitude, double radius){
-		//TODO: vorher pruefen, ob korrekte Eingabe
-		//super();
 		this.startLatitude = latitude;
 		this.startLongitude = longitude;
 		this.startRadius = radius;
 	}
 	
 	
-	
+	/**
+	 * computes the distance between this Coordinate and the Coordinate destination. 
+	 * For computation, the formula for the great circle distance is used. 
+	 * This method only computes the distance if the coordinates have the same radius. 
+	 */
 	@Override
 	public double getDistance(Coordinate destination) {
-		//System.out.println("destination: " + destination.getFirst() + "  " + destination.getSecond() + "  " + destination.getThird());
-		//System.out.println("start:  " + startLatitude + "  " + startLongitude + "  " + startRadius);
-		//Radius should be the same!
+		if(startRadius != destination.getThird()){
+			return -1;
+		}
 		double latitude1 = Math.toRadians(this.startLatitude);
 		double longitude1 = Math.toRadians(this.startLongitude);
 		double latitude2 = Math.toRadians(destination.getFirst());
 		double longitude2 = Math.toRadians(destination.getSecond());
+		
 		double longitudeDelta = (Math.abs(longitude1 - longitude2));
 		
 		double numerator = Math.sqrt((Math.pow(Math.cos(latitude2)*Math.sin(longitudeDelta),2.0) + 

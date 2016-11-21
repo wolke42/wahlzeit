@@ -1,16 +1,12 @@
 package org.wahlzeit.model;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class LocationTestAbstractCoordinate {
-	//TODO: zu TestSuite hinzufuegen
+public class SphericCoordinateTest {
 
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
@@ -115,9 +111,6 @@ public class LocationTestAbstractCoordinate {
 		Location loc1 = new Location(coord1);
 		Location loc2 = new Location(coord2);
 		Location loc3 = new Location(coord3);
-		//exception.expect(AssertionError.class);
-		//Location loc4 = new Location(null);
-		//with 0.0 latitude and 0.0 longitude
 		double dist1To2 = loc1.getDistance(loc2);
 		double dist1To3 = loc1.getDistance(loc3);
 		double dist2To3 = loc2.getDistance(loc3);
@@ -125,27 +118,16 @@ public class LocationTestAbstractCoordinate {
 		double dist1To1 = loc1.getDistance(loc1);
 		double dist2To2 = loc2.getDistance(loc2);
 		double dist3To3 = loc3.getDistance(loc3);
-		//double dist4To4 = loc4.getDistance(loc4);
-		//with loc4 which has no Coordinates
-		//double dist1To4 = loc1.getDistance(loc4);
-		//double dist2To4 = loc2.getDistance(loc4);
-		//double dist3To4 = loc3.getDistance(loc4);
-		//double dist4To1 = loc4.getDistance(loc1);
-		//double dist4To2 = loc4.getDistance(loc2);
-		//double dist4To3 = loc4.getDistance(loc3);
 		assertEquals(dist1To2, 11090, 4.0);
 		assertEquals(dist1To3, 14990, 5.0);
 		assertEquals(dist2To3, 10324, 35.0);
 		assertEquals(dist1To1, 0.0, 0.0);
 		assertEquals(dist2To2, 0.0, 0.0);
-		assertEquals(dist3To3, 0.0, 0.0);
-		//assertEquals(dist4To4, -1.0, 0.0);
-		//assertEquals(dist1To4, -1.0, 0.0);
-		//assertEquals(dist2To4, -1.0, 0.0);
-		//assertEquals(dist3To4, -1.0, 0.0);
-		//assertEquals(dist4To1, -1.0, 0.0);
-		//assertEquals(dist4To2, -1.0, 0.0);
-		//assertEquals(dist4To3, -1.0, 0.0);	
+		assertEquals(dist3To3, 0.0, 0.0);	
+		//try to create a Location without Coordinate, should lead to AssertionError
+		exception.expect(AssertionError.class);
+		Location loc4 = new Location(null);
+
 	}
 
 }
