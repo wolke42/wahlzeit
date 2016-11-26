@@ -24,6 +24,6 @@ public class Location {
 	 * @return 
 	 */
 	public double getDistance(Location loc){
-		return coord.getDistance(loc.coord);
+		return coord.getDistance(this.coord, loc.coord);
 	}
 }

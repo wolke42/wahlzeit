@@ -1,4 +1,4 @@
-package org.wahlzeit.model;
+/*package org.wahlzeit.model;
 
 import static org.junit.Assert.*;
 
@@ -99,4 +99,4 @@ public class CartesianCoordinateTest {
 
 	}
 
-}
+}*/

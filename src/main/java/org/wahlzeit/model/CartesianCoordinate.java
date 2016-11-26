@@ -2,50 +2,47 @@ package org.wahlzeit.model;
 
 
 
-public class CartesianCoordinate implements Coordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
 
-	private double xStart = 0.0;
-	private double yStart = 0.0;
-	private double zStart = 0.0;
+	private double x = 0.0;
+	private double y = 0.0;
+	private double z = 0.0;
 	
 	
 	public CartesianCoordinate(double xStart, double yStart, double zStart){
-		this.xStart = xStart;
-		this.yStart = yStart;
-		this.zStart = zStart;
+		this.x = xStart;
+		this.y = yStart;
+		this.z = zStart;
 	}
 	
-	
-	/**
-	 * computes the distance between two points which have an x-, y- and z-value using the Euclidean distance. 
-	 */
-	@Override
-	public double getDistance(Coordinate destination) {
-		double diffX = destination.getFirst() - xStart;
-		double diffY = destination.getSecond() - yStart;
-		double diffZ = destination.getThird() - zStart;
-		
-		return Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2) + Math.pow(diffZ, 2));
+	public void setFirst(double newX) {
+		x = newX;
 	}
-
-
-
-
-	@Override
+	
 	public double getFirst() {
-		return xStart;
+		return x;
 	}
 
-
-	@Override
+	public void setSecond(double newY) {
+		y = newY;
+	}
+	
 	public double getSecond() {
-		return yStart;
+		return y;
+	}
+
+	public void setThird(double newZ) {
+		z = newZ;
+	}
+	
+	public double getThird() {
+		return z;
 	}
 
 
 	@Override
-	public double getThird() {
-		return zStart;
+	public CartesianCoordinate convertToCartesian() {
+		return this;
 	}
 
 }
