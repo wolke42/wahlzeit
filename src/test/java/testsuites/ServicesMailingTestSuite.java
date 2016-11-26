@@ -1,3 +1,4 @@
+package testsuites;
 import org.junit.runner.*;
 import org.junit.runners.*;
 

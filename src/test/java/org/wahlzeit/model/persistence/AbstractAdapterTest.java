@@ -4,8 +4,8 @@ import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -18,6 +18,7 @@ import static org.junit.Assert.fail;
  * 
  * @review
  */
+@Ignore
 public abstract class AbstractAdapterTest {
 
 	protected ImageStorage imageStorage;
