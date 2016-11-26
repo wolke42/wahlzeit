@@ -1,12 +1,15 @@
 package org.wahlzeit.model;
 
-
+/**
+ * 
+ * interface Coordinate
+ * provides method getDistance and isEqual which are implemented in AbstractCoordinate.java
+ *
+ */
 public interface Coordinate {
 		
-	public double getDistance(Coordinate start, Coordinate dest);
+	public double getDistance(Coordinate dest);
 	
-	//CartesianCoordinate getAsCartesian();
-	
-	boolean isEqual(Coordinate first, Coordinate second);
+	boolean isEqual(Coordinate second);
 
 }

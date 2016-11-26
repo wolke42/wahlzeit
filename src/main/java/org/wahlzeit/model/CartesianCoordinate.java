@@ -1,12 +1,17 @@
 package org.wahlzeit.model;
 
-
+/**
+ * 
+ * CartesianCoordinate
+ * has attributes x, y and z
+ *
+ */
 
 public class CartesianCoordinate extends AbstractCoordinate {
 
-	private double x = 0.0;
-	private double y = 0.0;
-	private double z = 0.0;
+	private double x;
+	private double y;
+	private double z;
 	
 	
 	public CartesianCoordinate(double xStart, double yStart, double zStart){
@@ -15,33 +20,57 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		this.z = zStart;
 	}
 	
-	public void setFirst(double newX) {
+	/**
+	 * @methodtype set
+	 */
+	public void setX(double newX) {
 		x = newX;
 	}
 	
-	public double getFirst() {
+	/**
+	 * @methodtype get
+	 */
+	public double getX() {
 		return x;
 	}
 
-	public void setSecond(double newY) {
+	/**
+	 * @methodtype set
+	 */
+	public void setY(double newY) {
 		y = newY;
 	}
 	
-	public double getSecond() {
+	/**
+	 * @methodtype get
+	 */
+	public double getY() {
 		return y;
 	}
 
-	public void setThird(double newZ) {
+	/**
+	 * @methodtype set
+	 */
+	public void setZ(double newZ) {
 		z = newZ;
 	}
 	
-	public double getThird() {
+	/**
+	 * @methodtype get
+	 */
+	public double getZ() {
 		return z;
 	}
 
 
+	/**
+	 * @methodtype conversion
+	 * does not have to do anything since this is already a cartesian coordinate. 
+	 * But although this method is necessary, because then AbstractCoordinate can always call
+	 * toCartesianCoordinate without check using instanceof. 
+	 */
 	@Override
-	public CartesianCoordinate convertToCartesian() {
+	public CartesianCoordinate toCartesianCoordinate() {
 		return this;
 	}
 

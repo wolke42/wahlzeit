@@ -11,8 +11,8 @@ org.wahlzeit.model.GuestTest.class,
 org.wahlzeit.model.PhotoFilterTest.class,
 org.wahlzeit.model.TagsTest.class,
 org.wahlzeit.model.UserStatusTest.class,
-org.wahlzeit.model.ValueTest.class
-
+org.wahlzeit.model.ValueTest.class,
+org.wahlzeit.model.CoordinateTest.class
 })
 
 
