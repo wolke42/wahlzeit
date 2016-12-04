@@ -129,4 +129,22 @@ public class CoordinateTest {
 		assertEquals(spher.getRadius(), 201.0, 0.0);
 	}
 	
+	@Test (expected=IllegalArgumentException.class)
+	public void testGetterAndSetterWrongLatitudeSphericCoordinate(){
+		SphericCoordinate testLatitudeCoordinate = new SphericCoordinate(1.0, 2.0, 3.0);
+		testLatitudeCoordinate.setLatitude(-90.1);
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testGetterAndSetterWrongLongitudeSphericCoordinate(){
+		SphericCoordinate testLongitudeCoordinate = new SphericCoordinate(1.0, 2.0, 3.0);
+		testLongitudeCoordinate.setLongitude(180.0001);
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testGetterAndSetterWrongRadiusSphericCoordinate(){
+		SphericCoordinate testRadiusCoordinate = new SphericCoordinate(1.0, 2.0, 3.0);
+		testRadiusCoordinate.setRadius(-0.2);
+	}
+	
 }

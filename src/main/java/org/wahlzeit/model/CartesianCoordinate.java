@@ -7,13 +7,16 @@ package org.wahlzeit.model;
  *
  */
 
+
 public class CartesianCoordinate extends AbstractCoordinate {
 
 	private double x;
 	private double y;
 	private double z;
 	
-	
+	/*
+	 * every CartesianCoordinate is valid, so there are no class invariants
+	 */
 	public CartesianCoordinate(double xStart, double yStart, double zStart){
 		this.x = xStart;
 		this.y = yStart;

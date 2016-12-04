@@ -1,5 +1,6 @@
 package org.wahlzeit.model;
 
+import java.util.Arrays;
 
 /**
  * 
@@ -10,18 +11,27 @@ package org.wahlzeit.model;
 public abstract class AbstractCoordinate implements Coordinate {
 
 	/**
-	 * @methodtype get
 	 * returns the shortest distance between this coordinate and the coordinate in the parameter.
 	 * Both coordinates are first converted to CartesianCoordinates using the conversion method
 	 * toCartesianCoordinate
+	 * 
+	 * @param 		destination		the distance is computed between the calling coordinate and the destination.
+	 * @return						the distance between the coordinates
+	 * @methodtype 	get
+	 * @throws		throws IllegalArgumentException if the argument Coordinate destination is null
 	 */
 	public double getDistance(Coordinate destination){
-		if(destination == null){
-			throw new IllegalArgumentException("Cannot compute distance if input is null.");
-		}
-		//AbstractCoordinate abstStart = (AbstractCoordinate) start;
-		AbstractCoordinate abstDestination = (AbstractCoordinate) destination;
+		assertCoordinateNotNull(destination);							//precondition
 		
+		double distance = doGetDistance(destination);
+			
+		assert(distance >= 0.0);										//postcondition
+		
+		return distance;
+	}
+	
+	private double doGetDistance(Coordinate destination){
+		AbstractCoordinate abstDestination = (AbstractCoordinate) destination;
 		CartesianCoordinate startCart = this.toCartesianCoordinate();
 		CartesianCoordinate destCart = abstDestination.toCartesianCoordinate();
 		
@@ -34,37 +44,47 @@ public abstract class AbstractCoordinate implements Coordinate {
 	
 	
 	/**
-	 * @methodtype boolean query
-	 * returns true, if this Coordinate and the coordinate in the parameter have the same values
-	 * after beeing converted to CartesianCoordinates
+	 * checks whether two coordinates are equal using the getDistance-method which returns a value
+	 * near to zero if the coordinates are equal
+	 * 
+	 * @param 		secondCoord		the coordinate which may be equal to the calling coordinate
+	 * @return						true, if the coordinates are equal, false otherwise
+	 * @methodtype 	boolean query
+	 * @throws		throws IllegalArgumentException if the argument Coordinate secondCoord is null
 	 */
-	public boolean isEqual(Coordinate second){
-		if(second == null){
-			throw new IllegalArgumentException("Cannot check for equality if the argument is null.");
-		}
-		CartesianCoordinate cartFirst = this.toCartesianCoordinate();
-		CartesianCoordinate cartSecond = ((AbstractCoordinate) second).toCartesianCoordinate();
+	public boolean isEqual(Coordinate secondCoord){
+		assertCoordinateNotNull(secondCoord);							//precondition
+		
 		//a little delta is necessary, because there might be small inaccuracies due to the conversion method. 
 		double delta = 0.5;
-		if(Math.abs(cartFirst.getX() - cartSecond.getX()) > delta){
+		double distance = getDistance(secondCoord);
+		
+		if(distance <= 0.5){
+			return true;
+		}
+		else{
 			return false;
 		}
-		if(Math.abs(cartFirst.getY() - cartSecond.getY()) > delta){
-			return false;
-		}
-		if(Math.abs(cartFirst.getZ() - cartSecond.getZ()) > delta){
-			return false;
-		}
-		return true;
 	}
 	
 	
 	/**
-	 * 
-	 * @methodtype conversion
 	 * is implemented in SphericCoordinate.java and CartesianCoordinate.java
-	 * declared in this abstract class to make sure that further added subclasses implement this method, too. 
+	 * declared in this abstract class to make sure that further added subclasses implement this method, too.
+	 * This method does not have to check for any conditions, because the calling Coordinate cannot be null and
+	 * the validity of the calling coordinate was already checked when it was instantiated. 
+	 * 
+	 * @return						a new Object of CartesianCoordinate which represents the converted Coordinate 
+	 * @methodtype 	conversion	  
+	 *  
 	 */
 	public abstract CartesianCoordinate toCartesianCoordinate();
+	
+	protected void assertCoordinateNotNull(Coordinate coord) throws IndexOutOfBoundsException{
+		if(coord == null){
+			throw new IllegalArgumentException("Method can not be invocated with argument equals null");
+		}
+	}
+	
 	
 }
