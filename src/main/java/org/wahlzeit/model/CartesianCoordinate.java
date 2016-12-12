@@ -1,5 +1,8 @@
 package org.wahlzeit.model;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * 
  * CartesianCoordinate
@@ -14,20 +17,21 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	private double y;
 	private double z;
 	
-	/*
-	 * every CartesianCoordinate is valid, so there are no class invariants
-	 */
+	private final static Logger LOGGER = Logger.getLogger(CartesianCoordinate.class.getName());
+	
 	public CartesianCoordinate(double xStart, double yStart, double zStart){
 		this.x = xStart;
 		this.y = yStart;
 		this.z = zStart;
+		assertClassInvariants();
 	}
 	
 	/**
 	 * @methodtype set
 	 */
-	public void setX(double newX) {
+	public void setX(double newX){
 		x = newX;
+		assertClassInvariants();
 	}
 	
 	/**
@@ -42,6 +46,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public void setY(double newY) {
 		y = newY;
+		assertClassInvariants();
 	}
 	
 	/**
@@ -56,6 +61,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public void setZ(double newZ) {
 		z = newZ;
+		assertClassInvariants();
 	}
 	
 	/**
@@ -75,6 +81,34 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	@Override
 	public CartesianCoordinate toCartesianCoordinate() {
 		return this;
+	}
+	
+	protected void assertClassInvariants(){
+		try {
+			assertValidDoubleValue(this.x);
+		} catch (IllegalStateException e) {
+			LOGGER.log(Level.SEVERE, "x-coordinate not in valid range", e);
+			throw e;
+		}
+		try {
+			assertValidDoubleValue(this.y);
+		} catch (IllegalStateException e) {
+			LOGGER.log(Level.SEVERE, "y-coordinate not in valid range", e);
+			throw e;
+		}
+		try {
+			assertValidDoubleValue(this.z);
+		} catch (IllegalStateException e) {
+			LOGGER.log(Level.SEVERE, "z-coordinate not in valid range", e);
+			throw e;
+		}
+		
+	}
+	
+	protected void assertValidDoubleValue(double doubleValue){
+		if(!Double.isFinite(doubleValue)){
+			throw new IllegalStateException("distance could not be computed correctly");	
+		}
 	}
 
 }

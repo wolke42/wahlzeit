@@ -25,7 +25,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		
 		double distance = doGetDistance(destination);
 			
-		assert(distance >= 0.0);										//postcondition
+		assertValidDistance(distance);									//postcondition
 		
 		return distance;
 	}
@@ -80,11 +80,22 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 */
 	public abstract CartesianCoordinate toCartesianCoordinate();
 	
-	protected void assertCoordinateNotNull(Coordinate coord) throws IndexOutOfBoundsException{
+	protected void assertCoordinateNotNull(Coordinate coord) throws IllegalArgumentException{
 		if(coord == null){
 			throw new IllegalArgumentException("Method can not be invocated with argument equals null");
 		}
 	}
+	protected void assertValidDistance(double distance){
+		assertValidDoubleValue(distance);
+		if(distance < 0.0){
+			throw new IllegalStateException("distance can never be smaller than zero");
+		}
+	}
 	
+	protected void assertValidDoubleValue(double doubleValue){
+		if(!Double.isFinite(doubleValue)){
+			throw new IllegalStateException("distance could not be computed correctly");			
+		}
+	}
 	
 }

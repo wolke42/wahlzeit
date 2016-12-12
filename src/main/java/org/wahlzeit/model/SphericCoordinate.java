@@ -109,29 +109,59 @@ public class SphericCoordinate extends AbstractCoordinate {
 	
 	protected void assertValidRadius(){
 		if(radius < 0.0){
-			throw new IllegalArgumentException("Radius must be >= 0.0 \n");
+			throw new InvalidRadiusException();
 		}
 	}
 	
 	protected void assertValidLatitude(){
 		if(Math.abs(latitude) > 90.0){
-			throw new IllegalArgumentException("Latitude must be between -90.0 and 90.0 \n");
+			throw new InvalidLatitudeException();
 		}
 	}
 	
 	protected void assertValidLongitude(){
 		if(Math.abs(longitude) > 180.0){
-			throw new IllegalArgumentException("Longitude must be between -180 and 180 \n");
+			throw new InvalidLongitudeException();
 		}
 	}
 	
 	
 	
 	
-	protected void assertClassInvariants() throws IllegalArgumentException {
+	protected void assertClassInvariants() {
 		assertValidRadius();
 		assertValidLatitude();
 		assertValidLongitude();
+	}
+	
+	
+	
+	@SuppressWarnings("serial")
+	class InvalidSphericCoordinateException extends IllegalArgumentException{
+	    InvalidSphericCoordinateException(String s){
+	        super(s + "Invalid Arguments for a Spheric Coordinate.");
+	    }
+	}
+	
+	@SuppressWarnings("serial")
+	class InvalidRadiusException extends InvalidSphericCoordinateException{
+		InvalidRadiusException(){
+			super("Radius is not in the valid range: Radius must be >= 0.0 \n");
+		}
+	}
+	
+	@SuppressWarnings("serial")
+	class InvalidLatitudeException extends InvalidSphericCoordinateException{
+		InvalidLatitudeException(){
+			super("Latitude is not in the valid range: Latitude must be between -90.0 and 90.0 \n");
+		}
+	}
+	
+	@SuppressWarnings("serial")
+	class InvalidLongitudeException extends InvalidSphericCoordinateException{
+		InvalidLongitudeException(){
+			super("Longitude is not in the valid range: Longitude must be between -180 and 180 \n");
+		}
 	}
 
 }

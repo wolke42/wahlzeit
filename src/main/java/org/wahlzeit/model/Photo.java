@@ -298,6 +298,7 @@ public class Photo extends DataObject {
 	 * @methodtype set
 	 */
 	public void setWidthAndHeight(int newWidth, int newHeight) {
+		
 		width = newWidth;
 		height = newHeight;
 

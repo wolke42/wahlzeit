@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.wahlzeit.services.LogBuilder;
@@ -23,6 +24,9 @@ public class PipeOrganPhotoManager extends PhotoManager{
 
 	
 	protected void doAddPhoto(Photo myPhoto) {
+		if(myPhoto == null){
+			throw new IllegalArgumentException("cannot add photo if no photo is specified as parameter");
+		}
 		myPhotoCache.put(myPhoto.getId(), myPhoto);
 	}
 	
@@ -32,7 +36,11 @@ public class PipeOrganPhotoManager extends PhotoManager{
 	 * @methodproperties primitive
 	 */
 	protected Photo doGetPhotoFromId(PhotoId id) {
-		return myPhotoCache.get(id);
+		Photo photoForId = myPhotoCache.get(id);
+		if(photoForId == null){
+			throw new IllegalArgumentException("could not find Photo for this id");
+		}
+		return photoForId;
 	}
 	
 	
@@ -65,6 +73,9 @@ public class PipeOrganPhotoManager extends PhotoManager{
 	 * @methodproperties primitive
 	 */
 	protected void doAddPhoto(PipeOrganPhoto myPhoto) {
+		if(myPhoto == null){
+			throw new IllegalArgumentException("cannot add photo if no photo is specified as parameter");
+		}
 		myPhotoCache.put(myPhoto.getId(), myPhoto);
 	}
 	

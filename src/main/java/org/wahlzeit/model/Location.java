@@ -13,7 +13,7 @@ public class Location {
 	 */
 	 
 	public Location(Coordinate coordinate){
-		assert(coordinate != null);
+		assertCoordinateNotNull(coordinate);
 		coord = coordinate;
 	}
 	
@@ -25,5 +25,11 @@ public class Location {
 	 */
 	public double getDistance(Location loc){
 		return coord.getDistance(loc.coord);
+	}
+	
+	protected void assertCoordinateNotNull(Coordinate coordinate){
+		if(coordinate == null){
+			throw new IllegalArgumentException("cannot create a Location without Coordinate");
+		}
 	}
 }
