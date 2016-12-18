@@ -1,7 +1,5 @@
 package org.wahlzeit.model;
 
-import java.util.Arrays;
-
 /**
  * 
  * AbstractCoordinate
@@ -59,7 +57,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		double delta = 0.5;
 		double distance = getDistance(secondCoord);
 		
-		if(distance <= 0.5){
+		if(distance <= delta){
 			return true;
 		}
 		else{

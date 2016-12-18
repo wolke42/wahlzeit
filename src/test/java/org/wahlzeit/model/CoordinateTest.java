@@ -25,15 +25,15 @@ public class CoordinateTest {
 	@BeforeClass
 	public static void setUp(){
 		//sphericx is the same as cartesianx
-		spheric1 = new SphericCoordinate(71, 145, 6371000);
-		cartesian1 = new CartesianCoordinate(-1699080.839, 1189709.211, 6023898.845);
-		spheric2 = new SphericCoordinate(-85.1, -172.42, 4990111);
-		cartesian2 = new CartesianCoordinate(-422515.292, -56225.472, -4971873.622);
-		spheric3 = new SphericCoordinate(-0.5, 1.0, 2.1);
-		cartesian3 = new CartesianCoordinate(2.09960021, 0.036648658, -0.018325725);
-		spheric4 = new SphericCoordinate(80.0, -20.0, 0);
-		cartesian4 = new CartesianCoordinate(0.0, 0.0, 0.0);
-		spheric5 = new SphericCoordinate(-55.0, 179.0, 0.0);
+		spheric1 = SphericCoordinate.getInstance(71, 145, 6371000);
+		cartesian1 = CartesianCoordinate.getInstance(-1699080.839, 1189709.211, 6023898.845);
+		spheric2 = SphericCoordinate.getInstance(-85.1, -172.42, 4990111);
+		cartesian2 = CartesianCoordinate.getInstance(-422515.292, -56225.472, -4971873.622);
+		spheric3 = SphericCoordinate.getInstance(-0.5, 1.0, 2.1);
+		cartesian3 = CartesianCoordinate.getInstance(2.09960021, 0.036648658, -0.018325725);
+		spheric4 = SphericCoordinate.getInstance(80.0, -20.0, 0);
+		cartesian4 = CartesianCoordinate.getInstance(0.0, 0.0, 0.0);
+		spheric5 = SphericCoordinate.getInstance(-55.0, 179.0, 0.0);
 		
 		spheric1Converted = spheric1.toCartesianCoordinate();
 		spheric2Converted = spheric2.toCartesianCoordinate();
@@ -68,6 +68,38 @@ public class CoordinateTest {
 		assertFalse(spheric3.isEqual(cartesian1));
 	}
 	
+
+	@Test
+	public void testEquality(){
+		CartesianCoordinate sameValuesAsCartesian1 = CartesianCoordinate.getInstance(cartesian1.getX(), cartesian1.getY(), cartesian1.getZ());
+		assertTrue(cartesian1.equals(sameValuesAsCartesian1));
+		
+		SphericCoordinate sameValuesAsSpheric1 = SphericCoordinate.getInstance(spheric1.getLatitude(), spheric1.getLongitude(), spheric1.getRadius());
+		assertTrue(spheric1.equals(sameValuesAsSpheric1));
+		
+		assertFalse(cartesian1.equals(cartesian2));
+		assertFalse(spheric1.equals(spheric2));
+	}
+	
+	@Test
+	public void testNewObjectOnSetter(){
+		CartesianCoordinate cartesian1ChangedX = cartesian1.setX(cartesian1.getX() + 10.0);
+		assertFalse(cartesian1 == cartesian1ChangedX);
+		
+		SphericCoordinate spheric1ChangedLongitude = spheric1.setLongitude(spheric1.getLongitude() + 10.0);
+		assertFalse(spheric1 == spheric1ChangedLongitude);
+	}
+	
+	@Test 
+	public void testObjectExistsOnlyOnce(){
+		CartesianCoordinate cartesian1SameValues = CartesianCoordinate.getInstance(cartesian1.getX(), cartesian1.getY(), cartesian1.getZ());
+		assertTrue(cartesian1 == cartesian1SameValues);
+		
+		SphericCoordinate spheric1SameValues = SphericCoordinate.getInstance(spheric1.getLatitude(), spheric1.getLongitude(), spheric1.getRadius());
+		assertTrue(spheric1 == spheric1SameValues);
+	}
+	
+	
 	@Test
 	public void testDistance(){
 		assertEquals(cartesian1.getDistance(cartesian2), 11139523.55, 0.01);
@@ -94,7 +126,7 @@ public class CoordinateTest {
 	
 	@Test (expected=IllegalArgumentException.class)
 	public void testWrongSphericCoordinate(){
-		SphericCoordinate sphericWrong1 = new SphericCoordinate(90.1, -134.0, 1000.0);
+		SphericCoordinate sphericWrong1 = SphericCoordinate.getInstance(90.1, -134.0, 1000.0);
 	}
 	
 	@Test (expected=IllegalArgumentException.class)
@@ -107,43 +139,44 @@ public class CoordinateTest {
 		cartesian2.isEqual(null);
 	}
 	
+	
 	@Test 
 	public void testGetterAndSetterCartesianCoordinate(){
-		CartesianCoordinate cart = new CartesianCoordinate(0.0, 1.0, 2.0);
-		cart.setX(5.0);
-		cart.setY(6.0);
-		cart.setZ(7.0);
-		assertEquals(cart.getX(), 5.0, 0.0);
-		assertEquals(cart.getY(), 6.0, 0.0);
-		assertEquals(cart.getZ(), 7.0, 0.0);
+		CartesianCoordinate cart = CartesianCoordinate.getInstance(0.0, 1.0, 2.0);
+		CartesianCoordinate coordinateWithChangedX = cart.setX(5.0);
+		CartesianCoordinate coordinateWithChangedXandY = coordinateWithChangedX.setY(6.0);
+		CartesianCoordinate coordinateWithChangedXandYandZ = coordinateWithChangedXandY.setZ(7.0);
+		assertEquals(coordinateWithChangedXandYandZ.getX(), 5.0, 0.0);
+		assertEquals(coordinateWithChangedXandYandZ.getY(), 6.0, 0.0);
+		assertEquals(coordinateWithChangedXandYandZ.getZ(), 7.0, 0.0);
 	}
 	
 	@Test
 	public void testGetterAndSetterSphericCoordinate(){
-		SphericCoordinate spher = new SphericCoordinate(10.0, 50.0, 200.0);
-		spher.setLatitude(11.0);
-		spher.setLongitude(51.0);
-		spher.setRadius(201.0);
-		assertEquals(spher.getLatitude(), 11.0, 0.0);
-		assertEquals(spher.getLongitude(), 51.0, 0.0);
-		assertEquals(spher.getRadius(), 201.0, 0.0);
+		SphericCoordinate spher = SphericCoordinate.getInstance(10.0, 50.0, 200.0);
+		SphericCoordinate coordinateWithChangedLat = spher.setLatitude(11.0);
+		SphericCoordinate coordinateWithChangedLatAndLon = coordinateWithChangedLat.setLongitude(51.0);
+		SphericCoordinate coordinateWithChangedLatAndLonAndRad = coordinateWithChangedLatAndLon.setRadius(210.0);
+		assertEquals(coordinateWithChangedLatAndLonAndRad.getLatitude(), 11.0, 0.0);
+		assertEquals(coordinateWithChangedLatAndLonAndRad.getLongitude(), 51.0, 0.0);
+		assertEquals(coordinateWithChangedLatAndLonAndRad.getRadius(), 210.0, 0.0);
 	}
 	
 	@Test (expected=IllegalArgumentException.class)
 	public void testGetterAndSetterWrongLatitudeSphericCoordinate(){
-		SphericCoordinate testLatitudeCoordinate = new SphericCoordinate(1.0, 2.0, 3.0);
+		SphericCoordinate testLatitudeCoordinate = SphericCoordinate.getInstance(1.0, 2.0, 3.0);
 		testLatitudeCoordinate.setLatitude(-90.1);
 	}
 	
 	@Test (expected=IllegalArgumentException.class)
 	public void testGetterAndSetterWrongLongitudeSphericCoordinate(){
-		SphericCoordinate testLongitudeCoordinate = new SphericCoordinate(1.0, 2.0, 3.0);
+		SphericCoordinate testLongitudeCoordinate = SphericCoordinate.getInstance(1.0, 2.0, 3.0);
 		testLongitudeCoordinate.setLongitude(180.0001);
 	}
 	
 	@Test (expected=IllegalArgumentException.class)
 	public void testGetterAndSetterWrongRadiusSphericCoordinate(){
-		SphericCoordinate testRadiusCoordinate = new SphericCoordinate(1.0, 2.0, 3.0);
+		SphericCoordinate testRadiusCoordinate = SphericCoordinate.getInstance(1.0, 2.0, 3.0);
 		testRadiusCoordinate.setRadius(-0.2);
 	}
 	

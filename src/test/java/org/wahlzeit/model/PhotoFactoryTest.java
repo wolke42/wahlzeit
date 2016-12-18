@@ -88,7 +88,7 @@ public class PhotoFactoryTest {
 		assertFalse(photo.getPedal());
 	}
 	
-	@Test
+	@Test (expected=IllegalArgumentException.class)
 	public void invalidPhotoAttributes(){
 		PipeOrganPhoto photo = new PipeOrganPhoto();
 		photo.setStartBuildYear(1400);
