@@ -12,6 +12,13 @@ import java.util.logging.Logger;
  */
 
 
+@PatternInstance(
+		patternName = "Flyweight", 
+		participants = {
+				"FlyweightFactory", "Flyweight", "ConcreteFlyweight" 
+		}
+)
+
 public class CartesianCoordinate extends AbstractCoordinate {
 
 	private final double x;

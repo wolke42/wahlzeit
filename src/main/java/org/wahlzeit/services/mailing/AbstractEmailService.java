@@ -20,6 +20,7 @@
 
 package org.wahlzeit.services.mailing;
 
+import org.wahlzeit.model.PatternInstance;
 import org.wahlzeit.services.EmailAddress;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.utils.StringUtil;
@@ -30,6 +31,13 @@ import java.util.logging.Logger;
 /**
  * Abstract superclass for non-trivial EmailServer implementations.
  */
+
+@PatternInstance(
+		patternName = "Decorator", 
+		participants = {
+				"Concrete Component" 
+		}
+)
 public abstract class AbstractEmailService implements EmailService {
 
 	private static final Logger log = Logger.getLogger(AbstractEmailService.class.getName());
@@ -53,6 +61,12 @@ public abstract class AbstractEmailService implements EmailService {
 	/**
 	 *
 	 */
+	@PatternInstance(
+			patternName = "Template Method", 
+			participants = {
+					"Abstract Class" 
+			}
+	)
 	@Override
 	public void sendEmail(EmailAddress from, EmailAddress to, EmailAddress bcc, String subject, String body)
 			throws MailingException {

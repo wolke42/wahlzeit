@@ -25,9 +25,18 @@ import java.io.Writer;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import org.wahlzeit.model.PatternInstance;
+
 /**
  * A WritableList is a list of Writables.
  */
+
+@PatternInstance(
+		patternName = "Composite", 
+		participants = {
+				"Composite" 
+		}
+)
 public class WritableList implements Writable {
 
 	/**

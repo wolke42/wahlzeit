@@ -23,10 +23,19 @@ package org.wahlzeit.webparts;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.wahlzeit.model.PatternInstance;
+
 /**
  * The WebValueManager provides (and creates on-demand) WebValues. It constructs
  * the data for a WebValue from the provided arguments.
  */
+
+@PatternInstance(
+		patternName = "Singleton", 
+		participants = {
+				"Singleton" 
+		}
+)
 public class WebValueManager {
 
 	/**

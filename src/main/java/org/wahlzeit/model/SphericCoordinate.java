@@ -8,6 +8,14 @@ import java.util.HashMap;
  * has attributes latitude, longitude and radius. 
  *
  */
+
+@PatternInstance(
+		patternName = "Flyweight", 
+		participants = {
+				"FlyweightFactory", "Flyweight", "ConcreteFlyweight" 
+		}
+)
+
 public class SphericCoordinate extends AbstractCoordinate {
 
 	private final double latitude;
