@@ -10,6 +10,7 @@ import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
@@ -19,11 +20,11 @@ import org.junit.Test;
 public class PhotoFactoryTest {
 	
 
-	//notwendig, da sonst ein java.lang.ExceptionInitializerError auftritt, 
+	public static PipeOrganManager manager = null;
+	
+	//notwendig, da sonst ein java.lang.ExceptionInitializerError auftritt
 	private final LocalServiceTestHelper helper = 
 			new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-	
-	
 
 		  @Before
 		  public void setUp() {
@@ -35,7 +36,10 @@ public class PhotoFactoryTest {
 			  helper.tearDown();
 		  }
 
-	
+	@BeforeClass
+	public static void setUpManager(){
+		manager = new PipeOrganManager();
+	}
 	
 	
 	@Test
@@ -60,77 +64,77 @@ public class PhotoFactoryTest {
 	@Test
 	public void validPhotoAttributes(){
 		PipeOrganPhoto photo = new PipeOrganPhoto();
-		photo.setChurch("Hofkirche Luzern");
-		assertEquals("Hofkirche Luzern", photo.getChurch());
-		photo.setBuilder("Johann Geissler");
-		assertEquals("Johann Geissler", photo.getBuilder());
-		photo.setStartBuildYear(1648);
-		assertEquals(1648, photo.getStartBuildYear());
-		photo.setEndBuildYear(2001);
-		assertEquals(2001, photo.getEndBuildYear());
-		photo.setManuals(5);
-		assertEquals(5, photo.getManuals());
-		photo.setPedal(true);
-		assertTrue(photo.getPedal());
-		photo.setRegisters(84);
-		assertEquals(84, photo.getRegisters());	
+		manager.createPipeOrganType(null, "84");
+		PipeOrgan organ = manager.createPipeOrgan("84");
+		photo.setPipeOrgan(organ);
+		organ.setChurch("Hofkirche Luzern");
+		assertEquals("Hofkirche Luzern", photo.getPipeOrgan().getChurch());
+		organ.setBuilder("Johann Geissler");
+		assertEquals("Johann Geissler", photo.getPipeOrgan().getBuilder());
+		organ.setStartBuildYear(1648);
+		assertEquals(1648, photo.getPipeOrgan().getStartBuildYear());
+		organ.setEndBuildYear(2001);
+		assertEquals(2001, photo.getPipeOrgan().getEndBuildYear());
+		organ.setManuals(5);
+		assertEquals(5, photo.getPipeOrgan().getManuals());
+		organ.setPedal(true);
+		assertTrue(photo.getPipeOrgan().getPedal());
+		assertEquals(84, photo.getPipeOrgan().getNumberOfStops());	
 	}
 	
 	@Test
 	public void initialPhotoAttributes(){
 		PipeOrganPhoto photo = new PipeOrganPhoto();
-		assertEquals("", photo.getChurch());
-		assertEquals("", photo.getBuilder());
-		assertEquals(-1, photo.getStartBuildYear());
-		assertEquals(-1, photo.getEndBuildYear());
-		assertEquals(-1, photo.getManuals());
-		assertEquals(-1, photo.getRegisters());
-		assertFalse(photo.getPedal());
+		manager.createPipeOrganType(null, "100");
+		PipeOrgan organ = manager.createPipeOrgan("100");
+		photo.setPipeOrgan(organ);
+		assertEquals("", photo.getPipeOrgan().getChurch());
+		assertEquals("", photo.getPipeOrgan().getBuilder());
+		assertEquals(-1, photo.getPipeOrgan().getStartBuildYear());
+		assertEquals(-1, photo.getPipeOrgan().getEndBuildYear());
+		assertEquals(-1, photo.getPipeOrgan().getManuals());
+		assertFalse(photo.getPipeOrgan().getPedal());
 	}
+	
 	
 	@Test (expected=IllegalArgumentException.class)
 	public void invalidPhotoAttributes(){
 		PipeOrganPhoto photo = new PipeOrganPhoto();
-		photo.setStartBuildYear(1400);
-		assertEquals(-1, photo.getStartBuildYear());
+		manager.createPipeOrganType(null, "60");
+		PipeOrgan organ = manager.createPipeOrgan("60");
+		photo.setPipeOrgan(organ);
+		
+		photo.getPipeOrgan().setStartBuildYear(1400);
+		assertEquals(-1, photo.getPipeOrgan().getStartBuildYear());
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
 		int jahr = cal.get(Calendar.YEAR);
-		photo.setStartBuildYear(jahr+1);
-		assertEquals(-1, photo.getStartBuildYear());
-		photo.setStartBuildYear(1401);
-		assertEquals(1401, photo.getStartBuildYear());
-		photo.setStartBuildYear(jahr);
-		assertEquals(jahr, photo.getStartBuildYear());
+		photo.getPipeOrgan().setStartBuildYear(jahr+1);
+		assertEquals(-1, photo.getPipeOrgan().getStartBuildYear());
+		photo.getPipeOrgan().setStartBuildYear(1401);
+		assertEquals(1401, photo.getPipeOrgan().getStartBuildYear());
+		photo.getPipeOrgan().setStartBuildYear(jahr);
+		assertEquals(jahr, photo.getPipeOrgan().getStartBuildYear());
 		
-		photo.setEndBuildYear(1400);
-		assertEquals(-1, photo.getEndBuildYear());
-		photo.setEndBuildYear(1401);
-		assertEquals(1401, photo.getEndBuildYear());
-		photo.setEndBuildYear(jahr+2);
-		assertEquals(jahr+2, photo.getEndBuildYear());
+		photo.getPipeOrgan().setEndBuildYear(1400);
+		assertEquals(-1, photo.getPipeOrgan().getEndBuildYear());
+		photo.getPipeOrgan().setEndBuildYear(1401);
+		assertEquals(1401, photo.getPipeOrgan().getEndBuildYear());
+		photo.getPipeOrgan().setEndBuildYear(jahr+2);
+		assertEquals(jahr+2, photo.getPipeOrgan().getEndBuildYear());
 		
-		photo.setManuals(0);
-		assertEquals(-1, photo.getManuals());
-		photo.setManuals(12);
-		assertEquals(-1, photo.getManuals());
-		photo.setManuals(1);
-		assertEquals(1, photo.getManuals());
-		photo.setManuals(11);
-		assertEquals(11, photo.getManuals());
+		photo.getPipeOrgan().setManuals(0);
+		assertEquals(-1, photo.getPipeOrgan().getManuals());
+		photo.getPipeOrgan().setManuals(12);
+		assertEquals(-1, photo.getPipeOrgan().getManuals());
+		photo.getPipeOrgan().setManuals(1);
+		assertEquals(1, photo.getPipeOrgan().getManuals());
+		photo.getPipeOrgan().setManuals(11);
+		assertEquals(11, photo.getPipeOrgan().getManuals());
 		
-		photo.setPedal(false);
-		assertFalse(photo.getPedal());
-		photo.setPedal(true);
-		assertTrue(photo.getPedal());
-		
-		photo.setRegisters(0);
-		assertEquals(-1, photo.getRegisters());
-		photo.setRegisters(200);
-		assertEquals(-1, photo.getRegisters());
-		photo.setRegisters(1);
-		assertEquals(1, photo.getRegisters());
-		photo.setRegisters(199);
-		assertEquals(199, photo.getRegisters());	
-	}
+		photo.getPipeOrgan().setPedal(false);
+		assertFalse(photo.getPipeOrgan().getPedal());
+		photo.getPipeOrgan().setPedal(true);
+		assertTrue(photo.getPipeOrgan().getPedal());
+	} 
 }
