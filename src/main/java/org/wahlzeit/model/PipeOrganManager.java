@@ -7,6 +7,16 @@ public class PipeOrganManager {
 
 	public HashMap<Integer, PipeOrgan> pipeorgans = new HashMap<Integer, PipeOrgan>();
 	public HashMap<String, PipeOrganType> pipeorganTypes = new HashMap<>();
+	public static PipeOrganManager instance = null;
+	
+	private PipeOrganManager(){	}
+	
+	public static synchronized PipeOrganManager getInstance(){
+		if(instance == null){
+			instance = new PipeOrganManager();
+		}
+		return instance;
+	}
 
 	public PipeOrgan createPipeOrgan(String numberOfStops){
 		assertIsValidPipeOrganTypeName(numberOfStops);

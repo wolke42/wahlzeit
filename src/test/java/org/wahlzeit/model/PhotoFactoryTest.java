@@ -38,7 +38,7 @@ public class PhotoFactoryTest {
 
 	@BeforeClass
 	public static void setUpManager(){
-		manager = new PipeOrganManager();
+		manager = PipeOrganManager.getInstance();
 	}
 	
 	

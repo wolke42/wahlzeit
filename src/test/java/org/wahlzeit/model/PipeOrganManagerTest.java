@@ -16,22 +16,22 @@ public class PipeOrganManagerTest {
 		 * 							/													\
 		 * 						/															\
 		 * 					/																	\
-		 * 			20																			 60
+		 * 			20																			 61
 		 * 		 /		\																  /				\
 		 * 		16		33																51				64
 		 * 
 		 */
 	
-		manager = new PipeOrganManager();
+		manager = PipeOrganManager.getInstance();
 		manager.createPipeOrganType(null, "40");
 		manager.createPipeOrganType("40", "20");
-		manager.createPipeOrganType("40", "60");
+		manager.createPipeOrganType("40", "61");
 		manager.createPipeOrganType("20", "16");
 		manager.createPipeOrganType("20", "33");
-		manager.createPipeOrganType("60", "51");
-		manager.createPipeOrganType("60", "64");
+		manager.createPipeOrganType("61", "51");
+		manager.createPipeOrganType("61", "64");
 
-		
+		  
 		p0 = manager.createPipeOrgan("20");
 		p1 = manager.createPipeOrgan("33");
 		p2 = manager.createPipeOrgan("51");
@@ -74,18 +74,18 @@ public class PipeOrganManagerTest {
 	public void testHasInstance(){
 		//has instance is always true, if there is a subtype that equals the type of the pipe organ
 		PipeOrganType type40 = manager.getPipeOrganType("40");
-		PipeOrganType type60 = manager.getPipeOrganType("60");
+		PipeOrganType type61 = manager.getPipeOrganType("61");
 		PipeOrganType type16 = manager.getPipeOrganType("16");
 		PipeOrganType type20 = manager.getPipeOrganType("20");
 		PipeOrganType type33 = manager.getPipeOrganType("33");
 		assertTrue(type40.hasInstance(p0));
 		assertTrue(type20.hasInstance(p0));
 		assertFalse(type16.hasInstance(p0));
-		assertFalse(type60.hasInstance(p0));
+		assertFalse(type61.hasInstance(p0));
 		assertFalse(type33.hasInstance(p0));
 		
 		assertTrue(type40.hasInstance(p4));
-		assertFalse(type60.hasInstance(p4));
+		assertFalse(type61.hasInstance(p4));
 		assertFalse(type33.hasInstance(p4));
 	}
 	
@@ -110,7 +110,7 @@ public class PipeOrganManagerTest {
 	public void testIsSubtype(){
 		//is subtype checks whether the type has a super type or not 
 		assertFalse(manager.getPipeOrganType("40").isSubtype());
-		assertTrue(manager.getPipeOrganType("60").isSubtype());
+		assertTrue(manager.getPipeOrganType("61").isSubtype());
 		assertTrue(manager.getPipeOrganType("64").isSubtype());
 	}
 	

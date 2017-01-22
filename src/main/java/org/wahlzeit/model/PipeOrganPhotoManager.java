@@ -22,6 +22,7 @@ public class PipeOrganPhotoManager extends PhotoManager{
 	 */
 	protected Map<PhotoId, Photo> myPhotoCache = new HashMap<PhotoId, Photo>();
 
+	public static PipeOrganPhotoManager instance = null;
 	
 	protected void doAddPhoto(Photo myPhoto) {
 		if(myPhoto == null){
@@ -30,6 +31,21 @@ public class PipeOrganPhotoManager extends PhotoManager{
 		myPhotoCache.put(myPhoto.getId(), myPhoto);
 	}
 	
+	
+	public static synchronized PipeOrganPhotoManager getInstance(){
+		if(instance == null){
+			instance = new PipeOrganPhotoManager();
+		}
+		return instance;
+	}
+	
+	public void addPhoto(Photo photo) throws IOException {
+		PhotoId id = photo.getId();
+		assertIsNewPhoto(id);
+		doAddPhoto(photo);
+
+		GlobalsManager.getInstance().saveGlobals();
+	}
 	
 	/**
 	 * @methodtype get
